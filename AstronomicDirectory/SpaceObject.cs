@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace AstronomicDirectory
 {
@@ -28,8 +29,12 @@ namespace AstronomicDirectory
         /// Название галактики, в которой расположен объект
         /// </summary>
         public readonly string Galaxy;
+        /// <summary>
+        /// Дата открытия
+        /// </summary>
+        public readonly DateTime InventingDate;
 
-        protected SpaceObject(Bitmap photo, string name, Distance middleDistance, uint radius, string galaxy, uint temperature = 0)
+        protected SpaceObject(DateTime inventingDate, Bitmap photo, string name, Distance middleDistance, uint radius, string galaxy, uint temperature = 0)
         {
             Photo = photo;
             Name = name;
@@ -37,6 +42,7 @@ namespace AstronomicDirectory
             Radius = radius;
             Temperature = temperature;
             Galaxy = galaxy;
+            InventingDate = inventingDate;
         }
     }
 }

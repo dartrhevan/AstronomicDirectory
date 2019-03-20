@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace AstronomicDirectory
@@ -9,8 +10,8 @@ namespace AstronomicDirectory
         {
         }*/
 
-        public Planet(Bitmap photo, string name, Distance middleDistance, uint radius, string galaxy, bool hasAtmosphere, PlanetType type, Star star, uint temperature = 0, List<Planet> moons = null) :
-            base(photo, name, middleDistance, radius, galaxy, temperature)
+        public Planet(DateTime inventingDate, Bitmap photo, string name, Distance middleDistance, uint radius, string galaxy, bool hasAtmosphere, PlanetType type, Star star, uint temperature = 0, List<Planet> moons = null) :
+            base(inventingDate, photo, name, middleDistance, radius, galaxy, temperature)
         {
             HasAtmosphere = hasAtmosphere;
             Type = type;

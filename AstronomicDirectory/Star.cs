@@ -9,12 +9,14 @@ namespace AstronomicDirectory
 {
     public class Star : SpaceObject
     {
-        public Star(Bitmap photo, string name, Distance middleDistance, uint radius, uint temperature, List<Planet> planets, string galaxy) : base(photo, name, middleDistance, radius, galaxy, temperature)
+        public Star(DateTime inventingDate, Bitmap photo, string name, Distance middleDistance, uint radius, uint temperature, List<Planet> planets, string galaxy) : 
+            base(inventingDate, photo, name, middleDistance, radius, galaxy, temperature)
         {
             Planets = planets;
         }
 
-        public Star(Bitmap photo, string name, Distance middleDistance, uint radius, uint temperature, string galaxy) : base(photo, name, middleDistance, radius, galaxy, temperature)
+        public Star(DateTime inventingDate, Bitmap photo, string name, Distance middleDistance, uint radius, uint temperature, string galaxy) : 
+            base(inventingDate, photo, name, middleDistance, radius, galaxy, temperature)
         {
             Planets = new List<Planet>();
         }
