@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AstronomicDirectory", "AstronomicDirectory\AstronomicDirectory.csproj", "{75F2E46B-5A1E-471F-80BF-AD8ADCD34A51}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Form", "Form\Form.csproj", "{2486FE04-E8E5-4D8F-BFD4-3B86D0D53A22}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{75F2E46B-5A1E-471F-80BF-AD8ADCD34A51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75F2E46B-5A1E-471F-80BF-AD8ADCD34A51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75F2E46B-5A1E-471F-80BF-AD8ADCD34A51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2486FE04-E8E5-4D8F-BFD4-3B86D0D53A22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2486FE04-E8E5-4D8F-BFD4-3B86D0D53A22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2486FE04-E8E5-4D8F-BFD4-3B86D0D53A22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2486FE04-E8E5-4D8F-BFD4-3B86D0D53A22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
