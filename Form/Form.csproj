@@ -79,5 +79,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AstronomicDirectory\AstronomicDirectory.csproj">
+      <Project>{75f2e46b-5a1e-471f-80bf-ad8adcd34a51}</Project>
+      <Name>AstronomicDirectory</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
