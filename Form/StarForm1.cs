@@ -14,36 +14,52 @@ namespace Form
     
     public partial class StarForm1 : System.Windows.Forms.Form
     {
-        //private Star star;
-        //private readonly Panel planetsBox = new Panel();
-        //private readonly Label planetsLabel = new Label{Text = "Планета"};
-        //private readonly ListBox planetsList = new ListBox();
-        //private readonly Button addPlanetButton = new Button{Text = "Добавить планету"};
+        private Star star;
         public StarForm1()
         {
             InitializeComponent();
-            //planetsLabel.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
-            //addPlanetButton.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            //planetsList.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
-            ////planetsList.Dock = DockStyle.Fill;
-            //planetsLabel.Location = new Point(0, 0);
-            //planetsLabel.Height = 25;
-            //addPlanetButton.Height = 25;
-
-            //addPlanetButton.Location = new Point(0, planetsLabel.Bottom);
-            //planetsList.Location = new Point(0, addPlanetButton.Bottom);
-
-
-            //planetsBox.Controls.Add(planetsLabel);
-            //planetsBox.Controls.Add(addPlanetButton);
-            //planetsBox.Controls.Add(planetsList);
-            //mainTableLayoutPanel.Controls.Add(planetsBox, 1, 0);
-
-            //planetLabel.Location
+            addPlanetButton.Click += (sender, args) =>
+            {
+                InitializeStar();
+                //star = new Star(dateTimePicker1.Value, pictureBox1.Image, nameTextBox, new Distance(uint.Parse()), );
+                new PlanetForm(star).Show();
+            };
         }
 
-        private void planetButton_Click(object sender, EventArgs e)
+        private void InitializeStar()
         {
+            if (star == null)
+                star = new Star();
+            star.Name = nameTextBox.Text;
+            star.Galaxy = galacticTextBox.Text;
+            star.InventingDate = dateTimePicker1.Value;
+            star.Photo = pictureBox1.Image;
+            uint temp;
+            if (uint.TryParse(radiusTextBox.Text, out temp))
+                star.Radius = temp;
+            if (uint.TryParse(distanceTextBox.Text, out temp))
+            {
+                UnitType t;
+                switch (comboBox1.Text)
+                {
+                    case "км":
+                        t = UnitType.Kilometers;
+                        break;
+                    case "св. г.":
+                        t = UnitType.LightYears;
+                        break;
+                    case "а.е.":
+                        t = UnitType.AstronomicUnits;
+                        break;
+                    default: throw new ArgumentException();
+                }
+                star.MiddleDistance = new Distance(temp, t);
+            }
+        }
+
+        private void planetsButton_Click(object sender, EventArgs e)
+        {
+
             mainTableLayoutPanel.ColumnStyles[1].Width = mainTableLayoutPanel.ColumnStyles[1].Width == 0 ? 75 : 0;
         }
 
@@ -53,6 +69,11 @@ namespace Form
             var dr = ofd.ShowDialog(this);
             if (dr == DialogResult.OK)
                 pictureBox1.Image = Image.FromFile(ofd.FileName);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            InitializeStar();
         }
     }
 }

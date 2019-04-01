@@ -8,33 +8,33 @@ namespace AstronomicDirectory
         /// <summary>
         /// Изображение
         /// </summary>
-        public Bitmap Photo { get; set; }
+        public Image Photo { get; set; }
         /// <summary>
         /// Имя
         /// </summary>
-        public readonly string Name;
+        public string Name { get; set; }
         /// <summary>
         /// Среднее расстояние
         /// </summary>
-        public readonly Distance MiddleDistance;
+        public Distance MiddleDistance { get; set; }
         /// <summary>
         /// Радиус в километрах
         /// </summary>
-        public readonly uint Radius;
+        public uint Radius { get; set; }
         /// <summary>
         /// Средняя температура на поверхности в Кельвинах, если не известна, то 0
         /// </summary>
-        public readonly uint? Temperature;
+        public uint? Temperature { get; set; }
         /// <summary>
         /// Название галактики, в которой расположен объект
         /// </summary>
-        public readonly string Galaxy;
+        public string Galaxy { get; set; }
         /// <summary>
         /// Дата открытия
         /// </summary>
-        public readonly DateTime InventingDate;
+        public DateTime InventingDate { get; set; }
 
-        protected SpaceObject(DateTime inventingDate, Bitmap photo, string name, Distance middleDistance, uint radius, string galaxy, uint temperature = 0)
+        protected SpaceObject(DateTime inventingDate, Image photo, string name, Distance middleDistance, uint radius, string galaxy, uint temperature = 0)
         {
             Photo = photo;
             Name = name;
@@ -43,6 +43,10 @@ namespace AstronomicDirectory
             Temperature = temperature;
             Galaxy = galaxy;
             InventingDate = inventingDate;
+        }
+
+        protected SpaceObject()
+        {
         }
     }
 }

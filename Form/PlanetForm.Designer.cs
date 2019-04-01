@@ -2,7 +2,7 @@
 
 namespace Form
 {
-    partial class StarForm1
+    partial class PlanetForm
     {
         /// <summary> 
         /// Обязательная переменная конструктора.
@@ -41,12 +41,12 @@ namespace Form
             this.label1 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label6 = new System.Windows.Forms.Label();
-            this.photoButton = new System.Windows.Forms.Button();
             this.nameTextBox = new System.Windows.Forms.TextBox();
-            this.planetButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.distanceTextBox = new System.Windows.Forms.TextBox();
+            this.photoButton = new System.Windows.Forms.Button();
+            this.moonsButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label7 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -54,6 +54,9 @@ namespace Form
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.planets = new System.Windows.Forms.ListBox();
             this.addPlanetButton = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.starTableLayoutPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -68,7 +71,6 @@ namespace Form
             this.starTableLayoutPanel.ColumnCount = 2;
             this.starTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.starTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.starTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.starTableLayoutPanel.Controls.Add(this.label5, 0, 4);
             this.starTableLayoutPanel.Controls.Add(this.galacticTextBox, 1, 3);
             this.starTableLayoutPanel.Controls.Add(this.label3, 0, 3);
@@ -79,21 +81,26 @@ namespace Form
             this.starTableLayoutPanel.Controls.Add(this.label1, 0, 0);
             this.starTableLayoutPanel.Controls.Add(this.dateTimePicker1, 1, 4);
             this.starTableLayoutPanel.Controls.Add(this.label6, 0, 5);
-            this.starTableLayoutPanel.Controls.Add(this.photoButton, 0, 6);
             this.starTableLayoutPanel.Controls.Add(this.nameTextBox, 1, 0);
-            this.starTableLayoutPanel.Controls.Add(this.planetButton, 1, 6);
             this.starTableLayoutPanel.Controls.Add(this.panel1, 1, 5);
+            this.starTableLayoutPanel.Controls.Add(this.checkBox1, 1, 6);
+            this.starTableLayoutPanel.Controls.Add(this.moonsButton, 1, 8);
+            this.starTableLayoutPanel.Controls.Add(this.photoButton, 0, 8);
+            this.starTableLayoutPanel.Controls.Add(this.comboBox2, 1, 7);
+            this.starTableLayoutPanel.Controls.Add(this.label8, 0, 7);
             this.starTableLayoutPanel.Location = new System.Drawing.Point(3, 3);
             this.starTableLayoutPanel.Name = "starTableLayoutPanel";
-            this.starTableLayoutPanel.RowCount = 7;
-            this.starTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 13.58695F));
-            this.starTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 13.58696F));
-            this.starTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 18.47826F));
-            this.starTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 13.58696F));
-            this.starTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 13.58696F));
-            this.starTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 13.58696F));
-            this.starTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 13.58695F));
-            this.starTableLayoutPanel.Size = new System.Drawing.Size(494, 251);
+            this.starTableLayoutPanel.RowCount = 9;
+            this.starTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11096F));
+            this.starTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11097F));
+            this.starTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.10966F));
+            this.starTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11097F));
+            this.starTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11097F));
+            this.starTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11097F));
+            this.starTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11096F));
+            this.starTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11345F));
+            this.starTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
+            this.starTableLayoutPanel.Size = new System.Drawing.Size(494, 310);
             this.starTableLayoutPanel.TabIndex = 0;
             // 
             // label5
@@ -101,7 +108,7 @@ namespace Form
             this.label5.AutoSize = true;
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label5.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(3, 148);
+            this.label5.Location = new System.Drawing.Point(3, 136);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(241, 34);
             this.label5.TabIndex = 9;
@@ -112,7 +119,7 @@ namespace Form
             this.galacticTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.galacticTextBox.Location = new System.Drawing.Point(250, 117);
+            this.galacticTextBox.Location = new System.Drawing.Point(250, 105);
             this.galacticTextBox.Name = "galacticTextBox";
             this.galacticTextBox.Size = new System.Drawing.Size(241, 22);
             this.galacticTextBox.TabIndex = 8;
@@ -122,7 +129,7 @@ namespace Form
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(3, 114);
+            this.label3.Location = new System.Drawing.Point(3, 102);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(241, 34);
             this.label3.TabIndex = 7;
@@ -155,7 +162,7 @@ namespace Form
             this.label4.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label4.Location = new System.Drawing.Point(3, 68);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(241, 46);
+            this.label4.Size = new System.Drawing.Size(241, 34);
             this.label4.TabIndex = 4;
             this.label4.Text = "Температура на поверхности";
             // 
@@ -184,7 +191,7 @@ namespace Form
             // dateTimePicker1
             // 
             this.dateTimePicker1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dateTimePicker1.Location = new System.Drawing.Point(250, 151);
+            this.dateTimePicker1.Location = new System.Drawing.Point(250, 139);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(241, 22);
             this.dateTimePicker1.TabIndex = 13;
@@ -194,24 +201,11 @@ namespace Form
             this.label6.AutoSize = true;
             this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label6.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(3, 182);
+            this.label6.Location = new System.Drawing.Point(3, 170);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(241, 34);
             this.label6.TabIndex = 18;
             this.label6.Text = "Среднее рассояние";
-            // 
-            // photoButton
-            // 
-            this.photoButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.photoButton.Location = new System.Drawing.Point(3, 219);
-            this.photoButton.Name = "photoButton";
-            this.photoButton.Size = new System.Drawing.Size(241, 29);
-            this.photoButton.TabIndex = 17;
-            this.photoButton.Text = "Добавить фото";
-            this.photoButton.UseVisualStyleBackColor = true;
-            this.photoButton.Click += new System.EventHandler(this.photoButton_Click);
             // 
             // nameTextBox
             // 
@@ -223,19 +217,6 @@ namespace Form
             this.nameTextBox.Size = new System.Drawing.Size(241, 22);
             this.nameTextBox.TabIndex = 1;
             // 
-            // planetButton
-            // 
-            this.planetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.planetButton.Location = new System.Drawing.Point(250, 219);
-            this.planetButton.Name = "planetButton";
-            this.planetButton.Size = new System.Drawing.Size(241, 29);
-            this.planetButton.TabIndex = 16;
-            this.planetButton.Text = "Список планет";
-            this.planetButton.UseVisualStyleBackColor = true;
-            this.planetButton.Click += new System.EventHandler(this.planetsButton_Click);
-            // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -243,7 +224,7 @@ namespace Form
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.comboBox1);
             this.panel1.Controls.Add(this.distanceTextBox);
-            this.panel1.Location = new System.Drawing.Point(250, 185);
+            this.panel1.Location = new System.Drawing.Point(250, 173);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(241, 28);
             this.panel1.TabIndex = 19;
@@ -258,7 +239,7 @@ namespace Form
             "км",
             "св. г.",
             "а.е."});
-            this.comboBox1.Location = new System.Drawing.Point(188, 2);
+            this.comboBox1.Location = new System.Drawing.Point(188, 1);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(47, 24);
             this.comboBox1.TabIndex = 1;
@@ -268,19 +249,45 @@ namespace Form
             this.distanceTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.distanceTextBox.Location = new System.Drawing.Point(1, 4);
+            this.distanceTextBox.Location = new System.Drawing.Point(0, 3);
             this.distanceTextBox.Name = "distanceTextBox";
             this.distanceTextBox.Size = new System.Drawing.Size(180, 22);
             this.distanceTextBox.TabIndex = 0;
+            // 
+            // photoButton
+            // 
+            this.photoButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.photoButton.Location = new System.Drawing.Point(3, 275);
+            this.photoButton.Name = "photoButton";
+            this.photoButton.Size = new System.Drawing.Size(241, 32);
+            this.photoButton.TabIndex = 17;
+            this.photoButton.Text = "Добавить фото";
+            this.photoButton.UseVisualStyleBackColor = true;
+            this.photoButton.Click += new System.EventHandler(this.photoButton_Click);
+            // 
+            // moonsButton
+            // 
+            this.moonsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.moonsButton.Location = new System.Drawing.Point(250, 275);
+            this.moonsButton.Name = "moonsButton";
+            this.moonsButton.Size = new System.Drawing.Size(241, 32);
+            this.moonsButton.TabIndex = 16;
+            this.moonsButton.Text = "Список спутников";
+            this.moonsButton.UseVisualStyleBackColor = true;
+            this.moonsButton.Click += new System.EventHandler(this.planetsButton_Click);
             // 
             // pictureBox1
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.Location = new System.Drawing.Point(5, 284);
+            this.pictureBox1.Location = new System.Drawing.Point(5, 351);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(497, 287);
+            this.pictureBox1.Size = new System.Drawing.Size(497, 220);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
@@ -292,9 +299,9 @@ namespace Form
             this.label7.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label7.Location = new System.Drawing.Point(0, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(83, 26);
+            this.label7.Size = new System.Drawing.Size(104, 26);
             this.label7.TabIndex = 2;
-            this.label7.Text = "Звезда";
+            this.label7.Text = "Планета";
             // 
             // button1
             // 
@@ -320,7 +327,7 @@ namespace Form
             this.mainTableLayoutPanel.Name = "mainTableLayoutPanel";
             this.mainTableLayoutPanel.RowCount = 1;
             this.mainTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.mainTableLayoutPanel.Size = new System.Drawing.Size(500, 257);
+            this.mainTableLayoutPanel.Size = new System.Drawing.Size(500, 316);
             this.mainTableLayoutPanel.TabIndex = 4;
             // 
             // groupBox1
@@ -333,10 +340,10 @@ namespace Form
             this.groupBox1.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox1.Location = new System.Drawing.Point(503, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1, 251);
+            this.groupBox1.Size = new System.Drawing.Size(1, 310);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Планеты";
+            this.groupBox1.Text = "Спутники";
             // 
             // planets
             // 
@@ -348,7 +355,7 @@ namespace Form
             this.planets.ItemHeight = 22;
             this.planets.Location = new System.Drawing.Point(0, 74);
             this.planets.Name = "planets";
-            this.planets.Size = new System.Drawing.Size(2, 180);
+            this.planets.Size = new System.Drawing.Size(2, 246);
             this.planets.TabIndex = 1;
             // 
             // addPlanetButton
@@ -356,14 +363,56 @@ namespace Form
             this.addPlanetButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.addPlanetButton.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.addPlanetButton.Location = new System.Drawing.Point(6, 34);
+            this.addPlanetButton.Location = new System.Drawing.Point(0, 37);
             this.addPlanetButton.Name = "addPlanetButton";
-            this.addPlanetButton.Size = new System.Drawing.Size(0, 30);
+            this.addPlanetButton.Size = new System.Drawing.Size(6, 30);
             this.addPlanetButton.TabIndex = 0;
             this.addPlanetButton.Text = "Добавить";
             this.addPlanetButton.UseVisualStyleBackColor = true;
             // 
-            // StarForm1
+            // checkBox1
+            // 
+            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBox1.Location = new System.Drawing.Point(250, 207);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(241, 28);
+            this.checkBox1.TabIndex = 20;
+            this.checkBox1.Text = "Имеет атмосферу";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "Каменистая планета",
+            "Газовый гигант"});
+            this.comboBox2.Location = new System.Drawing.Point(250, 241);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(241, 24);
+            this.comboBox2.TabIndex = 21;
+            // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label8.Location = new System.Drawing.Point(3, 238);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(241, 34);
+            this.label8.TabIndex = 22;
+            this.label8.Text = "Тип";
+            // 
+            // PlanetForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -372,7 +421,7 @@ namespace Form
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.pictureBox1);
-            this.Name = "StarForm1";
+            this.Name = "PlanetForm";
             this.Text = "Астрономический справочник";
             this.starTableLayoutPanel.ResumeLayout(false);
             this.starTableLayoutPanel.PerformLayout();
@@ -399,7 +448,7 @@ namespace Form
         private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.Button planetButton;
+        private System.Windows.Forms.Button moonsButton;
         private System.Windows.Forms.Button photoButton;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.PictureBox pictureBox1;
@@ -412,5 +461,8 @@ namespace Form
         private Panel panel1;
         private ComboBox comboBox1;
         private TextBox distanceTextBox;
+        private CheckBox checkBox1;
+        private ComboBox comboBox2;
+        private Label label8;
     }
 }

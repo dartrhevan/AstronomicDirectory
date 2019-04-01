@@ -10,13 +10,13 @@ namespace AstronomicDirectory
         {
         }*/
 
-        public Planet(DateTime inventingDate, Bitmap photo, string name, Distance middleDistance, uint radius, string galaxy, bool hasAtmosphere, PlanetType type, Star star, uint temperature = 0, List<Planet> moons = null) :
+        public Planet(DateTime inventingDate, Image photo, string name, Distance middleDistance, uint radius, string galaxy, bool hasAtmosphere, PlanetType type, Star star, uint temperature = 0, List<Moon> moons = null) :
             base(inventingDate, photo, name, middleDistance, radius, galaxy, temperature)
         {
             HasAtmosphere = hasAtmosphere;
             Type = type;
             Star = star;
-            Moons = moons ?? new List<Planet>();
+            Moons = moons ?? new List<Moon>();
         }
 
         public override bool Equals(object obj)
@@ -30,6 +30,14 @@ namespace AstronomicDirectory
             return Name.GetHashCode();
         }
 
+        public Planet(bool hasAtmosphere, PlanetType type, Star owner, List<Moon> moons = null)
+        {
+            HasAtmosphere = hasAtmosphere;
+            Type = type;
+            Star = owner;
+            Moons = moons ?? new List<Moon>();
+        }
+
         public readonly bool HasAtmosphere;
         
         public readonly PlanetType Type;
@@ -38,7 +46,7 @@ namespace AstronomicDirectory
         /// </summary>
         public readonly Star Star;
 
-        public readonly List<Planet> Moons;
+        public readonly List<Moon> Moons;
 
     }
 }
