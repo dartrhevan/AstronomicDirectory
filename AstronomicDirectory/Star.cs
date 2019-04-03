@@ -10,15 +10,17 @@ namespace AstronomicDirectory
     public class Star : SpaceObject
     {
         public Star(DateTime inventingDate, Image photo, string name, Distance middleDistance, uint radius, uint temperature, List<Planet> planets, string galaxy) : 
-            base(inventingDate, photo, name, middleDistance, radius, galaxy, temperature)
+            base(inventingDate, photo, name, middleDistance, radius, temperature)
         {
             Planets = planets;
+            Galaxy = galaxy;
         }
 
         public Star(DateTime inventingDate, Image photo, string name, Distance middleDistance, uint radius, uint temperature, string galaxy) : 
-            base(inventingDate, photo, name, middleDistance, radius, galaxy, temperature)
+            base(inventingDate, photo, name, middleDistance, radius, temperature)
         {
             Planets = new List<Planet>();
+            Galaxy = galaxy;
         }
 
         public Star()
@@ -41,5 +43,10 @@ namespace AstronomicDirectory
         {
             return -1696190688 + EqualityComparer<string>.Default.GetHashCode(Name);
         }
+        /// <summary>
+        /// Название галактики, в которой расположен объект
+        /// </summary>
+        public string Galaxy { get; set; }
+
     }
 }

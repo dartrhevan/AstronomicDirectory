@@ -52,7 +52,7 @@ namespace Form
             this.button1 = new System.Windows.Forms.Button();
             this.mainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.planets = new System.Windows.Forms.ListBox();
+            this.Planets = new System.Windows.Forms.ListBox();
             this.addPlanetButton = new System.Windows.Forms.Button();
             this.starTableLayoutPanel.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -328,7 +328,7 @@ namespace Form
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.planets);
+            this.groupBox1.Controls.Add(this.Planets);
             this.groupBox1.Controls.Add(this.addPlanetButton);
             this.groupBox1.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox1.Location = new System.Drawing.Point(503, 3);
@@ -338,18 +338,18 @@ namespace Form
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Планеты";
             // 
-            // planets
+            // Planets
             // 
-            this.planets.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.Planets.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.planets.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.planets.FormattingEnabled = true;
-            this.planets.ItemHeight = 22;
-            this.planets.Location = new System.Drawing.Point(0, 74);
-            this.planets.Name = "planets";
-            this.planets.Size = new System.Drawing.Size(2, 180);
-            this.planets.TabIndex = 1;
+            this.Planets.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Planets.FormattingEnabled = true;
+            this.Planets.ItemHeight = 22;
+            this.Planets.Location = new System.Drawing.Point(0, 74);
+            this.Planets.Name = "Planets";
+            this.Planets.Size = new System.Drawing.Size(2, 180);
+            this.Planets.TabIndex = 1;
             // 
             // addPlanetButton
             // 
@@ -407,7 +407,7 @@ namespace Form
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TableLayoutPanel mainTableLayoutPanel;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ListBox planets;
+        public System.Windows.Forms.ListBox Planets;
         private System.Windows.Forms.Button addPlanetButton;
         private Panel panel1;
         private ComboBox comboBox1;

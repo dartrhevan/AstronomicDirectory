@@ -15,53 +15,66 @@ namespace Form
     public partial class PlanetForm : System.Windows.Forms.Form
     {
         private Planet planet;
-        private readonly Star Star;
         public PlanetForm(Star star)
         {
-            Star = star;
+            this.planet = new Planet(star);
             InitializeComponent();
-            addPlanetButton.Click += (sender, args) =>
-            {
-                //InitializeStar();
-                //star = new Star(dateTimePicker1.Value, pictureBox1.Image, nameTextBox, new Distance(uint.Parse()), );
-                //new PlanetForm(star).Show();
-            };
+            comboBox1.Text = comboBox1.Items[0] as string;
+            comboBox2.Text = comboBox2.Items[0] as string;
+            addMoonButton.Click += (sender, args) => { InitializePlanet(); };
+            Closing += PlanetForm_Closing;
         }
 
-        //private void InitializeStar()
-        //{
-        //    //if (star == null)
-        //    //    star = new Star();
-        //    star.Name = nameTextBox.Text;
-        //    star.Galaxy = galacticTextBox.Text;
-        //    star.InventingDate = dateTimePicker1.Value;
-        //    star.Photo = pictureBox1.Image;
-        //    uint temp;
-        //    if (uint.TryParse(radiusTextBox.Text, out temp))
-        //        star.Radius = temp;
-        //    if (uint.TryParse(distanceTextBox.Text, out temp))
-        //    {
-        //        UnitType t;
-        //        switch (comboBox1.Text)
-        //        {
-        //            case "км":
-        //                t = UnitType.Kilometers;
-        //                break;
-        //            case "св. г.":
-        //                t = UnitType.LightYears;
-        //                break;
-        //            case "а.е.":
-        //                t = UnitType.AstronomicUnits;
-        //                break;
-        //            default: throw new ArgumentException();
-        //        }
-        //        star.MiddleDistance = new Distance(temp, t);
-        //    }
-        //}
+        private void PlanetForm_Closing(object sender, CancelEventArgs e)
+        {
+            SaveAndClosre();
+            e.Cancel = true;
+            //button1_Click();
+        }
+
+        private void InitializePlanet()
+        {
+            planet.Name = nameTextBox.Text;
+            planet.InventingDate = dateTimePicker1.Value;
+            planet.Photo = pictureBox1.Image;
+            uint temp;
+            if (uint.TryParse(radiusTextBox.Text, out temp))
+                planet.Radius = temp;
+            if (uint.TryParse(distanceTextBox.Text, out temp))
+            {
+                UnitType t;
+                switch (comboBox1.Text)
+                {
+                    case "км":
+                        t = UnitType.Kilometers;
+                        break;
+                    case "св. г.":
+                        t = UnitType.LightYears;
+                        break;
+                    case "а.е.":
+                        t = UnitType.AstronomicUnits;
+                        break;
+                    default: throw new ArgumentException();
+                }
+                planet.MiddleDistance = new Distance(temp, t);
+            }
+            planet.HasAtmosphere = checkBox1.Checked;
+            PlanetType type;
+            switch (comboBox2.Text)
+            {
+                case "Газовый гигант":
+                    type = PlanetType.Gas;
+                    break;
+                case "Каменистая планета":
+                    type = PlanetType.Tought;
+                    break;
+                default: throw new ArgumentException();
+            }
+            planet.Type = type;
+        }
 
         private void planetsButton_Click(object sender, EventArgs e)
         {
-
             mainTableLayoutPanel.ColumnStyles[1].Width = mainTableLayoutPanel.ColumnStyles[1].Width == 0 ? 75 : 0;
         }
 
@@ -75,7 +88,14 @@ namespace Form
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //InitializeStar();
+            SaveAndClosre();
+        }
+
+        private void SaveAndClosre()
+        {
+            InitializePlanet();
+            (Owner as StarForm1).Planets.Items.Add(planet);
+            this.Hide();
         }
     }
 }

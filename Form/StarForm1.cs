@@ -14,22 +14,25 @@ namespace Form
     
     public partial class StarForm1 : System.Windows.Forms.Form
     {
-        private Star star;
+        private readonly PlanetForm planetForm;
+        private Star star = new Star();
         public StarForm1()
         {
             InitializeComponent();
+            comboBox1.Text = comboBox1.Items[0] as string;
+            planetForm = new PlanetForm(star) {Owner = this};
             addPlanetButton.Click += (sender, args) =>
             {
                 InitializeStar();
                 //star = new Star(dateTimePicker1.Value, pictureBox1.Image, nameTextBox, new Distance(uint.Parse()), );
-                new PlanetForm(star).Show();
+                planetForm.Show();
             };
         }
 
         private void InitializeStar()
         {
-            if (star == null)
-                star = new Star();
+            //if (star == null)
+            //    star = new Star();
             star.Name = nameTextBox.Text;
             star.Galaxy = galacticTextBox.Text;
             star.InventingDate = dateTimePicker1.Value;
@@ -59,7 +62,6 @@ namespace Form
 
         private void planetsButton_Click(object sender, EventArgs e)
         {
-
             mainTableLayoutPanel.ColumnStyles[1].Width = mainTableLayoutPanel.ColumnStyles[1].Width == 0 ? 75 : 0;
         }
 

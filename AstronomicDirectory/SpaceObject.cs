@@ -26,22 +26,18 @@ namespace AstronomicDirectory
         /// </summary>
         public uint? Temperature { get; set; }
         /// <summary>
-        /// Название галактики, в которой расположен объект
-        /// </summary>
-        public string Galaxy { get; set; }
-        /// <summary>
         /// Дата открытия
         /// </summary>
         public DateTime InventingDate { get; set; }
 
-        protected SpaceObject(DateTime inventingDate, Image photo, string name, Distance middleDistance, uint radius, string galaxy, uint temperature = 0)
+        protected SpaceObject(DateTime inventingDate, Image photo, string name, Distance middleDistance, uint radius, uint temperature = 0)
         {
             Photo = photo;
             Name = name;
             MiddleDistance = middleDistance;
             Radius = radius;
             Temperature = temperature;
-            Galaxy = galaxy;
+            //Galaxy = galaxy;
             InventingDate = inventingDate;
         }
 

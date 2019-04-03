@@ -10,8 +10,8 @@ namespace AstronomicDirectory
         {
         }*/
 
-        public Planet(DateTime inventingDate, Image photo, string name, Distance middleDistance, uint radius, string galaxy, bool hasAtmosphere, PlanetType type, Star star, uint temperature = 0, List<Moon> moons = null) :
-            base(inventingDate, photo, name, middleDistance, radius, galaxy, temperature)
+        public Planet(DateTime inventingDate, Image photo, string name, Distance middleDistance, uint radius, bool hasAtmosphere, PlanetType type, Star star, uint temperature = 0, List<Moon> moons = null) :
+            base(inventingDate, photo, name, middleDistance, radius, temperature)
         {
             HasAtmosphere = hasAtmosphere;
             Type = type;
@@ -30,23 +30,33 @@ namespace AstronomicDirectory
             return Name.GetHashCode();
         }
 
-        public Planet(bool hasAtmosphere, PlanetType type, Star owner, List<Moon> moons = null)
+        public override string ToString()
         {
-            HasAtmosphere = hasAtmosphere;
-            Type = type;
-            Star = owner;
-            Moons = moons ?? new List<Moon>();
+            return $"{Name}, Звезда: {Star.Name}, Радиус: {Radius}";
         }
 
-        public readonly bool HasAtmosphere;
+        public Planet(Star owner)
+        {
+            Star = owner;
+            //Galaxy = owner.Galaxy;
+            Moons = new List<Moon>();
+        }
+
+        public bool HasAtmosphere { get; set; }
         
-        public readonly PlanetType Type;
+        public PlanetType Type { get; set; }
         /// <summary>
         /// Звезда, вокруг которой вращается планета
         /// </summary>
         public readonly Star Star;
 
         public readonly List<Moon> Moons;
+
+        /// <summary>
+        /// Название галактики, в которой расположен объект
+        /// </summary>
+        public string Galaxy => Star.Galaxy;
+
 
     }
 }
