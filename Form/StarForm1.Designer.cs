@@ -386,6 +386,7 @@ namespace Form
 
         }
 
+
         #endregion
 
         System.Windows.Forms.TableLayoutPanel starTableLayoutPanel;
@@ -407,7 +408,7 @@ namespace Form
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TableLayoutPanel mainTableLayoutPanel;
         private System.Windows.Forms.GroupBox groupBox1;
-        public System.Windows.Forms.ListBox Planets;
+        public System.Windows.Forms.ListBox Planets;// { get; set; }
         private System.Windows.Forms.Button addPlanetButton;
         private Panel panel1;
         private ComboBox comboBox1;

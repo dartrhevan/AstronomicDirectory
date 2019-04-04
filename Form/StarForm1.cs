@@ -19,6 +19,7 @@ namespace Form
         public StarForm1()
         {
             InitializeComponent();
+            Planets.SelectedIndexChanged += Planets_SelectedIndexChanged;
             comboBox1.Text = comboBox1.Items[0] as string;
             planetForm = new PlanetForm(star) {Owner = this};
             addPlanetButton.Click += (sender, args) =>
@@ -27,6 +28,12 @@ namespace Form
                 //star = new Star(dateTimePicker1.Value, pictureBox1.Image, nameTextBox, new Distance(uint.Parse()), );
                 planetForm.Show();
             };
+        }
+
+        private void Planets_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            //MessageBox.Show(sender.ToString());
+            //throw new System.NotImplementedException();
         }
 
         private void InitializeStar()
