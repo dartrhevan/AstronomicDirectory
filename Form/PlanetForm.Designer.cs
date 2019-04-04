@@ -55,6 +55,7 @@ namespace Form
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Planets = new System.Windows.Forms.ListBox();
             this.addMoonButton = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.starTableLayoutPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -352,6 +353,7 @@ namespace Form
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.Planets);
             this.groupBox1.Controls.Add(this.addMoonButton);
             this.groupBox1.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -362,7 +364,7 @@ namespace Form
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Спутники";
             // 
-            // planets
+            // Planets
             // 
             this.Planets.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -377,15 +379,23 @@ namespace Form
             // 
             // addMoonButton
             // 
-            this.addMoonButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.addMoonButton.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.addMoonButton.Location = new System.Drawing.Point(0, 37);
             this.addMoonButton.Name = "addMoonButton";
-            this.addMoonButton.Size = new System.Drawing.Size(6, 30);
+            this.addMoonButton.Size = new System.Drawing.Size(117, 30);
             this.addMoonButton.TabIndex = 0;
             this.addMoonButton.Text = "Добавить";
             this.addMoonButton.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button2.Location = new System.Drawing.Point(124, 35);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(111, 33);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "Удалить";
+            this.button2.UseVisualStyleBackColor = true;
             // 
             // PlanetForm
             // 
@@ -437,5 +447,6 @@ namespace Form
         private CheckBox checkBox1;
         private ComboBox comboBox2;
         private Label label8;
+        private Button button2;
     }
 }

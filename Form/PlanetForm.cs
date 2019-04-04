@@ -14,16 +14,17 @@ namespace Form
     
     public partial class PlanetForm : System.Windows.Forms.Form
     {
-        private Planet planet;
+        private readonly Planet planet;
         private readonly MoonControl moon;
-        public PlanetForm(Star star, Planet planet = null)
+        public PlanetForm(Planet planet)
         {
 
-            this.planet = planet ?? new Planet(star);
-            moon = new MoonControl(planet);
+            this.planet = planet;// ?? new Planet(star);
+            moon = new MoonControl(this.planet);
             InitializeComponent();
             comboBox1.Text = comboBox1.Items[0] as string;
             comboBox2.Text = comboBox2.Items[0] as string;
+            button2.Click += (sender, args) => { };
             addMoonButton.Click += (sender, args) =>
             {
                 InitializePlanet(); 
@@ -37,9 +38,14 @@ namespace Form
 
         private void PlanetForm_Closing(object sender, CancelEventArgs e)
         {
-            SaveAndClose();
-            e.Cancel = true;
+            InitializePlanet();
+
+            DialogResult = DialogResult.OK;
+            //SaveAndClose();
+            //e.Cancel = true;
             //button1_Click();
+            //(Owner as StarForm1).Planets.Refresh();
+            //Invalidate();
         }
 
         private void InitializePlanet()
@@ -98,14 +104,18 @@ namespace Form
 
         private void button1_Click(object sender, EventArgs e)
         {
-            SaveAndClose();
+            //SaveAndClose();
+            this.Close();
         }
 
         private void SaveAndClose()
         {
             InitializePlanet();
-            (Owner as StarForm1).Planets.Items.Add(planet);
-            this.Hide();
+            //(Owner as StarForm1).Planets.Items.Add(planet);
+            //(Owner as StarForm1).Planets.Refresh();
+
+            //Owner.Invalidate();
+
         }
     }
 }
