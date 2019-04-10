@@ -20,5 +20,14 @@ namespace AstronomicDirectory
         {
             return $"{Name}, Планета: {PlanetOwner.Name}, Радиус: {Radius}";
         }
+
+        public Moon(Planet planetOwner) : base(planetOwner.Star)
+        {
+            PlanetOwner = planetOwner;
+            MiddleDistance = planetOwner.MiddleDistance;
+            //this.Moons = null;
+            Type = PlanetType.Moon;
+
+        }
     }
 }

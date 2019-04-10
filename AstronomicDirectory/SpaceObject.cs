@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace AstronomicDirectory
 {
@@ -9,6 +10,7 @@ namespace AstronomicDirectory
         /// Изображение
         /// </summary>
         public Image Photo { get; set; }
+
         /// <summary>
         /// Имя
         /// </summary>
@@ -25,10 +27,11 @@ namespace AstronomicDirectory
         /// Средняя температура на поверхности в Кельвинах, если не известна, то 0
         /// </summary>
         public uint? Temperature { get; set; }
+
         /// <summary>
         /// Дата открытия
         /// </summary>
-        public DateTime InventingDate { get; set; }
+        public DateTime InventingDate { get; set; } = DateTimePicker.MinDateTime;
 
         protected SpaceObject(DateTime inventingDate, Image photo, string name, Distance middleDistance, uint radius, uint temperature = 0)
         {

@@ -1,6 +1,6 @@
 ﻿namespace AstronomicDirectory
 {
-    public class Distance
+    public struct Distance
     {
         /// <summary>
         /// Значение
@@ -19,8 +19,8 @@
 
         public override bool Equals(object obj)
         {
-            var distance = obj as Distance;
-            return distance != null &&
+            var distance = (Distance)obj;
+            return 
                    Value == distance.Value &&
                    Unit == distance.Unit;
         }

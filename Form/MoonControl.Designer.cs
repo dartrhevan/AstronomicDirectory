@@ -30,7 +30,6 @@ namespace Form
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label7 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.starTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
@@ -44,21 +43,8 @@ namespace Form
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.photoButton = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.starTableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.Location = new System.Drawing.Point(5, 232);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(478, 248);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
             // 
             // label7
             // 
@@ -74,7 +60,7 @@ namespace Form
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(13, 479);
+            this.button1.Location = new System.Drawing.Point(13, 221);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(93, 23);
             this.button1.TabIndex = 3;
@@ -110,7 +96,7 @@ namespace Form
             this.starTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.starTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.starTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.starTableLayoutPanel.Size = new System.Drawing.Size(475, 200);
+            this.starTableLayoutPanel.Size = new System.Drawing.Size(475, 191);
             this.starTableLayoutPanel.TabIndex = 0;
             // 
             // label5
@@ -118,9 +104,9 @@ namespace Form
             this.label5.AutoSize = true;
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label5.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(3, 119);
+            this.label5.Location = new System.Drawing.Point(3, 114);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(231, 40);
+            this.label5.Size = new System.Drawing.Size(231, 38);
             this.label5.TabIndex = 9;
             this.label5.Text = "Дата открытия";
             // 
@@ -129,7 +115,7 @@ namespace Form
             this.temperatureTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.temperatureTextBox.Location = new System.Drawing.Point(240, 83);
+            this.temperatureTextBox.Location = new System.Drawing.Point(240, 79);
             this.temperatureTextBox.Name = "temperatureTextBox";
             this.temperatureTextBox.Size = new System.Drawing.Size(232, 22);
             this.temperatureTextBox.TabIndex = 6;
@@ -139,7 +125,7 @@ namespace Form
             this.radiusTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.radiusTextBox.Location = new System.Drawing.Point(240, 43);
+            this.radiusTextBox.Location = new System.Drawing.Point(240, 41);
             this.radiusTextBox.Name = "radiusTextBox";
             this.radiusTextBox.Size = new System.Drawing.Size(232, 22);
             this.radiusTextBox.TabIndex = 5;
@@ -149,9 +135,9 @@ namespace Form
             this.label4.AutoSize = true;
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(3, 80);
+            this.label4.Location = new System.Drawing.Point(3, 76);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(231, 39);
+            this.label4.Size = new System.Drawing.Size(231, 38);
             this.label4.TabIndex = 4;
             this.label4.Text = "Температура на поверхности";
             // 
@@ -160,9 +146,9 @@ namespace Form
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(3, 40);
+            this.label2.Location = new System.Drawing.Point(3, 38);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(231, 40);
+            this.label2.Size = new System.Drawing.Size(231, 38);
             this.label2.TabIndex = 2;
             this.label2.Text = "Радиус";
             // 
@@ -173,14 +159,14 @@ namespace Form
             this.label1.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(231, 40);
+            this.label1.Size = new System.Drawing.Size(231, 38);
             this.label1.TabIndex = 0;
             this.label1.Text = "Название";
             // 
             // dateTimePicker1
             // 
             this.dateTimePicker1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dateTimePicker1.Location = new System.Drawing.Point(240, 122);
+            this.dateTimePicker1.Location = new System.Drawing.Point(240, 117);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(232, 22);
             this.dateTimePicker1.TabIndex = 13;
@@ -200,9 +186,9 @@ namespace Form
             this.photoButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.photoButton.Location = new System.Drawing.Point(3, 162);
+            this.photoButton.Location = new System.Drawing.Point(3, 155);
             this.photoButton.Name = "photoButton";
-            this.photoButton.Size = new System.Drawing.Size(231, 35);
+            this.photoButton.Size = new System.Drawing.Size(231, 33);
             this.photoButton.TabIndex = 17;
             this.photoButton.Text = "Добавить фото";
             this.photoButton.UseVisualStyleBackColor = true;
@@ -214,10 +200,10 @@ namespace Form
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox1.Location = new System.Drawing.Point(240, 162);
+            this.checkBox1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBox1.Location = new System.Drawing.Point(240, 155);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(232, 35);
+            this.checkBox1.Size = new System.Drawing.Size(232, 33);
             this.checkBox1.TabIndex = 20;
             this.checkBox1.Text = "Имеет атмосферу";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -229,10 +215,8 @@ namespace Form
             this.Controls.Add(this.starTableLayoutPanel);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.pictureBox1);
             this.Name = "MoonControl";
-            this.Size = new System.Drawing.Size(486, 505);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.Size = new System.Drawing.Size(486, 247);
             this.starTableLayoutPanel.ResumeLayout(false);
             this.starTableLayoutPanel.PerformLayout();
             this.ResumeLayout(false);
@@ -241,7 +225,6 @@ namespace Form
         }
 
         #endregion
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button1;
         private TableLayoutPanel starTableLayoutPanel;
