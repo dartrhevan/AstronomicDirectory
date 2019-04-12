@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 using AstronomicDirectory;
 
 namespace Form
@@ -21,11 +16,9 @@ namespace Form
         {
 
             this.planet = planet;// ?? new Planet(star);
-            //moon = new MoonControl(this.planet);
             InitializeComponent();
             LoadPlanet();
             Moons.MouseDoubleClick += Planets_MouseDoubleClick;
-            //planetForm = new PlanetForm(star) {Owner = this};
             Moons.SelectedIndexChanged += (sender, args) => { button2.Enabled = Moons.SelectedItem is Planet; };
             button2.Click += button2_Click;
             comboBox1.Text = comboBox1.Items[0] as string;
@@ -34,13 +27,11 @@ namespace Form
             addMoonButton.Click += (sender, args) =>
             {
                 InitializePlanet(); 
-                //if (mainTableLayoutPanel.Controls.Contains(moon))
-                //    mainTableLayoutPanel.Controls.Remove(moon);
-                //else
                 moon = new MoonControl(new Moon(planet), this);
                 mainTableLayoutPanel.Controls.Add(moon, 1, 0);
             };
             Closing += PlanetForm_Closing;
+            button2.Enabled = false;
         }
 
         private void Planets_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -49,13 +40,8 @@ namespace Form
             if (index != System.Windows.Forms.ListBox.NoMatches)
             {
                 var item = (Moon)Moons.Items[index];
-                //var ff = new PlanetForm(item);//();// { Flight = item };
                 moon = new MoonControl(item, this);
                 mainTableLayoutPanel.Controls.Add(moon, 1, 0);
-
-                //if (ff.ShowDialog(this) == DialogResult.OK)
-                //{
-                //}
             }
 
         }
@@ -63,13 +49,7 @@ namespace Form
         private void PlanetForm_Closing(object sender, CancelEventArgs e)
         {
             InitializePlanet();
-
             DialogResult = DialogResult.OK;
-            //SaveAndClose();
-            //e.Cancel = true;
-            //button1_Click();
-            //(Owner as StarForm1).Planets.Refresh();
-            //Invalidate();
         }
 
         void LoadPlanet()
@@ -108,7 +88,9 @@ namespace Form
             }
 
             checkBox1.Checked = planet.HasAtmosphere;
-            Moons.Items.AddRange(planet.Moons.ToArray());
+            foreach (var moon in planet.Moons)
+                if (!Moons.Items.Contains(moon))
+                    Moons.Items.Add(moon);
             Moons.Refresh();
         }
 
@@ -179,15 +161,5 @@ namespace Form
                 Moons.Items.Remove(Moons.SelectedItem);
             }
         }
-
-        //private void SaveAndClose()
-        //{
-        //    InitializePlanet();
-        //    //(Owner as StarForm1).Planets.Items.Add(planet);
-        //    //(Owner as StarForm1).Planets.Refresh();
-
-        //    //Owner.Invalidate();
-
-        //}
     }
 }

@@ -21,14 +21,12 @@ namespace Form
             InitializeComponent();
             Planets.MouseDoubleClick += Planets_MouseDoubleClick;
             comboBox1.Text = comboBox1.Items[0] as string;
-            //planetForm = new PlanetForm(star) {Owner = this};
             Planets.SelectedIndexChanged += (sender, args) => { button2.Enabled = Planets.SelectedItem is Planet; };
             addPlanetButton.Click += (sender, args) =>
             {
                 var planet = new Planet(star);
                 planetForm = new PlanetForm(planet) {Owner = this};
                 InitializeStar();
-                //star = new Star(dateTimePicker1.Value, pictureBox1.Image, nameTextBox, new Distance(uint.Parse()), );
                 planetForm.ShowDialog();
                 Planets.Items.Add(planet);
                 Planets.Refresh();
@@ -39,35 +37,21 @@ namespace Form
 
         private void Planets_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            //MessageBox.Show(sender.ToString());
-            //throw new NotImplementedException();
             int index = this.Planets.IndexFromPoint(e.Location);
             if (index != System.Windows.Forms.ListBox.NoMatches)
             {
                 var item = (Planet)Planets.Items[index];
                 var ff = new PlanetForm(item);//();// { Flight = item };
-                //ff.ShowDialog(this);
                 if (ff.ShowDialog(this) == DialogResult.OK)
                 {
                     Planets.Items.Remove(item);
                     Planets.Items.Insert(index, item);
                 }
             }
-            //Planets.Refresh();
-            //Invalidate();
-
         }
-
-        //private void Planets_SelectedIndexChanged(object sender, System.EventArgs e)
-        //{
-        //    //MessageBox.Show(sender.ToString());
-        //    //throw new System.NotImplementedException();
-        //}
 
         private void InitializeStar()
         {
-            //if (star == null)
-            //    star = new Star();
             star.Name = nameTextBox.Text;
             star.Galaxy = galacticTextBox.Text;
             star.InventingDate = dateTimePicker1.Value;

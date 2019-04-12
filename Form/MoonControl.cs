@@ -15,27 +15,21 @@ namespace Form
     public partial class MoonControl : System.Windows.Forms.UserControl
     {
         private Moon moon;
-        //private readonly Planet planet;
         private readonly PlanetForm planetForm;
         readonly PictureBox moonPicture = new PictureBox();
         public MoonControl(Moon moon, PlanetForm planetForm)
         {
             this.planetForm = planetForm;
-            this.moonPicture.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                                                                             | System.Windows.Forms.AnchorStyles.Left)
-                                                                            | System.Windows.Forms.AnchorStyles.Right)));
-            this.moonPicture.Location = new System.Drawing.Point(5, 308);
-            this.moonPicture.Size = new System.Drawing.Size(497, 263);
-            this.moonPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.moonPicture.TabIndex = 1;
-            this.moonPicture.TabStop = false;
+            moonPicture.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            moonPicture.Location = new Point(5, 308);
+            moonPicture.Size = new Size(497, 263);
+            moonPicture.SizeMode = PictureBoxSizeMode.Zoom;
+            moonPicture.TabIndex = 1;
+            moonPicture.TabStop = false;
 
             this.moon = moon;
-            //PlanetForm planetForm = Parent as PlanetForm;
             planetForm.Controls.Remove(planetForm.pictureBox1);
             planetForm.Controls.Add(moonPicture);
-
-            //planet = pl;
             InitializeComponent();
             LoadMoon();
             Invalidate();
@@ -51,10 +45,8 @@ namespace Form
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //InitializeMoon();
-
             int index = planetForm.Moons.SelectedIndex;
-            if (index != System.Windows.Forms.ListBox.NoMatches)
+            if (index != ListBox.NoMatches)
             {
                 planetForm.Moons.Items.Remove(moon);
                 InitializeMoon();
@@ -79,23 +71,7 @@ namespace Form
             dateTimePicker1.Value = moon.InventingDate;
             moonPicture.Image = moon.Photo;
             radiusTextBox.Text = moon.Radius.ToString();
-            //distanceTextBox.Text = moon.MiddleDistance.Value.ToString();
             moon.HasAtmosphere = checkBox1.Checked;
-            //switch (moon.MiddleDistance.Unit)
-            //{
-            //    case UnitType.Kilometers:
-            //        comboBox1.Text = "км";
-            //        break;
-            //    case UnitType.LightYears:
-            //        comboBox1.Text = "св. г.";
-            //        break;
-            //    case UnitType.AstronomicUnits:
-            //        comboBox1.Text = "а.е.";
-            //        break;
-            //    default:
-            //        throw new ArgumentOutOfRangeException();
-            //}
-
             checkBox1.Checked = moon.HasAtmosphere;
         }
 
