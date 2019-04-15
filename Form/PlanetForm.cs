@@ -56,7 +56,8 @@ namespace Form
         {
             nameTextBox.Text = planet.Name;
             dateTimePicker1.Value = planet.InventingDate;
-            pictureBox1.Image = planet.Photo;
+            if (planet.Photo != null)
+                pictureBox1.Image = SpaceObject.ConvertToImage(planet.Photo);
             radiusTextBox.Text = planet.Radius.ToString();
             distanceTextBox.Text = planet.MiddleDistance.Value.ToString();
             planet.HasAtmosphere = checkBox1.Checked;
@@ -98,7 +99,7 @@ namespace Form
         {
             planet.Name = nameTextBox.Text;
             planet.InventingDate = dateTimePicker1.Value;
-            planet.Photo = pictureBox1.Image;
+            planet.Photo = SpaceObject.ConvertImage(pictureBox1.Image);
             uint temp;
             if (uint.TryParse(radiusTextBox.Text, out temp))
                 planet.Radius = temp;

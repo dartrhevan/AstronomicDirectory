@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
 using AstronomicDirectory;
 
 namespace Form
@@ -41,7 +44,7 @@ namespace Form
             if (index != System.Windows.Forms.ListBox.NoMatches)
             {
                 var item = (Planet)Planets.Items[index];
-                var ff = new PlanetForm(item);//();// { Flight = item };
+                var ff = new PlanetForm(item);
                 if (ff.ShowDialog(this) == DialogResult.OK)
                 {
                     Planets.Items.Remove(item);
@@ -55,7 +58,7 @@ namespace Form
             star.Name = nameTextBox.Text;
             star.Galaxy = galacticTextBox.Text;
             star.InventingDate = dateTimePicker1.Value;
-            star.Photo = pictureBox1.Image;
+            star.Photo = SpaceObject.ConvertImage(pictureBox1.Image);
             uint temp;
             if (uint.TryParse(radiusTextBox.Text, out temp))
                 star.Radius = temp;
@@ -77,6 +80,43 @@ namespace Form
                 }
                 star.MiddleDistance = new Distance(temp, t);
             }
+            star.Planets.AddRange(Planets.Items.Cast<Planet>());
+        }
+
+        void LoadStarFromFile(string path)
+        {
+            var xml = new XmlSerializer(typeof(Star));
+            var fs = File.OpenRead(path);
+            star = (Star)xml.Deserialize(fs);
+            fs.Close();
+        }
+
+        void LoadStar()
+        {
+            nameTextBox.Text = star.Name;
+            galacticTextBox.Text = star.Galaxy;
+            dateTimePicker1.Value = star.InventingDate;
+            if (star.Photo != null)
+                pictureBox1.Image = SpaceObject.ConvertToImage(star.Photo);
+            radiusTextBox.Text = star.Radius.ToString();
+            distanceTextBox.Text = star.MiddleDistance.Value.ToString();
+            switch (star.MiddleDistance.Unit)
+            {
+                case UnitType.Kilometers:
+                    comboBox1.Text = "км";
+                    break;
+                case UnitType.LightYears:
+                    comboBox1.Text = "св. г.";
+                    break;
+                case UnitType.AstronomicUnits:
+                    comboBox1.Text = "а.е.";
+                    break;
+                    break;
+                default: throw new ArgumentException();
+            }
+
+            //foreach (var planet in star.Planets)
+            Planets.Items.AddRange(star.Planets.ToArray());
         }
 
         private void planetsButton_Click(object sender, EventArgs e)
@@ -95,6 +135,17 @@ namespace Form
         private void button1_Click(object sender, EventArgs e)
         {
             InitializeStar();
+            var sfd = new SaveFileDialog() { Filter = "Звезда|*.star" };
+            if (sfd.ShowDialog(this) != DialogResult.OK)
+                return;
+
+            var xs = new XmlSerializer(typeof(Star));
+
+            var file = File.Create(sfd.FileName);
+
+            xs.Serialize(file, star);
+            file.Close();
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -103,6 +154,15 @@ namespace Form
             {
                 Planets.Items.Remove(Planets.SelectedItem);
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var opf = new OpenFileDialog() {Filter = "Звезда|*.star" };
+            if(opf.ShowDialog() != DialogResult.OK) return;
+            LoadStarFromFile(opf.FileName);
+            //InitializeStar();
+            LoadStar();
         }
     }
 }

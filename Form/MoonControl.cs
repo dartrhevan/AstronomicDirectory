@@ -69,7 +69,8 @@ namespace Form
         {
             nameTextBox.Text = moon.Name;
             dateTimePicker1.Value = moon.InventingDate;
-            moonPicture.Image = moon.Photo;
+            if(moon.Photo != null)
+                moonPicture.Image = SpaceObject.ConvertToImage(moon.Photo);
             radiusTextBox.Text = moon.Radius.ToString();
             moon.HasAtmosphere = checkBox1.Checked;
             checkBox1.Checked = moon.HasAtmosphere;
@@ -79,7 +80,7 @@ namespace Form
         {
             moon.Name = nameTextBox.Text;
             moon.InventingDate = dateTimePicker1.Value;
-            moon.Photo = moonPicture.Image;
+            moon.Photo = SpaceObject.ConvertImage(moonPicture.Image);
             uint temp;
             if (uint.TryParse(radiusTextBox.Text, out temp))
                 moon.Radius = temp;

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Windows.Forms;
 
 namespace AstronomicDirectory
@@ -9,7 +11,7 @@ namespace AstronomicDirectory
         /// <summary>
         /// Изображение
         /// </summary>
-        public Image Photo { get; set; }
+        public byte[] Photo { get; set; } //= new byte[0];
 
         /// <summary>
         /// Имя
@@ -35,7 +37,9 @@ namespace AstronomicDirectory
 
         protected SpaceObject(DateTime inventingDate, Image photo, string name, Distance middleDistance, uint radius, uint temperature = 0)
         {
-            Photo = photo;
+            //Photo = photo;
+            Photo = ConvertImage(photo);
+
             Name = name;
             MiddleDistance = middleDistance;
             Radius = radius;
@@ -43,6 +47,16 @@ namespace AstronomicDirectory
             //Galaxy = galaxy;
             InventingDate = inventingDate;
         }
+
+        public static byte[] ConvertImage(Image photo)
+        {
+            if (photo == null) return null;
+            var stream = new MemoryStream();
+            photo.Save(stream, ImageFormat.Jpeg);
+            return stream.ToArray();
+        }
+
+        public static Image ConvertToImage(byte[] arr) => Image.FromStream(new MemoryStream(arr));
 
         protected SpaceObject()
         {

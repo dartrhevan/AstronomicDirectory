@@ -55,6 +55,7 @@ namespace Form
             this.button2 = new System.Windows.Forms.Button();
             this.Planets = new System.Windows.Forms.ListBox();
             this.addPlanetButton = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.starTableLayoutPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -304,7 +305,7 @@ namespace Form
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(93, 23);
             this.button1.TabIndex = 3;
-            this.button1.Text = "ОК";
+            this.button1.Text = "Сохранить";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -376,11 +377,23 @@ namespace Form
             this.addPlanetButton.Text = "Добавить";
             this.addPlanetButton.UseVisualStyleBackColor = true;
             // 
+            // button3
+            // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button3.Location = new System.Drawing.Point(125, 570);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(85, 23);
+            this.button3.TabIndex = 5;
+            this.button3.Text = "Загрузить";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // StarForm1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(505, 596);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.mainTableLayoutPanel);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label7);
@@ -427,5 +440,6 @@ namespace Form
         private ComboBox comboBox1;
         private TextBox distanceTextBox;
         private Button button2;
+        private Button button3;
     }
 }
