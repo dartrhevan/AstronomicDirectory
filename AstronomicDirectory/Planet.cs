@@ -10,23 +10,24 @@ namespace AstronomicDirectory
         {
         }*/
 
-        public Planet(DateTime inventingDate, Image photo, string name, Distance middleDistance, uint radius, bool hasAtmosphere, PlanetType type, Star star, uint temperature = 0, List<Moon> moons = null) :
+        public Planet(DateTime inventingDate, Image photo, string name, Distance middleDistance, uint radius, bool hasAtmosphere, PlanetType type, Star star, uint temperature = 0, IEnumerable<Moon> moons = null) :
             base(inventingDate, photo, name, middleDistance, radius, temperature)
         {
             HasAtmosphere = hasAtmosphere;
             Type = type;
             Star = star.Name;
-            Moons = moons ?? new List<Moon>();
+            if (moons != null) Moons = new HashSet<Moon>(moons);
         }
 
-        public Planet(DateTime inventingDate, Image photo, string name, Distance middleDistance, uint radius, bool hasAtmosphere, PlanetType type, string star, string galaxy, uint temperature = 0, List<Moon> moons = null) :
+        public Planet(DateTime inventingDate, Image photo, string name, Distance middleDistance, uint radius, bool hasAtmosphere, PlanetType type, string star, string galaxy, uint temperature = 0, IEnumerable<Moon> moons = null) :
             base(inventingDate, photo, name, middleDistance, radius, temperature)
         {
             HasAtmosphere = hasAtmosphere;
             Type = type;
             Star = Name;
             Galaxy = galaxy;
-            Moons = moons ?? new List<Moon>();
+
+            if (moons != null) Moons = new HashSet<Moon>(moons);
         }
 
 
@@ -50,7 +51,7 @@ namespace AstronomicDirectory
         {
             Star = owner.Name;
             Galaxy = owner.Galaxy;
-            Moons = new List<Moon>();
+            Moons = new HashSet<Moon>();
         }
 
         public Planet(string owner, string galaxy)
@@ -58,12 +59,12 @@ namespace AstronomicDirectory
             //global::
             Star = owner;
             Galaxy = galaxy;//owner.Galaxy;
-            Moons = new List<Moon>();
+            Moons = new HashSet<Moon>();
         }
 
         public Planet()
         {
-            Moons = new List<Moon>();
+            Moons = new HashSet<Moon>();
 
         }
 
@@ -75,7 +76,7 @@ namespace AstronomicDirectory
         /// </summary>
         public string Star { get; set; }
 
-        public readonly List<Moon> Moons;
+        public readonly HashSet<Moon> Moons;
 
         /// <summary>
         /// Название галактики, в которой расположен объект

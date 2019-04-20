@@ -134,7 +134,11 @@ namespace Form
                 default: throw new ArgumentException();
             }
             planet.Type = type;
-            planet.Moons.AddRange(Moons.Items.Cast<Moon>());
+            //planet.Moons.AddRange(Moons.Items.Cast<Moon>());
+            foreach (Moon pl in Moons.Items)
+                if (!planet.Moons.Contains(pl))
+                    planet.Moons.Add(pl);
+
         }
 
         private void planetsButton_Click(object sender, EventArgs e)

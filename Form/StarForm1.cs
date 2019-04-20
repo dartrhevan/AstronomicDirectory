@@ -80,7 +80,11 @@ namespace Form
                 }
                 star.MiddleDistance = new Distance(temp, t);
             }
-            star.Planets.AddRange(Planets.Items.Cast<Planet>());
+
+            foreach (Planet pl in Planets.Items)
+                if (!star.Planets.Contains(pl))
+                    star.Planets.Add(pl);
+            //star.Planets.AddRange(Planets.Items.Cast<Planet>());//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         }
 
         void LoadStarFromFile(string path)
@@ -110,7 +114,6 @@ namespace Form
                     break;
                 case UnitType.AstronomicUnits:
                     comboBox1.Text = "а.е.";
-                    break;
                     break;
                 default: throw new ArgumentException();
             }

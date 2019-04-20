@@ -9,29 +9,29 @@ namespace AstronomicDirectory
 {
     public class Star : SpaceObject
     {
-        public Star(DateTime inventingDate, Image photo, string name, Distance middleDistance, uint radius, uint temperature, List<Planet> planets, string galaxy) : 
+        public Star(DateTime inventingDate, Image photo, string name, Distance middleDistance, uint radius, uint temperature, IEnumerable<Planet> planets, string galaxy) : 
             base(inventingDate, photo, name, middleDistance, radius, temperature)
         {
-            Planets = planets;
+            Planets = new HashSet<Planet>(planets);//planets;
             Galaxy = galaxy;
         }
 
         public Star(DateTime inventingDate, Image photo, string name, Distance middleDistance, uint radius, uint temperature, string galaxy) : 
             base(inventingDate, photo, name, middleDistance, radius, temperature)
         {
-            Planets = new List<Planet>();
+            Planets = new HashSet<Planet>();//<Planet>();
             Galaxy = galaxy;
         }
 
         public Star()
         {
-            Planets = new List<Planet>();
+            Planets = new HashSet<Planet>();//<Planet>();
         }
 
         /// <summary>
         /// Планеты, вращающиеся вокруг звезды
         /// </summary>
-        public readonly List<Planet> Planets;
+        public readonly HashSet<Planet> Planets;
 
         public override bool Equals(object obj)
         {
