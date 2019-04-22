@@ -99,7 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AstronomicDirectory\AstronomicDirectory.csproj">
-      <Project>{75f2e46b-5a1e-471f-80bf-ad8adcd34a51}</Project>
+      <Project>{1de773ab-6e73-49ef-845d-17b8c8b002b3}</Project>
       <Name>AstronomicDirectory</Name>
     </ProjectReference>
   </ItemGroup>

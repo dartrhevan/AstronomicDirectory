@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -58,7 +59,7 @@ namespace Form
             star.Name = nameTextBox.Text;
             star.Galaxy = galacticTextBox.Text;
             star.InventingDate = dateTimePicker1.Value;
-            star.Photo = SpaceObject.ConvertImage(pictureBox1.Image);
+            star.Photo = ConvertImage(pictureBox1.Image);
             uint temp;
             if (uint.TryParse(radiusTextBox.Text, out temp))
                 star.Radius = temp;
@@ -80,12 +81,22 @@ namespace Form
                 }
                 star.MiddleDistance = new Distance(temp, t);
             }
-
             foreach (Planet pl in Planets.Items)
                 if (!star.Planets.Contains(pl))
                     star.Planets.Add(pl);
             //star.Planets.AddRange(Planets.Items.Cast<Planet>());//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         }
+
+        public static byte[] ConvertImage(Image photo)
+        {
+            if (photo == null) return null;
+            var stream = new MemoryStream();
+            photo.Save(stream, ImageFormat.Jpeg);
+            return stream.ToArray();
+        }
+
+        public static Image ConvertToImage(byte[] arr) => Image.FromStream(new MemoryStream(arr));
+
 
         void LoadStarFromFile(string path)
         {
@@ -101,7 +112,7 @@ namespace Form
             galacticTextBox.Text = star.Galaxy;
             dateTimePicker1.Value = star.InventingDate;
             if (star.Photo != null)
-                pictureBox1.Image = SpaceObject.ConvertToImage(star.Photo);
+                pictureBox1.Image = ConvertToImage(star.Photo);
             radiusTextBox.Text = star.Radius.ToString();
             distanceTextBox.Text = star.MiddleDistance.Value.ToString();
             switch (star.MiddleDistance.Unit)

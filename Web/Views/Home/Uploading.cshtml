@@ -1,0 +1,49 @@
+﻿@model object
+
+@{
+    ViewBag.Title = "Uploading";
+    Layout = "_Layout";
+}
+
+<div align="center">
+    <h2>Uploading of the file</h2>
+    <form method="post" class="form-group" asp-controller ="Home" asp-action="StarView" enctype="multipart/form-data">
+        <input class="btn btn-default btn-block" @*style="width: auto" *@ type="file" name="star"/>
+        <br />
+        <tr />
+        <input class="btn-primary" type="submit" />
+    </form>
+</div>
+
+
+
+@*<table class="table table-bordered table-responsive table-striped">
+    <thead>
+    <th>
+        Name
+    </th>
+    <th>
+        Inventing date
+    </th>
+    <th>
+        Radius
+    </th>
+    <th>
+        Temperature
+    </th>
+    </thead>
+    <tbody>
+        <tr>
+            <td id ="n"></td>
+            <td id ="d"></td>
+            <td id ="r"></td>
+            <td id="t"></td>
+        </tr>
+    </tbody>
+</table>
+<button id ="b" onclick="function () {
+    var b = document.getElementById('b');
+    
+}"></button>*@
+
+

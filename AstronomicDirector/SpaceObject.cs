@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Windows.Forms;
 
 namespace AstronomicDirectory
 {
@@ -29,7 +33,7 @@ namespace AstronomicDirectory
         /// <summary>
         /// Дата открытия
         /// </summary>
-        public DateTime InventingDate { get; set; } = new DateTime(1800, 1, 1);
+        public DateTime InventingDate { get; set; } = DateTimePicker.MinDateTime;
 
         protected SpaceObject(DateTime inventingDate, byte[] photo, string name, Distance middleDistance, uint radius, uint temperature = 0)
         {
