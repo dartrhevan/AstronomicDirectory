@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using AstronomicDirectory
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -16,7 +17,7 @@
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
 </head>
-<body>
+<body style ="background-color: black; color: whitesmoke;">
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -28,6 +29,7 @@
                 </button>
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Web</a>                
                 <a asp-area="" asp-controller="Home" asp-action="Uploading" class="navbar-brand">Upload</a>
+                <a href="@Url.Action("PlanetView", "Home", new Planet(){Name = "asdxcv"})">q</a>
                 @*<a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Web</a>*@
 
             </div>

@@ -111,8 +111,7 @@ namespace Form
             nameTextBox.Text = star.Name;
             galacticTextBox.Text = star.Galaxy;
             dateTimePicker1.Value = star.InventingDate;
-            if (star.Photo != null)
-                pictureBox1.Image = ConvertToImage(star.Photo);
+            pictureBox1.Image = star.Photo != null ? ConvertToImage(star.Photo) : null;
             radiusTextBox.Text = star.Radius.ToString();
             distanceTextBox.Text = star.MiddleDistance.Value.ToString();
             switch (star.MiddleDistance.Unit)
@@ -174,6 +173,7 @@ namespace Form
         {
             var opf = new OpenFileDialog() {Filter = "Звезда|*.star" };
             if(opf.ShowDialog() != DialogResult.OK) return;
+            Planets.Items.Clear();
             LoadStarFromFile(opf.FileName);
             //InitializeStar();
             LoadStar();

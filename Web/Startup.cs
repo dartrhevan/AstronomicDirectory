@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Web.Models.DataAccessPostgreSqlProvider;
 
 namespace Web
 {
@@ -33,6 +35,17 @@ namespace Web
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            var sqlConnectionString = Configuration.GetConnectionString("AstronomicDirectoryDbProvider");
+
+            AstronomicDirectoryDbContext.ConnectionString = sqlConnectionString;
+
+            services.AddDbContext<AstronomicDirectoryDbContext>(options =>
+                options.UseNpgsql(
+                    sqlConnectionString
+                )
+            );
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

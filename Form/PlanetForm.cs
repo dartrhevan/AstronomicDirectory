@@ -17,6 +17,7 @@ namespace Form
 
             this.planet = planet;// ?? new Planet(star);
             InitializeComponent();
+            //dateTimePicker1.MinDate = new DateTime(0, 0, 0);
             LoadPlanet();
             Moons.MouseDoubleClick += Planets_MouseDoubleClick;
             Moons.SelectedIndexChanged += (sender, args) => { button2.Enabled = Moons.SelectedItem is Planet; };

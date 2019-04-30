@@ -16,7 +16,7 @@
             Value = value;
             Unit = unit;
         }
-
+        
         public override bool Equals(object obj)
         {
             var distance = (Distance)obj;
@@ -31,6 +31,11 @@
             hashCode = hashCode * -1521134295 + Value.GetHashCode();
             hashCode = hashCode * -1521134295 + Unit.GetHashCode();
             return hashCode;
+        }
+
+        public override string ToString()
+        {
+            return $"{Value} {Unit}";
         }
     }
 }

@@ -7,10 +7,11 @@
 
 <div align="center">
     <h2>Uploading of the file</h2>
+    <img src="~/images/2.jpg"/>
+    <p style="font-size: medium;">The Sun</p>
     <form method="post" class="form-group" asp-controller ="Home" asp-action="StarView" enctype="multipart/form-data">
-        <input class="btn btn-default btn-block" @*style="width: auto" *@ type="file" name="star"/>
-        <br />
-        <tr />
+        <input class="btn btn-default btn-block" style="background-color: black; color: whitesmoke;" type="file" name="star"/>
+        <br/>
         <input class="btn-primary" type="submit" />
     </form>
 </div>
