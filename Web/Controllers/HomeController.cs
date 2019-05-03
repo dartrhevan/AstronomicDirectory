@@ -18,6 +18,7 @@ namespace Web.Controllers
 {
     public class HomeController : Controller
     {
+        
         public IActionResult Index()
         {
             return View();
@@ -31,33 +32,18 @@ namespace Web.Controllers
             var fs = star.OpenReadStream();
             var st = (Star)xml.Deserialize(fs);
             fs.Close();
+            //if(st.Photo != null)
+            //    HttpContext.Session.Set("photo", st.Photo);
 
+
+            var dbs = new DBStar(st);
             using (var db = new AstronomicDirectoryDbContext())
             {
-                var dbs = new DBStar(st);
-                //var dbs = new DbSpaceShip()
-                //{
-                //    Name = ship.Name,
-                //    Build = ship.Build,
-                //    Photo = ship.Photo,
-                //};
-                //dbs.Journal = new Collection<DbFlight>();
-                //foreach (var flight in ship.Journal)
-                //{
-                //    dbs.Journal.Add(new DbFlight()
-                //    {
-                //        Crew = flight.Crew,
-                //        From = flight.From,
-                //        Passengers = flight.Passengers,
-                //        To = flight.To
-                //    });
-                //}
-
                 db.Stars.Add(dbs);
                 db.SaveChanges();
             }
 
-            return View(st);
+            return View(dbs);
         }
 
         public IActionResult Privacy()
@@ -76,12 +62,16 @@ namespace Web.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult GetImage(byte[] photo)
+        public ActionResult GetImage(int id)
         {
             //var img = Image.FromStream(new MemoryStream(arr));
-            var str = new MemoryStream(photo);
-            
-            return File(str, "image/jpeg");
+            //var photo = HttpContext.Session.Get("photo");
+
+            //var str = new MemoryStream(photo);
+            using (var db = new AstronomicDirectoryDbContext())
+            {
+                return base.File(db.Stars.Find(id).Photo, "image/jpeg");
+            }
         }
 
         //public FileResult Download()

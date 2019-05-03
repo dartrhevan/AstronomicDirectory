@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using AstronomicDirectory;
 using Web.Models.DataAccessPostgreSqlProvider;
 using Microsoft.EntityFrameworkCore;
@@ -11,18 +13,21 @@ namespace Web.Models
 {
     namespace DataAccessPostgreSqlProvider
     {
-        public class DBStar : ISpaceObject
+        public class DBStar : IDbSpaceObject
         {
             public DBStar(DateTime inventingDate, byte[] photo, string name, Distance middleDistance, uint radius,
-                    uint temperature, IEnumerable<DBPlanet> planets, string galaxy)
-                //base(inventingDate, photo, name, middleDistance, radius, temperature)
+                    uint temperature, IEnumerable<Planet> planets, string galaxy)
+            //base(inventingDate, photo, name, middleDistance, radius, temperature)
             {
-                Planets = new HashSet<DBPlanet>(planets); //planets;
+                Planets = new Collection<DBPlanet>();
+                foreach (var pl in planets)
+                    Planets.Add(new DBPlanet(pl));
                 Galaxy = galaxy;
                 Photo = photo;
 
                 Name = name;
-                MiddleDistance = middleDistance;
+                MiddleDistanceValue = middleDistance.Value;
+                MiddleDistanceUnit = middleDistance.Unit;
                 Radius = radius;
                 Temperature = temperature;
                 //Galaxy = galaxy;
@@ -30,7 +35,7 @@ namespace Web.Models
 
             }
 
-            public DBStar(Star st) : this(st.InventingDate, st.Photo, st.Name, st.MiddleDistance, st.Radius, st.Temperature.HasValue ? st.Temperature.Value : 0, st.Galaxy)
+            public DBStar(Star st) : this(st.InventingDate, st.Photo, st.Name, st.MiddleDistance, st.Radius, st.Temperature.HasValue ? st.Temperature.Value : 0, st.Planets, st.Galaxy)
             {
 
             }
@@ -40,12 +45,13 @@ namespace Web.Models
                     uint temperature, string galaxy)
                 //base(inventingDate, photo, name, middleDistance, radius, temperature)
             {
-                Planets = new HashSet<DBPlanet>(); //<Planet>();
+                Planets = new Collection<DBPlanet>(); //<Planet>();
                 Galaxy = galaxy;
                 Photo = photo;
 
                 Name = name;
-                MiddleDistance = middleDistance;
+                MiddleDistanceValue = middleDistance.Value;
+                MiddleDistanceUnit = middleDistance.Unit;
                 Radius = radius;
                 Temperature = temperature;
                 //Galaxy = galaxy;
@@ -56,13 +62,13 @@ namespace Web.Models
 
             public DBStar()
             {
-                Planets = new HashSet<DBPlanet>(); //<Planet>();
+                Planets = new Collection<DBPlanet>(); //<Planet>();
             }
 
             /// <summary>
             /// Планеты, вращающиеся вокруг звезды
             /// </summary>
-            public readonly HashSet<DBPlanet> Planets;
+            public virtual Collection<DBPlanet> Planets { get; set; }
 
             public override bool Equals(object obj)
             {
@@ -86,8 +92,10 @@ namespace Web.Models
 
             public byte[] Photo { get; set; }
             public string Name { get; set; }
+            public uint MiddleDistanceValue { get; set; }
+            public UnitType MiddleDistanceUnit { get; set; }
 
-            public Distance MiddleDistance { get; set; }
+            //public Distance MiddleDistance { get; set; }
             public uint Radius { get; set; }
             public uint? Temperature { get; set; }
             public DateTime InventingDate { get; set; }

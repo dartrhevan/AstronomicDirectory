@@ -1,5 +1,5 @@
 ﻿@using Web.Controllers
-@model AstronomicDirectory.Star
+@model Web.Models.DataAccessPostgreSqlProvider.DBStar
 
 @{
     ViewBag.Title = "Star";
@@ -16,8 +16,7 @@
     }
 </style>
 <div class="mystyle">
-    <img class="img-thumbnail" width="150" height="150"
-         src="@Url.Action("GetImage", "Home", Model.Photo)"/>
+    <img src="GetImage?id=@Model.Id"/>
     Photo
     <hr/>
     <br/>
@@ -29,19 +28,15 @@
     <br/>
     Inventing Date: @Model.InventingDate
     <br/>
-    Middle Distance: @Model.MiddleDistance
+    Middle Distance: @Model.MiddleDistanceValue @Model.MiddleDistanceUnit
     <br/>
     Planets:
     <table class="table table-bordered table-striped">
         @foreach (var planet in Model.Planets)
         {
-            <a asp-controller="Home" asp-action="PlanetView">@planet.Name</a>
-            <br />
-            <a href="@Url.Action("PlanetView", "Home", planet)">@planet.Name</a>
-            <br />
-            @*@Html.BeginForm("PlanetView", "Home", FormMethod.Post, )*@
-            <br />
-
+            @planet.Name;
+            <br/>
         }
+
     </table>
 </div>

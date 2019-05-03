@@ -40,7 +40,8 @@ namespace Web.Models.DataAccessPostgreSqlProvider
         public DBMoon(DBPlanet planetOwner) : base(planetOwner.Star, planetOwner.Galaxy)
         {
             PlanetOwner = planetOwner.Name;
-            MiddleDistance = planetOwner.MiddleDistance;
+            MiddleDistanceValue = planetOwner.MiddleDistanceValue;
+            MiddleDistanceUnit = planetOwner.MiddleDistanceUnit;
             //this.Moons = null;
             Type = PlanetType.Moon;
 

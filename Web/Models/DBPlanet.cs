@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using AstronomicDirectory;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 
 namespace Web.Models.DataAccessPostgreSqlProvider
 {
-    public class DBPlanet : ISpaceObject
+    public class DBPlanet : IDbSpaceObject
     {
         /*public Planet(Bitmap photo, string name, Distance middleDistance, uint radius, uint temperature) : base(photo, name, middleDistance, radius, temperature)
             {
@@ -26,7 +27,9 @@ namespace Web.Models.DataAccessPostgreSqlProvider
             Photo = photo;
 
             Name = name;
-            MiddleDistance = middleDistance;
+            MiddleDistanceValue = middleDistance.Value;
+            MiddleDistanceUnit = middleDistance.Unit;
+
             Radius = radius;
             Temperature = temperature;
             //Galaxy = galaxy;
@@ -34,7 +37,7 @@ namespace Web.Models.DataAccessPostgreSqlProvider
 
         }
 
-        public DBPlanet(DateTime inventingDate, byte[] photo, string name, Distance middleDistance, uint radius, bool hasAtmosphere, PlanetType type, string star, string galaxy, uint temperature = 0, IEnumerable<DBMoon> moons = null)
+        public DBPlanet(DateTime inventingDate, byte[] photo, string name, Distance middleDistance, uint radius, bool hasAtmosphere, PlanetType type, string star, string galaxy, uint? temperature = 0, IEnumerable<DBMoon> moons = null)
             //base(inventingDate, photo, name, middleDistance, radius, temperature)
         {
 
@@ -51,7 +54,7 @@ namespace Web.Models.DataAccessPostgreSqlProvider
         public override bool Equals(object obj)
         {
             var pl = obj as DBPlanet;
-            return pl != null && pl.Name.Equals(Name);
+            return pl != null && pl.Name != null && pl.Name.Equals(Name);
         }
 
         public override int GetHashCode()
@@ -100,15 +103,46 @@ namespace Web.Models.DataAccessPostgreSqlProvider
         /// </summary>
         public string Galaxy { get; set; }//=> Star.Galaxy;
 
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
+        public DBPlanet(bool hasAtmosphere, PlanetType type, string star, HashSet<DBMoon> moons, string galaxy, int id, int starShipId, DBStar starOwner, byte[] photo, string name, uint middleDistanceValue, UnitType middleDistanceUnit, uint radius, uint? temperature, DateTime inventingDate)
+        {
+            HasAtmosphere = hasAtmosphere;
+            Type = type;
+            Star = star;
+            Moons = moons;
+            Galaxy = galaxy;
+            Id = id;
+            StarShipId = starShipId;
+            StarOwner = starOwner;
+            Photo = photo;
+            Name = name;
+            MiddleDistanceValue = middleDistanceValue;
+            MiddleDistanceUnit = middleDistanceUnit;
+            Radius = radius;
+            Temperature = temperature;
+            InventingDate = inventingDate;
+        }
+
+        public int StarShipId { get; set; }
+        [ForeignKey("StarShipId")]
+        public virtual DBStar StarOwner { get; set; }
 
         public byte[] Photo { get; set; }
         public string Name { get; set; }
+        public uint MiddleDistanceValue { get; set; }
+        public UnitType MiddleDistanceUnit { get; set; }
 
-        public Distance MiddleDistance { get; set; }
+        //public Distance MiddleDistance { get; set; }
         public uint Radius { get; set; }
         public uint? Temperature { get; set; }
         public DateTime InventingDate { get; set; }
 
+        public DBPlanet(Planet planet) : this(planet.InventingDate, planet.Photo, planet.Name, planet.MiddleDistance, planet.Radius, planet.HasAtmosphere, planet.Type, planet.Star, planet.Galaxy, planet.Temperature)
+        {
+
+        }
         //public class AstronomicDictionaryDb
         //{
 
