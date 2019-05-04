@@ -12,7 +12,6 @@
         font-size: 20px;
         font-family: "Times new roman";
         font-style: initial;
-        align-content: left;
     }
 </style>
 <div class="mystyle">
@@ -31,12 +30,13 @@
     Middle Distance: @Model.MiddleDistanceValue @Model.MiddleDistanceUnit
     <br/>
     Planets:
-    <table class="table table-bordered table-striped">
+    <ol>
         @foreach (var planet in Model.Planets)
         {
-            @planet.Name;
-            <br/>
+            <li>
+                <a href="PlanetView?starId=@Model.Id&planetId=@planet.Id">@planet.Name;</a>
+            </li>
         }
 
-    </table>
+    </ol>
 </div>

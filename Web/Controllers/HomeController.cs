@@ -32,17 +32,16 @@ namespace Web.Controllers
             var fs = star.OpenReadStream();
             var st = (Star)xml.Deserialize(fs);
             fs.Close();
-            //if(st.Photo != null)
-            //    HttpContext.Session.Set("photo", st.Photo);
-
-
             var dbs = new DBStar(st);
             using (var db = new AstronomicDirectoryDbContext())
             {
+                //if (db.Stars.FirstOrDefault(s => s.Name == st.Name) == null)
+                //{
                 db.Stars.Add(dbs);
                 db.SaveChanges();
+                db.Planets.AddRange(dbs.Planets);
+                //}
             }
-
             return View(dbs);
         }
 
@@ -64,45 +63,22 @@ namespace Web.Controllers
 
         public ActionResult GetImage(int id)
         {
-            //var img = Image.FromStream(new MemoryStream(arr));
-            //var photo = HttpContext.Session.Get("photo");
-
-            //var str = new MemoryStream(photo);
             using (var db = new AstronomicDirectoryDbContext())
             {
-                return base.File(db.Stars.Find(id).Photo, "image/jpeg");
+                return base.File(db.Stars.Find(id).Photo??new byte[] {}, "image/jpeg");
             }
         }
 
-        //public FileResult Download()
-        //{
-        //    string file_path = "~/Files/Form.rar";
-        //    // Тип файла - content-type
-        //    string file_type = "";
-        //    // Имя файла - необязательно
-        //    string file_name = "Form.rar";
-        //    return File(file_path, file_type, file_name);
-        //}
-        [HttpPost]
-        public IActionResult PlanetView(Planet planet)
+        public IActionResult PlanetView(int starId, int planetId)
         {
-            return View(planet);
+            using (var db = new AstronomicDirectoryDbContext())
+            {
+                //var stars = db.Stars
+                //var star = db.Stars.Find(starId);//.Planets.First(pl => pl.Id == planetId);
+                //var planet = star.Planets.First(pl => pl.Id == planetId);
+                var planet = db.Planets.First(p => p.Id == planetId && p.StarId == starId);
+                return View(planet);
+            }
         }
-
-        //public static byte[] PlanetToBytes(Planet pl)
-        //{
-        //    var xml = new XmlSerializer(typeof(Planet));
-        //    var fs = new MemoryStream();
-        //    xml.Serialize(fs, pl);
-        //    //var st = (Star)xml.Deserialize(fs);
-        //    return fs.ToArray();
-        //}
-
-        //static Planet PlanetFromBytes(byte[] arr)
-        //{
-        //    var xml = new XmlSerializer(typeof(Planet));
-        //    var fs = new MemoryStream(arr);
-        //    return xml.Deserialize(fs) as Planet;
-        //}
     }
 }

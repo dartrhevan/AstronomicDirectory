@@ -40,14 +40,24 @@ namespace Web.Models.DataAccessPostgreSqlProvider
         public DBPlanet(DateTime inventingDate, byte[] photo, string name, Distance middleDistance, uint radius, bool hasAtmosphere, PlanetType type, string star, string galaxy, uint? temperature = 0, IEnumerable<DBMoon> moons = null)
             //base(inventingDate, photo, name, middleDistance, radius, temperature)
         {
-
-            //Database.EnsureCreated();
             HasAtmosphere = hasAtmosphere;
             Type = type;
-            Star = Name;
-            Galaxy = galaxy;
-
             if (moons != null) Moons = new HashSet<DBMoon>(moons);
+            Photo = photo;
+
+            Name = name;
+            MiddleDistanceValue = middleDistance.Value;
+            MiddleDistanceUnit = middleDistance.Unit;
+
+            Radius = radius;
+            Temperature = temperature;
+            //Galaxy = galaxy;
+            InventingDate = inventingDate;
+
+            //Database.EnsureCreated();
+            Type = type;
+            Star = star;
+            Galaxy = galaxy;
         }
 
 
@@ -106,27 +116,27 @@ namespace Web.Models.DataAccessPostgreSqlProvider
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public DBPlanet(bool hasAtmosphere, PlanetType type, string star, HashSet<DBMoon> moons, string galaxy, int id, int starShipId, DBStar starOwner, byte[] photo, string name, uint middleDistanceValue, UnitType middleDistanceUnit, uint radius, uint? temperature, DateTime inventingDate)
-        {
-            HasAtmosphere = hasAtmosphere;
-            Type = type;
-            Star = star;
-            Moons = moons;
-            Galaxy = galaxy;
-            Id = id;
-            StarShipId = starShipId;
-            StarOwner = starOwner;
-            Photo = photo;
-            Name = name;
-            MiddleDistanceValue = middleDistanceValue;
-            MiddleDistanceUnit = middleDistanceUnit;
-            Radius = radius;
-            Temperature = temperature;
-            InventingDate = inventingDate;
-        }
+        //public DBPlanet(bool hasAtmosphere, PlanetType type, string star, HashSet<DBMoon> moons, string galaxy, int id, int starShipId, DBStar starOwner, byte[] photo, string name, uint middleDistanceValue, UnitType middleDistanceUnit, uint radius, uint? temperature, DateTime inventingDate)
+        //{
+        //    HasAtmosphere = hasAtmosphere;
+        //    Type = type;
+        //    Star = star;
+        //    Moons = moons;
+        //    Galaxy = galaxy;
+        //    Id = id;
+        //    StarShipId = starShipId;
+        //    StarOwner = starOwner;
+        //    Photo = photo;
+        //    Name = name;
+        //    MiddleDistanceValue = middleDistanceValue;
+        //    MiddleDistanceUnit = middleDistanceUnit;
+        //    Radius = radius;
+        //    Temperature = temperature;
+        //    InventingDate = inventingDate;
+        //}
 
-        public int StarShipId { get; set; }
-        [ForeignKey("StarShipId")]
+        public int StarId { get; set; }
+        [ForeignKey("StarId")]
         public virtual DBStar StarOwner { get; set; }
 
         public byte[] Photo { get; set; }
@@ -142,6 +152,11 @@ namespace Web.Models.DataAccessPostgreSqlProvider
         public DBPlanet(Planet planet) : this(planet.InventingDate, planet.Photo, planet.Name, planet.MiddleDistance, planet.Radius, planet.HasAtmosphere, planet.Type, planet.Star, planet.Galaxy, planet.Temperature)
         {
 
+        }
+
+        public DBPlanet(Planet planet, int starId) : this(planet.InventingDate, planet.Photo, planet.Name, planet.MiddleDistance, planet.Radius, planet.HasAtmosphere, planet.Type, planet.Star, planet.Galaxy, planet.Temperature)
+        {
+            this.StarId = starId;
         }
         //public class AstronomicDictionaryDb
         //{

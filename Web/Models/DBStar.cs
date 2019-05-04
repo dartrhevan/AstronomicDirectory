@@ -21,7 +21,7 @@ namespace Web.Models
             {
                 Planets = new Collection<DBPlanet>();
                 foreach (var pl in planets)
-                    Planets.Add(new DBPlanet(pl));
+                    Planets.Add(new DBPlanet(pl, Id));
                 Galaxy = galaxy;
                 Photo = photo;
 
