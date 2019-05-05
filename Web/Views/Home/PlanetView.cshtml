@@ -6,4 +6,36 @@
 }
 
 <h2>Planet View</h2>
-@Model.Name
+<h2 align="center">@Model.Name</h2>
+<style>
+    .mystyle {
+        font-size: 20px;
+        font-family: "Times new roman";
+        font-style: initial;
+    }
+</style>
+<div class="mystyle">
+    <img src="GetPlanetImage?id=@Model.Id" />
+    Photo
+    <hr />
+    <br />
+    Galaxy: @Model.Galaxy
+    <br />
+    Radius: @Model.Radius
+    <br />
+    Temperature: @Model.Temperature
+    <br />
+    Inventing Date: @Model.InventingDate
+    <br />
+    Middle Distance: @Model.MiddleDistanceValue @Model.MiddleDistanceUnit
+    <br />
+    @*Moons:
+    <ol>
+        @foreach (var planet in Model.Moons)
+        {
+            <li>
+                <a href="PlanetView?starId=@Model.Id&planetId=@planet.Id">@planet.Name;</a>
+            </li>
+        }
+    </ol>*@
+</div>

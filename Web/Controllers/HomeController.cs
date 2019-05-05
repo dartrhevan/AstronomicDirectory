@@ -45,6 +45,15 @@ namespace Web.Controllers
             return View(dbs);
         }
 
+        public IActionResult StarView(int id)
+        {
+            using (var db = new AstronomicDirectoryDbContext())
+            {
+                var dbs = db.Stars.Find(id);
+                return View(dbs);
+            }
+        }
+
         public IActionResult Privacy()
         {
             return View();
@@ -69,6 +78,15 @@ namespace Web.Controllers
             }
         }
 
+        public ActionResult GetPlanetImage(int id)
+        {
+            using (var db = new AstronomicDirectoryDbContext())
+            {
+                return base.File(db.Planets.Find(id).Photo ?? new byte[] { }, "image/jpeg");
+            }
+        }
+
+
         public IActionResult PlanetView(int starId, int planetId)
         {
             using (var db = new AstronomicDirectoryDbContext())
@@ -79,6 +97,18 @@ namespace Web.Controllers
                 var planet = db.Planets.First(p => p.Id == planetId && p.StarId == starId);
                 return View(planet);
             }
+        }
+
+        public IActionResult List()
+        {
+
+            List<DBStar> list;
+            using (var db = new AstronomicDirectoryDbContext())
+            {
+                list = db.Stars.ToList();
+            }
+
+            return View(list);
         }
     }
 }

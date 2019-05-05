@@ -1,0 +1,28 @@
+﻿@model System.Collections.Generic.List<Web.Models.DataAccessPostgreSqlProvider.DBStar>
+
+@{
+    ViewBag.Title = "Stars";
+    Layout = "_Layout";
+}
+
+<h2 align="center">Stars</h2>
+<style>
+    .mystyle {
+        font-size: 20px;
+        font-family: "Times new roman";
+        font-style: initial;
+    }
+</style>
+
+<table class="table table-bordered table-striped mystyle">
+    <tbody>
+        @foreach (var star in Model)
+        {
+            <tr>
+                <td>
+                    <a href="StarView?id=@star.Id">@star.Name</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
