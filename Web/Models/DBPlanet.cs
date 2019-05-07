@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using AstronomicDirectory;
@@ -15,7 +16,7 @@ namespace Web.Models.DataAccessPostgreSqlProvider
             {
             }*/
 
-        public DBPlanet(DateTime inventingDate, byte[] photo, string name, Distance middleDistance, uint radius, bool hasAtmosphere, PlanetType type, DBStar star, uint temperature = 0, IEnumerable<DBMoon> moons = null)
+        public DBPlanet(DateTime inventingDate, byte[] photo, string name, Distance middleDistance, uint radius, bool hasAtmosphere, PlanetType type, DBStar star, uint? temperature = 0, HashSet<Moon> moons = null)
             //base(inventingDate, photo, name, middleDistance, radius, temperature)
         {
 
@@ -23,8 +24,11 @@ namespace Web.Models.DataAccessPostgreSqlProvider
             HasAtmosphere = hasAtmosphere;
             Type = type;
             Star = star.Name;
-            if (moons != null) Moons = new HashSet<DBMoon>(moons);
-            Photo = photo;
+
+            Moons = new Collection<DBMoon>();
+            if (moons != null)
+                foreach (var moon in moons)
+                    Moons.Add(new DBMoon(moon, Id));
 
             Name = name;
             MiddleDistanceValue = middleDistance.Value;
@@ -37,12 +41,17 @@ namespace Web.Models.DataAccessPostgreSqlProvider
 
         }
 
-        public DBPlanet(DateTime inventingDate, byte[] photo, string name, Distance middleDistance, uint radius, bool hasAtmosphere, PlanetType type, string star, string galaxy, uint? temperature = 0, IEnumerable<DBMoon> moons = null)
+        public DBPlanet(DateTime inventingDate, byte[] photo, string name, Distance middleDistance, uint radius, bool hasAtmosphere, PlanetType type, string star, string galaxy, uint? temperature = 0, HashSet<Moon> moons = null)
             //base(inventingDate, photo, name, middleDistance, radius, temperature)
         {
             HasAtmosphere = hasAtmosphere;
             Type = type;
-            if (moons != null) Moons = new HashSet<DBMoon>(moons);
+            Moons = new Collection<DBMoon>();
+            if(moons != null)
+                foreach (var moon in moons)
+                    Moons.Add(new DBMoon(moon, Id));
+            //else Moons = new HashSet<DBMoon>();
+
             Photo = photo;
 
             Name = name;
@@ -77,24 +86,24 @@ namespace Web.Models.DataAccessPostgreSqlProvider
             return $"{Name}, Звезда: {Star}, Радиус: {Radius}";
         }
 
-        public DBPlanet(DBStar owner)
-        {
-            Star = owner.Name;
-            Galaxy = owner.Galaxy;
-            Moons = new HashSet<DBMoon>();
-        }
+        //public DBPlanet(DBStar owner)
+        //{
+        //    Star = owner.Name;
+        //    Galaxy = owner.Galaxy;
+        //    Moons = new HashSet<DBMoon>();
+        //}
 
         public DBPlanet(string owner, string galaxy)
         {
             //global::
             Star = owner;
             Galaxy = galaxy;//owner.Galaxy;
-            Moons = new HashSet<DBMoon>();
+            Moons = new Collection<DBMoon>();
         }
 
         public DBPlanet()
         {
-            Moons = new HashSet<DBMoon>();
+            Moons = new Collection<DBMoon>();
 
         }
 
@@ -106,7 +115,7 @@ namespace Web.Models.DataAccessPostgreSqlProvider
         /// </summary>
         public string Star { get; set; }
 
-        public readonly HashSet<DBMoon> Moons;
+        public virtual Collection<DBMoon> Moons { get; set; }
 
         /// <summary>
         /// Название галактики, в которой расположен объект
@@ -149,12 +158,11 @@ namespace Web.Models.DataAccessPostgreSqlProvider
         public uint? Temperature { get; set; }
         public DateTime InventingDate { get; set; }
 
-        public DBPlanet(Planet planet) : this(planet.InventingDate, planet.Photo, planet.Name, planet.MiddleDistance, planet.Radius, planet.HasAtmosphere, planet.Type, planet.Star, planet.Galaxy, planet.Temperature)
+        DBPlanet(Planet planet) : this(planet.InventingDate, planet.Photo, planet.Name, planet.MiddleDistance, planet.Radius, planet.HasAtmosphere, planet.Type, planet.Star, planet.Galaxy, planet.Temperature, planet.Moons)
         {
-
         }
 
-        public DBPlanet(Planet planet, int starId) : this(planet.InventingDate, planet.Photo, planet.Name, planet.MiddleDistance, planet.Radius, planet.HasAtmosphere, planet.Type, planet.Star, planet.Galaxy, planet.Temperature)
+        public DBPlanet(Planet planet, int starId) : this(planet)//this(planet.InventingDate, planet.Photo, planet.Name, planet.MiddleDistance, planet.Radius, planet.HasAtmosphere, planet.Type, planet.Star, planet.Galaxy, planet.Temperature)
         {
             this.StarId = starId;
         }

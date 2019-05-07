@@ -5,37 +5,38 @@
     Layout = "_Layout";
 }
 
-<h2>Planet View</h2>
+<h2 align="center">Planet View</h2>
 <h2 align="center">@Model.Name</h2>
 <style>
     .mystyle {
         font-size: 20px;
         font-family: "Times new roman";
         font-style: initial;
+        text-align: center;
+        background-color: rgb(10, 10, 20);
     }
 </style>
-<div class="mystyle">
-    <img src="GetPlanetImage?id=@Model.Id" />
+
+<ol class="list-group" align="center">
+    <img class="thumbnail" width="1000" height="600" src="GetPlanetImage?id=@Model.Id" />
     Photo
-    <hr />
-    <br />
-    Galaxy: @Model.Galaxy
-    <br />
-    Radius: @Model.Radius
-    <br />
-    Temperature: @Model.Temperature
-    <br />
-    Inventing Date: @Model.InventingDate
-    <br />
-    Middle Distance: @Model.MiddleDistanceValue @Model.MiddleDistanceUnit
-    <br />
-    @*Moons:
-    <ol>
-        @foreach (var planet in Model.Moons)
-        {
-            <li>
-                <a href="PlanetView?starId=@Model.Id&planetId=@planet.Id">@planet.Name;</a>
-            </li>
-        }
-    </ol>*@
-</div>
+    <li class="list-group-item list-group-item-text mystyle">Galaxy: @Model.Galaxy</li>
+    <li class="list-group-item list-group-item-text mystyle">Radius: @Model.Radius</li>
+    <li class="list-group-item list-group-item-text mystyle">
+        Temperature: @Model.Temperature
+    </li>
+    <li class="list-group-item list-group-item-text mystyle">Inventing Date: @Model.InventingDate</li>
+    <li class="list-group-item list-group-item-text mystyle">Middle Distance: @Model.MiddleDistanceValue @Model.MiddleDistanceUnit</li>
+    <li class="list-group-item list-group-item-text mystyle">Star owner: @Model.Star</li>
+    <li class="list-group-item list-group-item-text mystyle">Type: @Model.Type</li>
+    <li class="list-group-item list-group-item-text mystyle">Atmosphere: @Model.HasAtmosphere</li>
+    Moons:
+        <ol>
+            @foreach (var planet in Model.Moons)
+            {
+                <li>
+                    <a href="MoonView?moonId=@planet.Id">@planet.Name;</a>
+                </li>
+            }
+        </ol>
+</ol>

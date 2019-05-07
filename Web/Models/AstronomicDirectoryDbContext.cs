@@ -28,6 +28,8 @@ namespace Web.Models.DataAccessPostgreSqlProvider
 
         public DbSet<DBStar> Stars { get; set; }
         public DbSet<DBPlanet> Planets { get; set; }
+        public DbSet<DBMoon> Moons { get; set; }
+
         public static string ConnectionString { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

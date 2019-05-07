@@ -38,8 +38,12 @@ namespace Web.Controllers
                 //if (db.Stars.FirstOrDefault(s => s.Name == st.Name) == null)
                 //{
                 db.Stars.Add(dbs);
-                db.SaveChanges();
                 db.Planets.AddRange(dbs.Planets);
+                db.Moons.AddRange(dbs.Planets.SelectMany(pl => pl.Moons));
+                //foreach (var pl in dbs.Planets)
+                //    if(pl.Moons != null)
+
+                db.SaveChanges();
                 //}
             }
             return View(dbs);
@@ -50,6 +54,7 @@ namespace Web.Controllers
             using (var db = new AstronomicDirectoryDbContext())
             {
                 var dbs = db.Stars.Find(id);
+                dbs.Planets = new Collection<DBPlanet>(db.Planets.Where(pl => pl.StarId == dbs.Id).ToList());
                 return View(dbs);
             }
         }
@@ -95,7 +100,18 @@ namespace Web.Controllers
                 //var star = db.Stars.Find(starId);//.Planets.First(pl => pl.Id == planetId);
                 //var planet = star.Planets.First(pl => pl.Id == planetId);
                 var planet = db.Planets.First(p => p.Id == planetId && p.StarId == starId);
+                foreach (var dbMoon in db.Moons.Where(pl => pl.PlanetId == planetId))
+                { }
+                //planet.Moons.Add(dbMoon);
                 return View(planet);
+            }
+        }
+
+        public IActionResult MoonView(int moonId)
+        {
+            using (var db = new AstronomicDirectoryDbContext())
+            {
+                return View(db.Moons.Find(moonId));
             }
         }
 
