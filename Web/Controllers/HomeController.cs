@@ -10,6 +10,7 @@ using AstronomicDirectory;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Web.Models;
 using Web.Models.DataAccessPostgreSqlProvider;
@@ -42,9 +43,10 @@ namespace Web.Controllers
                 db.Moons.AddRange(dbs.Planets.SelectMany(pl => pl.Moons));
                 //foreach (var pl in dbs.Planets)
                 //    if(pl.Moons != null)
-
+                
                 db.SaveChanges();
                 //}
+                
             }
             return View(dbs);
         }
@@ -54,7 +56,10 @@ namespace Web.Controllers
             using (var db = new AstronomicDirectoryDbContext())
             {
                 var dbs = db.Stars.Find(id);
-                dbs.Planets = new Collection<DBPlanet>(db.Planets.Where(pl => pl.StarId == dbs.Id).ToList());
+                //dbs.Planets = new Collection<DBPlanet>(db.Planets.Where(pl => pl.StarId == dbs.Id).ToList());
+                db.Planets.Load();
+                //foreach (var planet in db.Planets/*.Where(pl => pl.StarId == dbs.Id)*/)
+                //{ }
                 return View(dbs);
             }
         }
@@ -96,13 +101,11 @@ namespace Web.Controllers
         {
             using (var db = new AstronomicDirectoryDbContext())
             {
-                //var stars = db.Stars
-                //var star = db.Stars.Find(starId);//.Planets.First(pl => pl.Id == planetId);
-                //var planet = star.Planets.First(pl => pl.Id == planetId);
                 var planet = db.Planets.First(p => p.Id == planetId && p.StarId == starId);
-                foreach (var dbMoon in db.Moons.Where(pl => pl.PlanetId == planetId))
-                { }
-                //planet.Moons.Add(dbMoon);
+                //foreach (var dbMoon in db.Moons/*.Where(pl => pl.PlanetId == planetId)*/)
+                //{ }
+                db.Moons.Load();
+
                 return View(planet);
             }
         }
