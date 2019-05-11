@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
 using AstronomicDirectory;
+using System.Net;
 
 namespace Form
 {
@@ -91,6 +92,7 @@ namespace Form
         {
             if (photo == null) return null;
             var stream = new MemoryStream();
+            
             photo.Save(stream, ImageFormat.Jpeg);
             return stream.ToArray();
         }

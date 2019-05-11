@@ -1,0 +1,53 @@
+﻿@model Web.Models.DataAccessPostgreSqlProvider.DBStar
+
+@{
+    ViewBag.Title = "Add star";
+    Layout = "_Layout";
+}
+
+<h2>Add star</h2>
+<style>
+    .mystyle {
+        font-size: 20px;
+        font-family: "Times new roman";
+        font-style: initial;
+    }
+    input {
+        font-size: 20px;
+        font-family: "Times new roman";
+        font-style: initial;
+        color: black;
+    }
+</style>
+<form asp-action ="AddStar" asp-controller="Home" method="post" class="mystyle" enctype="multipart/form-data">
+    Photo
+    <input type="file" name="Photo"/>
+    <hr />
+    Name: <input name ="Name" type="text"/>
+    <br />
+    Galaxy: <input name ="Galaxy" type="text"/>
+    <br />
+    Radius: <input name="Radius" type="number" />
+    <br />
+    Temperature: <input name="Temperature" type="number" />
+    <br />
+    Inventing Date: <input name="Date" type="date" />
+    <br />
+    Middle Distance: <input name="Dist" type="number" /> <select name="Unit">
+    <option>Kilometers</option>
+    <option>LightYears</option>
+    <option>AstronomicUnits</option>
+</select>
+    <br />
+    @*Planets:
+    <ol>
+        @foreach (var planet in Model.Planets)
+        {
+            <li>
+                <a href="PlanetView?starId=@Model.Id&planetId=@planet.Id">@planet.Name;</a>
+            </li>
+        }
+
+    </ol>*@
+    <input type="submit"/>
+</form>

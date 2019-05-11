@@ -1,11 +1,10 @@
 ﻿@model Web.Models.DataAccessPostgreSqlProvider.DBMoon
 
 @{
-    ViewBag.Title = "Moon";
+    ViewBag.Title = @Model.Name;
     Layout = "_Layout";
 }
 
-<h2>Moon</h2>
 <h2 align="center">@Model.Name</h2>
 <style>
     .mystyle {
@@ -13,13 +12,17 @@
         font-family: "Times new roman";
         font-style: initial;
         text-align: center;
-        background-color: rgb(10, 10, 20);
+        color: black;
     }
 </style>
 
-<ol class="list-group" align="center">
+<ol class="list-group mystyle" align="center">
     <img class="thumbnail" width="1000" height="600" src="GetPlanetImage?id=@Model.Id" />
-    Photo
+    <br />
+    <b style="font-size: 20px;">Photo</b>
+    <br />
+    <br />
+
     <li class="list-group-item list-group-item-text mystyle">Galaxy: @Model.Galaxy</li>
     <li class="list-group-item list-group-item-text mystyle">Radius: @Model.Radius</li>
     <li class="list-group-item list-group-item-text mystyle">

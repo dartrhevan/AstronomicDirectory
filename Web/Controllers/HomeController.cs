@@ -51,6 +51,12 @@ namespace Web.Controllers
             return View(dbs);
         }
 
+        public IActionResult StarEditor()
+        {
+            var star = new DBStar();
+            return View(star);
+        }
+
         public IActionResult StarView(int id)
         {
             using (var db = new AstronomicDirectoryDbContext())
@@ -128,6 +134,32 @@ namespace Web.Controllers
             }
 
             return View(list);
+        }
+
+        [HttpPost]
+        public IActionResult AddStar(IFormFile Photo, string Name, string Galaxy, uint Radius, uint Temperature, DateTime Date, uint Dist, string Unit)
+        {
+            var str = Photo.OpenReadStream();
+            var ph = new byte[str.Length];
+            str.Read(ph, 0, ph.Length);
+            var dbs = new DBStar(Date, ph, Name, new Distance(Dist, Unit[0] == 'A' ? UnitType.AstronomicUnits : UnitType.LightYears), Radius, Temperature, Galaxy);
+            using (var db = new AstronomicDirectoryDbContext())
+            {
+                //if (db.Stars.FirstOrDefault(s => s.Name == st.Name) == null)
+                //{
+                db.Stars.Add(dbs);
+                db.Planets.AddRange(dbs.Planets);
+                db.Moons.AddRange(dbs.Planets.SelectMany(pl => pl.Moons));
+                //foreach (var pl in dbs.Planets)
+                //    if(pl.Moons != null)
+
+                db.SaveChanges();
+                //}
+
+            }
+
+            str.Close();
+            return View("~/Views/Home/StarView.cshtml", dbs);
         }
     }
 }

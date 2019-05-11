@@ -14,7 +14,7 @@
     }
 </style>
 
-<table class="table table-bordered table-striped mystyle">
+@*<table class="table table-bordered table-striped mystyle">
     <tbody>
         @foreach (var star in Model)
         {
@@ -25,4 +25,12 @@
             </tr>
         }
     </tbody>
-</table>
+</table>*@
+<ol class="list-group" align="center" style="background-color: black;">
+    @foreach (var star in Model)
+    {
+        <li class="list-group-item list-group-item-text mystyle">
+            <a href="StarView?id=@star.Id" style="color: black;">@star.Name</a>
+        </li>
+    }
+</ol>

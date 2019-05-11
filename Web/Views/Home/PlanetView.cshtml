@@ -13,13 +13,16 @@
         font-family: "Times new roman";
         font-style: initial;
         text-align: center;
-        background-color: rgb(10, 10, 20);
+        color: black;
     }
 </style>
 
-<ol class="list-group" align="center">
+<ol class="list-group" align="center" style="background-color: black;">
     <img class="thumbnail" width="1000" height="600" src="GetPlanetImage?id=@Model.Id" />
-    Photo
+    <br />
+    <b style="font-size: 20px;">Photo</b>
+    <br />
+    <br />
     <li class="list-group-item list-group-item-text mystyle">Galaxy: @Model.Galaxy</li>
     <li class="list-group-item list-group-item-text mystyle">Radius: @Model.Radius</li>
     <li class="list-group-item list-group-item-text mystyle">
@@ -30,13 +33,15 @@
     <li class="list-group-item list-group-item-text mystyle">Star owner: @Model.Star</li>
     <li class="list-group-item list-group-item-text mystyle">Type: @Model.Type</li>
     <li class="list-group-item list-group-item-text mystyle">Atmosphere: @Model.HasAtmosphere</li>
-    Moons:
+    <li class="list-group-item list-group-item-text mystyle">
+        Moons:
         <ol>
             @foreach (var planet in Model.Moons)
             {
                 <li>
-                    <a href="MoonView?moonId=@planet.Id">@planet.Name;</a>
+                    <a style="color: black;" href="MoonView?moonId=@planet.Id">@planet.Name;</a>
                 </li>
             }
         </ol>
+    </li>
 </ol>
