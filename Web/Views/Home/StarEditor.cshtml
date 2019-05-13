@@ -18,36 +18,43 @@
         font-style: initial;
         color: black;
     }
+    select {
+        font-size: 20px;
+        font-family: "Times new roman";
+        font-style: initial;
+        color: black;
+    }
+
 </style>
 <form asp-action ="AddStar" asp-controller="Home" method="post" class="mystyle" enctype="multipart/form-data">
     Photo
     <input type="file" name="Photo"/>
     <hr />
-    Name: <input name ="Name" type="text"/>
+    Name: <input name ="Name" type="text" value="@Model.Name"/>
     <br />
-    Galaxy: <input name ="Galaxy" type="text"/>
+    Galaxy: <input name ="Galaxy" type="text" value="@Model.Galaxy"/>
     <br />
-    Radius: <input name="Radius" type="number" />
+    Radius: <input name="Radius" type="number" value="@Model.Radius"/>
     <br />
-    Temperature: <input name="Temperature" type="number" />
+    Temperature: <input name="Temperature" type="number" value="@Model.Temperature" />
     <br />
-    Inventing Date: <input name="Date" type="date" />
+    Inventing Date: <input name="Date" type="date" value="@Model.InventingDate"/>
     <br />
-    Middle Distance: <input name="Dist" type="number" /> <select name="Unit">
+    Middle Distance: <input name="Dist" type="number" value="@Model.MiddleDistanceValue" /> <select name="Unit">
     <option>Kilometers</option>
     <option>LightYears</option>
     <option>AstronomicUnits</option>
 </select>
     <br />
-    @*Planets:
+    Planets:
     <ol>
         @foreach (var planet in Model.Planets)
         {
             <li>
-                <a href="PlanetView?starId=@Model.Id&planetId=@planet.Id">@planet.Name;</a>
+                @*<a href="PlanetView?starId=@Model.Id&planetId=@planet.Id">@planet.Name;</a>*@
             </li>
         }
-
-    </ol>*@
+        <a class="btn btn-primary" href="">Add</a>
+    </ol>
     <input type="submit"/>
 </form>

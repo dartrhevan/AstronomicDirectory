@@ -1,10 +1,11 @@
 ﻿@model Web.Models.DataAccessPostgreSqlProvider.DBMoon
 
 @{
-    ViewBag.Title = @Model.Name;
+    ViewBag.Title = "Просмотр спутника";
     Layout = "_Layout";
 }
 
+<h2 align="center">Просмотр спутника</h2>
 <h2 align="center">@Model.Name</h2>
 <style>
     .mystyle {
@@ -19,17 +20,17 @@
 <ol class="list-group mystyle" align="center">
     <img class="thumbnail" width="1000" height="600" src="GetPlanetImage?id=@Model.Id" />
     <br />
-    <b style="font-size: 20px;">Photo</b>
+    <b style="font-size: 20px;">Фото</b>
     <br />
     <br />
 
-    <li class="list-group-item list-group-item-text mystyle">Galaxy: @Model.Galaxy</li>
-    <li class="list-group-item list-group-item-text mystyle">Radius: @Model.Radius</li>
+    @* <li class="list-group-item list-group-item-text mystyle">Galaxy: @Model.Galaxy</li>*@
+    <li class="list-group-item list-group-item-text mystyle">Радиус: @Model.Radius</li>
     <li class="list-group-item list-group-item-text mystyle">
-        Temperature: @Model.Temperature
+        Температура: @Model.Temperature
     </li>
-    <li class="list-group-item list-group-item-text mystyle">Inventing Date: @Model.InventingDate</li>
-    <li class="list-group-item list-group-item-text mystyle">Middle Distance: @Model.MiddleDistanceValue @Model.MiddleDistanceUnit</li>
-    <li class="list-group-item list-group-item-text mystyle">Atmosphere: @Model.HasAtmosphere</li>
-    <li class="list-group-item list-group-item-text mystyle">PlanetOwner: @Model.PlanetOwner</li>
+    <li class="list-group-item list-group-item-text mystyle">Дата открытия: @Model.InventingDate</li>
+    <li class="list-group-item list-group-item-text mystyle">Среднее расстояние: @Model.MiddleDistanceValue @Model.MiddleDistanceUnit</li>
+    <li class="list-group-item list-group-item-text mystyle">Имеет ли атмосферу: @Model.HasAtmosphere</li>
+    <li class="list-group-item list-group-item-text mystyle">Планета: @Model.PlanetOwner</li>
 </ol>

@@ -33,7 +33,7 @@ namespace Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            //services.AddSession();
+            services.AddSession();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             var sqlConnectionString = Configuration.GetConnectionString("AstronomicDirectoryDbProvider");
@@ -41,9 +41,18 @@ namespace Web
             AstronomicDirectoryDbContext.ConnectionString = sqlConnectionString;
 
             services.AddDbContext<AstronomicDirectoryDbContext>(options =>
-                options.UseNpgsql(
+                    options.UseSqlServer(sqlConnectionString)
+                /*
+                 *
+                 *
+                 *
+                    options.UseNpgsql(
                     sqlConnectionString
                 )
+
+                *
+                *
+                */
             );
 
         }
@@ -64,7 +73,7 @@ namespace Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-            //app.UseSession();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

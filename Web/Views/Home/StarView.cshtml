@@ -2,10 +2,11 @@
 @model Web.Models.DataAccessPostgreSqlProvider.DBStar
 
 @{
-    ViewBag.Title = "Star";
+    ViewBag.Title = "Просмотр звезды";
     Layout = "_Layout";
 }
 
+<h2 align="center">Просмотр звезды</h2>
 <h2 align="center">@Model.Name</h2>
 <style>
     .mystyle {
@@ -15,21 +16,21 @@
     }
 </style>
 <div class="mystyle">
-    <img class="thumbnail" width="1000" height="600" src="GetImage?id=@Model.Id"/>
-    Photo
-    <hr/>
-    <br/>
-    Galaxy: @Model.Galaxy
-    <br/>
-    Radius: @Model.Radius
-    <br/>
-    Temperature: @Model.Temperature
-    <br/>
-    Inventing Date: @Model.InventingDate
-    <br/>
-    Middle Distance: @Model.MiddleDistanceValue @Model.MiddleDistanceUnit
-    <br/>
-    Planets:
+    <img class="thumbnail" width="1000" height="600" src="GetImage?id=@Model.Id" />
+    Фото
+    <hr />
+    <br />
+    Галактика: @Model.Galaxy
+    <br />
+    Радиус: @Model.Radius
+    <br />
+    Температура: @Model.Temperature
+    <br />
+    Дата открытия: @Model.InventingDate
+    <br />
+    Среднее расстояние: @Model.MiddleDistanceValue @Model.MiddleDistanceUnit
+    <br />
+    Планеты:
     <ol>
         @foreach (var planet in Model.Planets)
         {

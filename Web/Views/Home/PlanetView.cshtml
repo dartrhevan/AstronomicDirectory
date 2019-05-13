@@ -1,11 +1,11 @@
 ﻿@model Web.Models.DataAccessPostgreSqlProvider.DBPlanet
 
 @{
-    ViewBag.Title = "Planet View";
+    ViewBag.Title = "Просмотр планеты";
     Layout = "_Layout";
 }
 
-<h2 align="center">Planet View</h2>
+<h2 align="center">Просмотр планеты</h2>
 <h2 align="center">@Model.Name</h2>
 <style>
     .mystyle {
@@ -20,21 +20,20 @@
 <ol class="list-group" align="center" style="background-color: black;">
     <img class="thumbnail" width="1000" height="600" src="GetPlanetImage?id=@Model.Id" />
     <br />
-    <b style="font-size: 20px;">Photo</b>
+    <b style="font-size: 20px;">Фото</b>
     <br />
     <br />
-    <li class="list-group-item list-group-item-text mystyle">Galaxy: @Model.Galaxy</li>
-    <li class="list-group-item list-group-item-text mystyle">Radius: @Model.Radius</li>
+    <li class="list-group-item list-group-item-text mystyle">Радиус: @Model.Radius</li>
     <li class="list-group-item list-group-item-text mystyle">
-        Temperature: @Model.Temperature
+        Температура: @Model.Temperature
     </li>
-    <li class="list-group-item list-group-item-text mystyle">Inventing Date: @Model.InventingDate</li>
-    <li class="list-group-item list-group-item-text mystyle">Middle Distance: @Model.MiddleDistanceValue @Model.MiddleDistanceUnit</li>
-    <li class="list-group-item list-group-item-text mystyle">Star owner: @Model.Star</li>
-    <li class="list-group-item list-group-item-text mystyle">Type: @Model.Type</li>
-    <li class="list-group-item list-group-item-text mystyle">Atmosphere: @Model.HasAtmosphere</li>
+    <li class="list-group-item list-group-item-text mystyle">Дата открытия: @Model.InventingDate</li>
+    <li class="list-group-item list-group-item-text mystyle">Среднее расстояние: @Model.MiddleDistanceValue @Model.MiddleDistanceUnit</li>
+    <li class="list-group-item list-group-item-text mystyle">Звезда, вокруг которой вращается: @Model.Star</li>
+    <li class="list-group-item list-group-item-text mystyle">Тип: @Model.Type</li>
+    <li class="list-group-item list-group-item-text mystyle">Имеет ли атмосферу: @Model.HasAtmosphere</li>
     <li class="list-group-item list-group-item-text mystyle">
-        Moons:
+        Луны:
         <ol>
             @foreach (var planet in Model.Moons)
             {

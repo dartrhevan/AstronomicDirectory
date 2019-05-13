@@ -136,13 +136,41 @@ namespace Web.Controllers
             return View(list);
         }
 
+        static UnitType StringToUnit(string s)
+        {
+            switch (s[0])
+            {
+                case 'K':
+                    return UnitType.Kilometers;
+                case 'A':
+                    return UnitType.AstronomicUnits;
+                case 'L':
+                    return UnitType.LightYears;
+                default:
+                    throw new ArgumentException();
+            }
+        }
+
+        public IActionResult PlanetEditor(DBStar st)
+        {
+            //var pl = new DBPlanet();
+            //st.Planets.Add(pl);
+            return View(st);
+        }
+
         [HttpPost]
         public IActionResult AddStar(IFormFile Photo, string Name, string Galaxy, uint Radius, uint Temperature, DateTime Date, uint Dist, string Unit)
         {
-            var str = Photo.OpenReadStream();
-            var ph = new byte[str.Length];
-            str.Read(ph, 0, ph.Length);
-            var dbs = new DBStar(Date, ph, Name, new Distance(Dist, Unit[0] == 'A' ? UnitType.AstronomicUnits : UnitType.LightYears), Radius, Temperature, Galaxy);
+            byte[] ph = new byte[0];
+            if (Photo != null)
+            {
+                var str = Photo.OpenReadStream();
+                ph = new byte[str.Length];
+                str.Read(ph, 0, ph.Length);
+                str.Close();
+            }
+
+            var dbs = new DBStar(Date, ph, Name, new Distance(Dist, StringToUnit(Unit)), Radius, Temperature, Galaxy);
             using (var db = new AstronomicDirectoryDbContext())
             {
                 //if (db.Stars.FirstOrDefault(s => s.Name == st.Name) == null)
@@ -157,9 +185,27 @@ namespace Web.Controllers
                 //}
 
             }
-
-            str.Close();
             return View("~/Views/Home/StarView.cshtml", dbs);
+        }
+
+        [HttpPost]
+        public IActionResult AddPlanet(int StId, IFormFile Photo, string Name, string Galaxy, uint Radius, uint Temperature, DateTime Date, uint Dist, string Unit)
+        {
+            byte[] ph = new byte[0];
+            if (Photo != null)
+            {
+                var str = Photo.OpenReadStream();
+                ph = new byte[str.Length];
+                str.Read(ph, 0, ph.Length);
+                str.Close();
+            }
+
+            using (var db = new AstronomicDirectoryDbContext())
+            {
+                var st = db.Stars.Find(StId);
+                var planet = new DBPlanet(Date, ph, Name, new Distance(Dist, StringToUnit(Unit)), Radius, false, PlanetType.Gas, st) {StarId = StId};
+                return View("~/Views/Home/PlanetView.cshtml", planet);
+            }
         }
     }
 }

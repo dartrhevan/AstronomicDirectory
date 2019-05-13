@@ -34,7 +34,8 @@ namespace Web.Models.DataAccessPostgreSqlProvider
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(ConnectionString);
+            optionsBuilder.UseSqlServer(ConnectionString);
+            //optionsBuilder.UseNpgsql(ConnectionString);
             //UseNpgsql
             base.OnConfiguring(optionsBuilder);
         }
