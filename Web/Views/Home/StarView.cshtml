@@ -16,20 +16,29 @@
     }
 </style>
 <div class="mystyle">
-    <img class="thumbnail" width="1000" height="600" src="GetImage?id=@Model.Id" />
-    Фото
-    <hr />
-    <br />
+    <div class="container">
+        <div class="row">
+            <div class="col-md-11">
+                <img class="thumbnail" width="1000" height="600" src="GetImage?id=@Model.Id"/>
+                Фото
+            </div>
+            <div class="col-md-1">
+                <a class="btn mystyle btn-default" href="DownloadStar?id=@Model.Id">Скачать</a>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <br/>
     Галактика: @Model.Galaxy
-    <br />
+    <br/>
     Радиус: @Model.Radius
-    <br />
+    <br/>
     Температура: @Model.Temperature
-    <br />
+    <br/>
     Дата открытия: @Model.InventingDate
-    <br />
+    <br/>
     Среднее расстояние: @Model.MiddleDistanceValue @Model.MiddleDistanceUnit
-    <br />
+    <br/>
     Планеты:
     <ol>
         @foreach (var planet in Model.Planets)

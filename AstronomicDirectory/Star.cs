@@ -70,7 +70,7 @@ namespace AstronomicDirectory
         public string Name { get; set; }
         public Distance MiddleDistance { get; set; }
         public uint Radius { get; set; }
-        public uint? Temperature { get; set; }
+        public uint Temperature { get; set; }
         public DateTime InventingDate { get; set; } = DateTime.Now;
     }
 }

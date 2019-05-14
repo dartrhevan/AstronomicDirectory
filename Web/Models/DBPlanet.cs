@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using AstronomicDirectory;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
@@ -16,7 +17,7 @@ namespace Web.Models.DataAccessPostgreSqlProvider
             {
             }*/
 
-        public DBPlanet(DateTime inventingDate, byte[] photo, string name, Distance middleDistance, uint radius, bool hasAtmosphere, PlanetType type, DBStar star, uint? temperature = 0, HashSet<Moon> moons = null)
+        public DBPlanet(DateTime inventingDate, byte[] photo, string name, Distance middleDistance, uint radius, bool hasAtmosphere, PlanetType type, DBStar star, uint temperature = 0, HashSet<Moon> moons = null)
             //base(inventingDate, photo, name, middleDistance, radius, temperature)
         {
 
@@ -41,7 +42,7 @@ namespace Web.Models.DataAccessPostgreSqlProvider
 
         }
 
-        public DBPlanet(DateTime inventingDate, byte[] photo, string name, Distance middleDistance, uint radius, bool hasAtmosphere, PlanetType type, string star, string galaxy, uint? temperature = 0, HashSet<Moon> moons = null)
+        public DBPlanet(DateTime inventingDate, byte[] photo, string name, Distance middleDistance, uint radius, bool hasAtmosphere, PlanetType type, string star, string galaxy, uint temperature = 0, HashSet<Moon> moons = null)
             //base(inventingDate, photo, name, middleDistance, radius, temperature)
         {
             HasAtmosphere = hasAtmosphere;
@@ -69,6 +70,11 @@ namespace Web.Models.DataAccessPostgreSqlProvider
             Galaxy = galaxy;
         }
 
+        public Planet ToPlanet()
+        {
+            var planet = new Planet(InventingDate, Photo, Name, new Distance(MiddleDistanceValue, MiddleDistanceUnit), Radius, HasAtmosphere, Type, Star, Galaxy, Temperature, Moons.Select(m => m.ToMoon()));
+            return planet;
+        }
 
         public override bool Equals(object obj)
         {
@@ -155,7 +161,7 @@ namespace Web.Models.DataAccessPostgreSqlProvider
 
         //public Distance MiddleDistance { get; set; }
         public uint Radius { get; set; }
-        public uint? Temperature { get; set; }
+        public uint Temperature { get; set; }
         public DateTime InventingDate { get; set; }
 
         DBPlanet(Planet planet) : this(planet.InventingDate, planet.Photo, planet.Name, planet.MiddleDistance, planet.Radius, planet.HasAtmosphere, planet.Type, planet.Star, planet.Galaxy, planet.Temperature, planet.Moons)

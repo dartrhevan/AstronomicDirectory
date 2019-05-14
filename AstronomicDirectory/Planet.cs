@@ -32,9 +32,14 @@ namespace AstronomicDirectory
         {
             HasAtmosphere = hasAtmosphere;
             Type = type;
-            Star = Name;
+            Star = star;
             Galaxy = galaxy;
-
+            MiddleDistance = middleDistance;
+            InventingDate = inventingDate;
+            Photo = photo;
+            Name = name;
+            Radius = radius;
+            Temperature = temperature;
             if (moons != null) Moons = new HashSet<Moon>(moons);
         }
 
@@ -96,7 +101,7 @@ namespace AstronomicDirectory
         public string Name { get; set; }
         public Distance MiddleDistance { get; set; }
         public uint Radius { get; set; }
-        public uint? Temperature { get; set; }
+        public uint Temperature { get; set; }
         public DateTime InventingDate { get; set; } = DateTime.Now;
     }
 }

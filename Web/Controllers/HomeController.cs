@@ -57,6 +57,20 @@ namespace Web.Controllers
             return View(star);
         }
 
+        public FileContentResult DownloadStar(int id)
+        {
+            using (var db = new AstronomicDirectoryDbContext())
+            {
+                var dbs = db.Stars.Find(id);
+                db.Planets.Load();
+                db.Moons.Load();
+                var xml = new XmlSerializer(typeof(Star));
+                var str = new MemoryStream();
+                xml.Serialize(str, dbs.ToStar());
+                return File(str.ToArray(), "application/xml", dbs.Name + ".star");
+            }
+        }
+
         public IActionResult StarView(int id)
         {
             using (var db = new AstronomicDirectoryDbContext())

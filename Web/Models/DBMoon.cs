@@ -36,6 +36,17 @@ namespace Web.Models.DataAccessPostgreSqlProvider
         //    PlanetOwner = planetOwner;
         //}
 
+        public Moon ToMoon()
+        {
+            var moon = new Moon()
+            {
+                Galaxy = Galaxy, HasAtmosphere = HasAtmosphere, InventingDate = InventingDate,
+                MiddleDistance = new Distance(MiddleDistanceValue, MiddleDistanceUnit), Name = Name, Photo = Photo,
+                PlanetOwner = PlanetOwner, Radius = Radius, Star = Star, Temperature = Temperature, Moons = { }
+            };
+            return moon;
+        }
+
         public override string ToString()
         {
             return $"{Name}, Планета: {PlanetOwner}, Радиус: {Radius}";
@@ -55,7 +66,7 @@ namespace Web.Models.DataAccessPostgreSqlProvider
         public PlanetType Type { get; set; }
         public string Star { get; set; }
 
-        public DBMoon(DateTime inventingDate, byte[] photo, string name, Distance middleDistance, uint radius, bool hasAtmosphere, PlanetType type, string star, string galaxy, uint? temperature = 0)
+        public DBMoon(DateTime inventingDate, byte[] photo, string name, Distance middleDistance, uint radius, bool hasAtmosphere, PlanetType type, string star, string galaxy, uint temperature = 0)
             //base(inventingDate, photo, name, middleDistance, radius, temperature)
         {
             Photo = photo;
@@ -104,7 +115,7 @@ namespace Web.Models.DataAccessPostgreSqlProvider
         public uint MiddleDistanceValue { get; set; }
         public UnitType MiddleDistanceUnit { get; set; }
         public uint Radius { get; set; }
-        public uint? Temperature { get; set; }
+        public uint Temperature { get; set; }
         public DateTime InventingDate { get; set; }
     }
 }

@@ -24,7 +24,7 @@ namespace AstronomicDirectory
         /// <summary>
         /// Средняя температура на поверхности в Кельвинах, если не известна, то 0
         /// </summary>
-        uint? Temperature { get; set; }
+        uint Temperature { get; set; }
 
         /// <summary>
         /// Дата открытия

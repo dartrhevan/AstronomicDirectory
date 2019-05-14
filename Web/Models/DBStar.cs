@@ -35,7 +35,7 @@ namespace Web.Models
 
             }
 
-            public DBStar(Star st) : this(st.InventingDate, st.Photo, st.Name, st.MiddleDistance, st.Radius, st.Temperature.HasValue ? st.Temperature.Value : 0, st.Planets, st.Galaxy)
+            public DBStar(Star st) : this(st.InventingDate, st.Photo, st.Name, st.MiddleDistance, st.Radius, st.Temperature/*.HasValue ? st.Temperature.Value : 0*/, st.Planets, st.Galaxy)
             {
 
             }
@@ -81,6 +81,12 @@ namespace Web.Models
                 return -1696190688 + EqualityComparer<string>.Default.GetHashCode(Name);
             }
 
+            public Star ToStar()
+            {
+                var star = new Star(InventingDate, Photo, Name, new Distance(MiddleDistanceValue, MiddleDistanceUnit),
+                    Radius, Temperature, Planets.Select(pl => pl.ToPlanet()), Galaxy);
+                return star;
+            }
 
             [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
             public int Id { get; set; }
@@ -97,7 +103,7 @@ namespace Web.Models
 
             //public Distance MiddleDistance { get; set; }
             public uint Radius { get; set; }
-            public uint? Temperature { get; set; }
+            public uint Temperature { get; set; }
             public DateTime InventingDate { get; set; }
         }
     }
