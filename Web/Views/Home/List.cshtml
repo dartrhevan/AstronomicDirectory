@@ -1,4 +1,4 @@
-﻿@model System.Collections.Generic.List<Web.Models.DataAccessPostgreSqlProvider.DBStar>
+﻿@model System.Collections.Generic.List<Web.Models.DataAccessMySqlProvider.DBStar>
 
 @{
     ViewBag.Title = "Список звезд";
@@ -30,7 +30,7 @@
     @foreach (var star in Model)
     {
         <li class="list-group-item list-group-item-text mystyle">
-            <a href="StarView?id=@star.Id" style="color: black;">@star.Name</a>
+            <a href="~/Views/StarView?id=@star.Id" style="color: black;">@star.Name</a>
         </li>
     }
 </ol>

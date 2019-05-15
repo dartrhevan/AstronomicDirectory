@@ -1,4 +1,4 @@
-﻿@model Web.Models.DataAccessPostgreSqlProvider.DBStar
+﻿@model Web.Models.DataAccessMySqlProvider.DBStar
 
 @{
     ViewBag.Title = "Add star";
@@ -26,7 +26,17 @@
     }
 
 </style>
-<form asp-action ="AddStar" asp-controller="Home" method="post" class="mystyle" enctype="multipart/form-data">
+<script>
+    function onpladd() {
+        var d = document.getElementById('d');
+        var inp = document.getElementById('newPlanetName');
+        var a = document.getElementById('ref');
+        //d.innerHTML = d.innerHTML.concat('<br />' + inp.value);
+        d.innerHTML = inp.value + '<br />' + d.innerHTML;
+        a.href = "PlanetEditor?name=" + inp.value;
+    }
+</script>
+<form asp-action ="AddStar" asp-controller="Editors" method="post" class="mystyle" enctype="multipart/form-data">
     Photo
     <input type="file" name="Photo"/>
     <hr />
@@ -47,14 +57,17 @@
 </select>
     <br />
     Planets:
-    <ol>
-        @foreach (var planet in Model.Planets)
-        {
-            <li>
-                @*<a href="PlanetView?starId=@Model.Id&planetId=@planet.Id">@planet.Name;</a>*@
-            </li>
-        }
-        <a class="btn btn-primary" href="">Add</a>
-    </ol>
+    <details>
+        <ol id ="d">
+            @foreach (var planet in Model.Planets)
+            {
+                <li>
+                    <a href="PlanetView?starId=@Model.Id&planetId=@planet.Id">@planet.Name;</a>
+                </li>
+            }
+            <input id="newPlanetName"/>
+            <a class="btn btn-primary" href="PlanetEditor" onclick="onpladd()" id ="ref" target="_blank">Add</a>
+        </ol>
+    </details>
     <input type="submit"/>
 </form>

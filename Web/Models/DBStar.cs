@@ -5,13 +5,13 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using AstronomicDirectory;
-using Web.Models.DataAccessPostgreSqlProvider;
+using Web.Models.DataAccessMySqlProvider;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 
 namespace Web.Models
 {
-    namespace DataAccessPostgreSqlProvider
+    namespace DataAccessMySqlProvider
     {
         public class DBStar : IDbSpaceObject
         {

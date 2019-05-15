@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Web.Models;
-using Web.Models.DataAccessPostgreSqlProvider;
+using Web.Models.DataAccessMySqlProvider;
 
 namespace Web.Controllers
 {
@@ -25,64 +25,66 @@ namespace Web.Controllers
             return View();
         }
 
+        //[HttpPost]
+        //public IActionResult StarView(byte[] st)
+        //{
+        //    return null;
+        //}
 
-        [HttpPost]
-        public IActionResult StarView(IFormFile star)
-        {
-            var xml = new XmlSerializer(typeof(Star));
-            var fs = star.OpenReadStream();
-            var st = (Star)xml.Deserialize(fs);
-            fs.Close();
-            var dbs = new DBStar(st);
-            using (var db = new AstronomicDirectoryDbContext())
-            {
-                //if (db.Stars.FirstOrDefault(s => s.Name == st.Name) == null)
-                //{
-                db.Stars.Add(dbs);
-                db.Planets.AddRange(dbs.Planets);
-                db.Moons.AddRange(dbs.Planets.SelectMany(pl => pl.Moons));
-                //foreach (var pl in dbs.Planets)
-                //    if(pl.Moons != null)
+        //[HttpPost]
+        //public IActionResult StarView(IFormFile star)
+        //{
+        //    var xml = new XmlSerializer(typeof(Star));
+        //    var fs = star.OpenReadStream();
+        //    var st = (Star)xml.Deserialize(fs);
+        //    fs.Close();
+        //    var dbs = new DBStar(st);
+        //    using (var db = new AstronomicDirectoryDbContext())
+        //    {
+        //        //if (db.Stars.FirstOrDefault(s => s.Name == st.Name) == null)
+        //        //{
+        //        db.Stars.Add(dbs);
+        //        db.Planets.AddRange(dbs.Planets);
+        //        db.Moons.AddRange(dbs.Planets.SelectMany(pl => pl.Moons));
+        //        //foreach (var pl in dbs.Planets)
+        //        //    if(pl.Moons != null)
                 
-                db.SaveChanges();
-                //}
+        //        db.SaveChanges();
+        //        //}
                 
-            }
-            return View(dbs);
-        }
+        //    }
+        //    return View(dbs);
+        //}
 
-        public IActionResult StarEditor()
-        {
-            var star = new DBStar();
-            return View(star);
-        }
+        //public IActionResult StarEditor()
+        //{
+        //    var l = new List<DBPlanet>();
+        //    SaveToSession(l);
+        //    var star = new DBStar();
+        //    return View(star);
+        //}
 
-        public FileContentResult DownloadStar(int id)
-        {
-            using (var db = new AstronomicDirectoryDbContext())
-            {
-                var dbs = db.Stars.Find(id);
-                db.Planets.Load();
-                db.Moons.Load();
-                var xml = new XmlSerializer(typeof(Star));
-                var str = new MemoryStream();
-                xml.Serialize(str, dbs.ToStar());
-                return File(str.ToArray(), "application/xml", dbs.Name + ".star");
-            }
-        }
+        //private void SaveToSession(List<DBPlanet> l, XmlSerializer x = null)
+        //{
+        //    var xml = x??new XmlSerializer(l.GetType());
+        //    var str = new MemoryStream();
+        //    xml.Serialize(str, l);
+        //    HttpContext.Session.Set("planets", str.ToArray());
+        //}
 
-        public IActionResult StarView(int id)
-        {
-            using (var db = new AstronomicDirectoryDbContext())
-            {
-                var dbs = db.Stars.Find(id);
-                //dbs.Planets = new Collection<DBPlanet>(db.Planets.Where(pl => pl.StarId == dbs.Id).ToList());
-                db.Planets.Load();
-                //foreach (var planet in db.Planets/*.Where(pl => pl.StarId == dbs.Id)*/)
-                //{ }
-                return View(dbs);
-            }
-        }
+        //public FileContentResult DownloadStar(int id)
+        //{
+        //    using (var db = new AstronomicDirectoryDbContext())
+        //    {
+        //        var dbs = db.Stars.Find(id);
+        //        db.Planets.Load();
+        //        db.Moons.Load();
+        //        var xml = new XmlSerializer(typeof(Star));
+        //        var str = new MemoryStream();
+        //        xml.Serialize(str, dbs.ToStar());
+        //        return File(str.ToArray(), "application/xml", dbs.Name + ".star");
+        //    }
+        //}
 
         public IActionResult Privacy()
         {
@@ -99,45 +101,7 @@ namespace Web.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-        public ActionResult GetImage(int id)
-        {
-            using (var db = new AstronomicDirectoryDbContext())
-            {
-                return base.File(db.Stars.Find(id).Photo??new byte[] {}, "image/jpeg");
-            }
-        }
-
-        public ActionResult GetPlanetImage(int id)
-        {
-            using (var db = new AstronomicDirectoryDbContext())
-            {
-                return base.File(db.Planets.Find(id).Photo ?? new byte[] { }, "image/jpeg");
-            }
-        }
-
-
-        public IActionResult PlanetView(int starId, int planetId)
-        {
-            using (var db = new AstronomicDirectoryDbContext())
-            {
-                var planet = db.Planets.First(p => p.Id == planetId && p.StarId == starId);
-                //foreach (var dbMoon in db.Moons/*.Where(pl => pl.PlanetId == planetId)*/)
-                //{ }
-                db.Moons.Load();
-
-                return View(planet);
-            }
-        }
-
-        public IActionResult MoonView(int moonId)
-        {
-            using (var db = new AstronomicDirectoryDbContext())
-            {
-                return View(db.Moons.Find(moonId));
-            }
-        }
-
+        
         public IActionResult List()
         {
 
@@ -150,76 +114,99 @@ namespace Web.Controllers
             return View(list);
         }
 
-        static UnitType StringToUnit(string s)
-        {
-            switch (s[0])
-            {
-                case 'K':
-                    return UnitType.Kilometers;
-                case 'A':
-                    return UnitType.AstronomicUnits;
-                case 'L':
-                    return UnitType.LightYears;
-                default:
-                    throw new ArgumentException();
-            }
-        }
+        //static UnitType StringToUnit(string s)
+        //{
+        //    switch (s[0])
+        //    {
+        //        case 'K':
+        //            return UnitType.Kilometers;
+        //        case 'A':
+        //            return UnitType.AstronomicUnits;
+        //        case 'L':
+        //            return UnitType.LightYears;
+        //        default:
+        //            throw new ArgumentException();
+        //    }
+        //}
 
-        public IActionResult PlanetEditor(DBStar st)
-        {
-            //var pl = new DBPlanet();
-            //st.Planets.Add(pl);
-            return View(st);
-        }
+        //public IActionResult PlanetEditor(string name)
+        //{
+        //    //var pl = new DBPlanet();
+        //    //st.Planets.Add(pl);
+        //    return View(name);
+        //}
 
-        [HttpPost]
-        public IActionResult AddStar(IFormFile Photo, string Name, string Galaxy, uint Radius, uint Temperature, DateTime Date, uint Dist, string Unit)
-        {
-            byte[] ph = new byte[0];
-            if (Photo != null)
-            {
-                var str = Photo.OpenReadStream();
-                ph = new byte[str.Length];
-                str.Read(ph, 0, ph.Length);
-                str.Close();
-            }
+        //[HttpPost]
+        //public IActionResult AddStar(IFormFile Photo, string Name, string Galaxy, uint Radius, uint Temperature, DateTime Date, uint Dist, string Unit)
+        //{
+        //    byte[] ph = new byte[0];
+        //    if (Photo != null)
+        //    {
+        //        var str = Photo.OpenReadStream();
+        //        ph = new byte[str.Length];
+        //        str.Read(ph, 0, ph.Length);
+        //        str.Close();
+        //    }
 
-            var dbs = new DBStar(Date, ph, Name, new Distance(Dist, StringToUnit(Unit)), Radius, Temperature, Galaxy);
-            using (var db = new AstronomicDirectoryDbContext())
-            {
-                //if (db.Stars.FirstOrDefault(s => s.Name == st.Name) == null)
-                //{
-                db.Stars.Add(dbs);
-                db.Planets.AddRange(dbs.Planets);
-                db.Moons.AddRange(dbs.Planets.SelectMany(pl => pl.Moons));
-                //foreach (var pl in dbs.Planets)
-                //    if(pl.Moons != null)
+        //    var dbs = new DBStar(Date, ph, Name, new Distance(Dist, StringToUnit(Unit)), Radius, Temperature, Galaxy);
+        //                var xml = new XmlSerializer(typeof(List<DBPlanet>));
+        //    var stream = new MemoryStream(HttpContext.Session.Get("planets"));
+        //    //xml.Serialize(str, l);
+        //    var planets = xml.Deserialize(stream) as List<DBPlanet>;
+        //    foreach (var planet in planets)
+        //        dbs.Planets.Add(planet);
+        //    using (var db = new AstronomicDirectoryDbContext())
+        //    {
+        //        //if (db.Stars.FirstOrDefault(s => s.Name == st.Name) == null)
+        //        //{
+        //        db.Stars.Add(dbs);
+        //        db.Planets.AddRange(dbs.Planets);
+        //        db.Moons.AddRange(dbs.Planets.SelectMany(pl => pl.Moons));
+        //        //foreach (var pl in dbs.Planets)
+        //        //    if(pl.Moons != null)
 
-                db.SaveChanges();
-                //}
+        //        db.SaveChanges();
+        //        //}
 
-            }
-            return View("~/Views/Home/StarView.cshtml", dbs);
-        }
+        //    }
 
-        [HttpPost]
-        public IActionResult AddPlanet(int StId, IFormFile Photo, string Name, string Galaxy, uint Radius, uint Temperature, DateTime Date, uint Dist, string Unit)
-        {
-            byte[] ph = new byte[0];
-            if (Photo != null)
-            {
-                var str = Photo.OpenReadStream();
-                ph = new byte[str.Length];
-                str.Read(ph, 0, ph.Length);
-                str.Close();
-            }
+        //    return View("~/Views/Views/StarView.cshtml", dbs);
+        //}
 
-            using (var db = new AstronomicDirectoryDbContext())
-            {
-                var st = db.Stars.Find(StId);
-                var planet = new DBPlanet(Date, ph, Name, new Distance(Dist, StringToUnit(Unit)), Radius, false, PlanetType.Gas, st) {StarId = StId};
-                return View("~/Views/Home/PlanetView.cshtml", planet);
-            }
-        }
+        //[HttpPost]
+        //public IActionResult AddPlanet(IFormFile Photo, string Name, string Galaxy, uint Radius, uint Temperature, DateTime Date, uint Dist, string Unit)
+        //{
+        //    byte[] ph = new byte[0];
+        //    if (Photo != null)
+        //    {
+        //        var str = Photo.OpenReadStream();
+        //        ph = new byte[str.Length];
+        //        str.Read(ph, 0, ph.Length);
+        //        str.Close();
+        //    }
+
+        //    //var l = new List<DBPlanet>();
+        //    var xml = new XmlSerializer(typeof(List<DBPlanet>));
+        //    var stream = new MemoryStream(HttpContext.Session.Get("planets"));
+        //    //xml.Serialize(str, l);
+        //    var planets = xml.Deserialize(stream) as List<DBPlanet>;
+
+        //    using (var db = new AstronomicDirectoryDbContext())
+        //    {
+        //        //var st = db.Stars.Find(StId);
+        //        var planet = new DBPlanet(Date, ph, Name, new Distance(Dist, StringToUnit(Unit)), Radius, false, PlanetType.Gas, "", Galaxy, Temperature);
+        //        planets.Add(planet);
+
+        //        //var l = new List<DBPlanet>();
+        //        //var xml = new XmlSerializer(l.GetType());
+        //        //var str = new MemoryStream();
+        //        //xml.Serialize(str, planets);
+        //        //HttpContext.Session.Set("planets", str.ToArray());
+        //        SaveToSession(planets, xml);
+
+        //        return View("~/Views/Views/PlanetView.cshtml", planet);
+        //    }
+
+        //}
     }
 }

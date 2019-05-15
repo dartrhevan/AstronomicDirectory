@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 
 
-namespace Web.Models.DataAccessPostgreSqlProvider
+namespace Web.Models.DataAccessMySqlProvider
 {
     public class DBPlanet : IDbSpaceObject
     {

@@ -1,5 +1,5 @@
-﻿@using Web.Models.DataAccessPostgreSqlProvider
-@model Web.Models.DataAccessPostgreSqlProvider.DBStar
+﻿@using Web.Models.DataAccessMySqlProvider
+@model string
 
 @{
     ViewBag.Title = "Add Planet";
@@ -28,23 +28,23 @@
     }
 
 </style>
-<form asp-action="AddPlanet" asp-fragment="" asp-controller="Home" method="post" class="mystyle" enctype="multipart/form-data">
+<form asp-action="AddPlanet" asp-fragment="" asp-controller="Editors" method="post" class="mystyle" enctype="multipart/form-data">
 
-    <input type="hidden" value="@Model.Id" name="StId" />
+    <input type="hidden" @*value="@Model.Id"*@ name="StId" />
     Photo
     <input type="file" name="Photo" />
     <hr />
-    Name: <input name="Name" type="text" value="@Model.Name" />
+    Name: <input name="Name" type="text" value="@Model" />
     <br />
-    Galaxy: <input name="Galaxy" type="text" value="@Model.Galaxy" />
+    Galaxy: <input name="Galaxy" type="text" @*value="@Model.Galaxy"*@ />
     <br />
-    Radius: <input name="Radius" type="number" value="@Model.Radius" />
+    Radius: <input name="Radius" type="number" @*value="@Model.Radius"*@ />
     <br />
-    Temperature: <input name="Temperature" type="number" value="@Model.Temperature" />
+    Temperature: <input name="Temperature" type="number" @*value="@Model.Temperature"*@ />
     <br />
-    Inventing Date: <input name="Date" type="date" value="@Model.InventingDate" />
+    Inventing Date: <input name="Date" type="date" @*value="@Model.InventingDate"*@ />
     <br />
-    Middle Distance: <input name="Dist" type="number" value="@Model.MiddleDistanceValue" /> <select name="Unit">
+    Middle Distance: <input name="Dist" type="number" @*value="@Model.MiddleDistanceValue"*@ /> <select name="Unit">
         <option>Kilometers</option>
         <option>LightYears</option>
         <option>AstronomicUnits</option>
