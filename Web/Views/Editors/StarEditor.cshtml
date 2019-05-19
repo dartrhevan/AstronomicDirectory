@@ -1,11 +1,11 @@
 ﻿@model Web.Models.DataAccessMySqlProvider.DBStar
 
 @{
-    ViewBag.Title = "Add star";
+    ViewBag.Title = "Добавить звезду";
     Layout = "_Layout";
 }
 
-<h2>Add star</h2>
+<h2>Добавить звезду</h2>
 <style>
     .mystyle {
         font-size: 20px;
@@ -24,49 +24,44 @@
         font-style: initial;
         color: black;
     }
+    label {
+        font-size: 16px;
+        font-family: "Times new roman";
+        font-style: initial;
+        color: red;
+    }
 
 </style>
-<script>
-    function onpladd() {
-        var d = document.getElementById('d');
-        var inp = document.getElementById('newPlanetName');
-        var a = document.getElementById('ref');
-        //d.innerHTML = d.innerHTML.concat('<br />' + inp.value);
-        d.innerHTML = inp.value + '<br />' + d.innerHTML;
-        a.href = "PlanetEditor?name=" + inp.value;
-    }
+<script src="js/site.js">
 </script>
 <form asp-action ="AddStar" asp-controller="Editors" method="post" class="mystyle" enctype="multipart/form-data">
-    Photo
+    Фото
     <input type="file" name="Photo"/>
     <hr />
-    Name: <input name ="Name" type="text" value="@Model.Name"/>
+    Имя: <input name ="Name" type="text" id="n" value="@Model.Name"/>
     <br />
-    Galaxy: <input name ="Galaxy" type="text" value="@Model.Galaxy"/>
+    Галактика: <input name ="Galaxy" type="text" id="g" value="@Model.Galaxy"/>
     <br />
-    Radius: <input name="Radius" type="number" value="@Model.Radius"/>
+    Радиус: <input name="Radius" type="number" value="@Model.Radius"/>
     <br />
-    Temperature: <input name="Temperature" type="number" value="@Model.Temperature" />
+    Температура: <input name="Temperature" type="number" value="@Model.Temperature" />
     <br />
-    Inventing Date: <input name="Date" type="date" value="@Model.InventingDate"/>
+    Дата открытия: <input name="Date" type="date" value="@Model.InventingDate"/>
     <br />
-    Middle Distance: <input name="Dist" type="number" value="@Model.MiddleDistanceValue" /> <select name="Unit">
+    Среднее расстояние: <input name="Dist" type="number" value="@Model.MiddleDistanceValue" /> <select name="Unit">
     <option>Kilometers</option>
     <option>LightYears</option>
     <option>AstronomicUnits</option>
 </select>
     <br />
-    Planets:
+    Планеты:
     <details>
-        <ol id ="d">
-            @foreach (var planet in Model.Planets)
-            {
-                <li>
-                    <a href="PlanetView?starId=@Model.Id&planetId=@planet.Id">@planet.Name;</a>
-                </li>
-            }
-            <input id="newPlanetName"/>
-            <a class="btn btn-primary" href="PlanetEditor" onclick="onpladd()" id ="ref" target="_blank">Add</a>
+        <ol id="d" class="list-group">
+            <li class="list-group-item list-group-item-info">            
+                <input id="newPlanetName" />
+                <label id="err"></label>
+                <a class="btn btn-primary" onclick="onpladd()">Добавить</a>
+            </li>
         </ol>
     </details>
     <input type="submit"/>

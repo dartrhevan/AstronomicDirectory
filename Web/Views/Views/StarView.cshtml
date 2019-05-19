@@ -24,6 +24,7 @@
             </div>
             <div class="col-md-1">
                 <a class="btn mystyle btn-default" href="DownloadStar?id=@Model.Id">Скачать</a>
+                <a class="btn mystyle btn-default" href="Print?id=@Model.Id">Скачать Excell</a>
             </div>
         </div>
     </div>
@@ -44,7 +45,7 @@
         @foreach (var planet in Model.Planets)
         {
             <li>
-                <a href="PlanetView?starId=@Model.Id&planetId=@planet.Id">@planet.Name;</a>
+                <a href="~/Views/PlanetView?starId=@Model.Id&planetId=@planet.Id">@planet.Name;</a>
             </li>
         }
 

@@ -1,12 +1,11 @@
-﻿@using Web.Models.DataAccessMySqlProvider
-@model Tuple<string, string, string>
+﻿@model System.Tuple<string, string, string>
 
 @{
-    ViewBag.Title = "Добавление планеты";
+    ViewBag.Title = "Добавление спутника";
     Layout = "_Layout";
 }
 
-<h2>Add Planet</h2>
+<h2>Добавление спутника</h2>
 
 <style>
     .mystyle {
@@ -14,32 +13,33 @@
         font-family: "Times new roman";
         font-style: initial;
     }
+
     input {
         font-size: 20px;
         font-family: "Times new roman";
         font-style: initial;
         color: black;
     }
+
     select {
         font-size: 20px;
         font-family: "Times new roman";
         font-style: initial;
         color: black;
     }
-
 </style>
 <script src="js/site.js">
-        </script>
+</script>
 
-<form asp-action="AddPlanet" asp-fragment="" asp-controller="Editors" method="post" class="mystyle" enctype="multipart/form-data">
+<form asp-action="AddMoon" asp-fragment="" asp-controller="Editors" method="post" class="mystyle" enctype="multipart/form-data">
 
     <input type="hidden" @*value="@Model.Id" *@ name="StId" />
     Фото
     <input type="file" name="Photo" />
     <hr />
-    Имя: <input name="Name" type="text" value="@Model.Item1" id ="n" readonly="readonly" />
+    Имя: <input name="Name" type="text" value="@Model.Item1" id="n" readonly="readonly" />
     <br />
-    Галактика: <input name="Galaxy" type="text" value="@Model.Item3" id = "g" readonly="readonly" />
+    Галактика: <input name="Galaxy" type="text" value="@Model.Item3" id="g" readonly="readonly" />
     <br />
     Радиус: <input name="Radius" type="number" @*value="@Model.Radius" *@ />
     <br />
@@ -47,7 +47,7 @@
     <br />
     Дата открытия: <input name="Date" type="date" @*value="@Model.InventingDate" *@ />
     <br />
-    Звезда, вокрун которой вращается: <input name="Name" type="text" value="@Model.Item2" readonly="readonly" />
+    Планета, вокрун которой вращается: <input name="Name" type="text" value="@Model.Item2" readonly="readonly" />
     <br />
     Среднее расстояние: <input name="Dist" type="number" @*value="@Model.MiddleDistanceValue" *@ /> <select name="Unit">
         <option>Kilometers</option>
@@ -56,18 +56,5 @@
     </select>
     <br />
     Имеет атмосферу: <input type="checkbox" name="atm" />
-    <br />
-    Имеет твёрдую поверхность: <input type="checkbox" name="type" />
-    <br />/>
-    Спутники:
-    <details>
-        <ol id="d" class="list-group">
-            <li class="list-group-item list-group-item-info">
-                <input id="newPlanetName" />
-                <label id="err"></label>
-                <a class="btn btn-primary" onclick="onpladd('MoonEditor')">Добавить</a>
-            </li>
-        </ol>
-    </details>
     <input type="submit" />
 </form>

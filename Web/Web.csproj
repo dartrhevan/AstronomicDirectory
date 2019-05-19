@@ -5,10 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="template.xlsx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="template.xlsx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.1.2" />
+    <PackageReference Include="NPOI" Version="2.4.1" />
   </ItemGroup>
 
   <ItemGroup>
