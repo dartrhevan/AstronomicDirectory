@@ -69,7 +69,7 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddMoon(IFormFile Photo, string Name, string Galaxy, uint Radius, uint Temperature, DateTime Date, uint Dist, string Unit)
+        public IActionResult AddMoon(IFormFile Photo, string Name, string Galaxy, uint Radius, uint Temperature, DateTime Date, string Pl, uint Dist, string Unit)
         {
             byte[] ph = new byte[0];
             if (Photo != null)
@@ -84,7 +84,7 @@ namespace Web.Controllers
             var moons = xml.Deserialize(stream) as List<DBMoon>;
             using (var db = new AstronomicDirectoryDbContext())
             {
-                var moon = new DBMoon(Date, ph, Name, new Distance(Dist, StringToUnit(Unit)), Radius, false, PlanetType.Gas, "", Galaxy, Temperature);
+                var moon = new DBMoon(Date, ph, Name, new Distance(Dist, StringToUnit(Unit)), Radius, false, PlanetType.Gas, "", Galaxy, Temperature){PlanetOwner = Pl};
                 moons.Add(moon);
                 //moon.Id = -1;
                 SaveToSession(moons, xml, "moons");
@@ -97,7 +97,7 @@ namespace Web.Controllers
 
 
         [HttpPost]
-        public IActionResult AddPlanet(IFormFile Photo, string Name, string Galaxy, uint Radius, uint Temperature, DateTime Date, uint Dist, string Unit, bool atm, bool type)
+        public IActionResult AddPlanet(IFormFile Photo, string Name, string Galaxy, uint Radius, uint Temperature, DateTime Date, string St, uint Dist, string Unit, bool atm, bool type)
         {
             byte[] ph = new byte[0];
             if (Photo != null)
@@ -112,7 +112,7 @@ namespace Web.Controllers
             var planets = xml.Deserialize(stream) as List<DBPlanet>;
             using (var db = new AstronomicDirectoryDbContext())
             {
-                var planet = new DBPlanet(Date, ph, Name, new Distance(Dist, StringToUnit(Unit)), Radius, atm, type?PlanetType.Tought : PlanetType.Gas, "", Galaxy, Temperature);
+                var planet = new DBPlanet(Date, ph, Name, new Distance(Dist, StringToUnit(Unit)), Radius, atm, type?PlanetType.Tought : PlanetType.Gas, "", Galaxy, Temperature){Star = St};
                 var mx = new XmlSerializer(typeof(List<DBMoon>));
                 var st = new MemoryStream(HttpContext.Session.Get("moons"));
                 var moons = mx.Deserialize(st) as List<DBMoon>;
