@@ -47,9 +47,9 @@
     Фото
     <input type="file" class="btn btn-default btn-block" style="background-color: black; color: whitesmoke;" name="Photo" />
     <hr />
-    Имя: <input name="Name" type="text" value="@Model.Item1" id ="n" readonly="readonly" />
+    Имя: <input name="Name" type="text" value="@Model.Item1" id="n" readonly="readonly" />
     <br />
-    Галактика: <input name="Galaxy" type="text" value="@Model.Item3" id = "g" readonly="readonly" />
+    Галактика: <input name="Galaxy" type="text" value="@Model.Item3" id="g" readonly="readonly" />
     <br />
     Радиус: <input name="Radius" type="number" @*value="@Model.Radius" *@ />
     <br />
@@ -65,9 +65,9 @@
         <option>AstronomicUnits</option>
     </select>
     <br />
-    Имеет атмосферу: <input type="checkbox" name="atm" />
+    Имеет атмосферу: @Html.CheckBox("atm", false)
     <br />
-    Имеет твёрдую поверхность: <input type="checkbox" name="type" />
+    Имеет твёрдую поверхность: @Html.CheckBox("type", false)
     <br />
     Спутники:
     <details>
@@ -79,5 +79,5 @@
             </li>
         </ol>
     </details>
-    <input type="submit"/>
+    <input type="submit" />
 </form>

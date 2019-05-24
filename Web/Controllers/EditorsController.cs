@@ -52,7 +52,7 @@ namespace Web.Controllers
             }
             var dbs = new DBStar(Date, ph, Name, new Distance(Dist, StringToUnit(Unit)), Radius, Temperature, Galaxy);
             var xml = new XmlSerializer(typeof(List<DBPlanet>));
-            var stream = new MemoryStream(HttpContext.Session.Get("planets"));
+            var stream = new MemoryStream(HttpContext.Session.Get("planets")??new byte[0]);
             var planets = xml.Deserialize(stream) as List<DBPlanet>;
             foreach (var planet in planets)
                 dbs.Planets.Add(planet);

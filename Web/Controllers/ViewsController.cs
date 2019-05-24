@@ -81,6 +81,7 @@ namespace Web.Controllers
                 }
                 else
                 {
+                    db.Planets.Load();
                     var planet = db.Planets.Find(id);
                     contents = planet.Photo ?? new byte[0];
                 }

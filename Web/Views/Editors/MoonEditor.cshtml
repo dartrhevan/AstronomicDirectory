@@ -33,7 +33,7 @@
 
 <form asp-action="AddMoon" class="form-group" asp-fragment="" asp-controller="Editors" method="post" enctype="multipart/form-data">
 
-    <input  type="hidden" @*value="@Model.Id" *@ name="StId" />
+    <input type="hidden" @*value="@Model.Id" *@ name="StId" />
     Фото
     <input type="file" class="btn btn-default btn-block" style="background-color: black; color: whitesmoke;" name="Photo" />
     <hr />
@@ -55,7 +55,7 @@
         <option>AstronomicUnits</option>
     </select>
     <br />
-    Имеет атмосферу: <input type="checkbox" name="atm" />
-    <br/>
+    Имеет атмосферу: @Html.CheckBox("atm", false)@*<input type="checkbox" name="atm" />*@
+    <br />
     <input type="submit" />
 </form>
