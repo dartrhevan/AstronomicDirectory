@@ -20,7 +20,6 @@
 <body style ="background-color: black; color: whitesmoke;">
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -29,10 +28,15 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Главная</a>
-                <a asp-area="" asp-controller="Home" asp-action="Uploading" class="navbar-brand">Загрузка файла</a>
-                <a asp-area="" asp-controller="Home" asp-action="List" class="navbar-brand">Список загруженных звёзд</a>                
-                <a asp-area="" asp-controller="Editors" asp-action="StarEditor" class="navbar-brand">Добавить звезду</a>
 
+            </div>
+            <div class="navbar-collapse collapse">
+                @*<ul class="nav navbar-nav">
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Главная</a>
+        </ul>*@
+                <a asp-area="" asp-controller="Home" asp-action="Uploading" class="navbar-brand">Загрузка файла</a>
+                <a asp-area="" asp-controller="Editors" asp-action="StarEditor" class="navbar-brand">Добавить звезду</a>
+                <a asp-area="" asp-controller="Home" asp-action="List" class="navbar-brand">Список загруженных звёзд</a>
             </div>
         </div>
     </nav>

@@ -6,6 +6,9 @@
     Layout = "_Layout";
 }
 
+
+@*@System.Web.Optimization.Scripts.Render("~/scripts/validate.min.js")*@
+
 <h2>Add Planet</h2>
 
 <style>
@@ -28,14 +31,21 @@
     }
 
 </style>
+
 <script src="js/site.js">
-        </script>
+</script>
 
-<form asp-action="AddPlanet" asp-fragment="" asp-controller="Editors" method="post" class="mystyle" enctype="multipart/form-data">
+<script>
+    function f() {
+        var a = 3 + 3;
 
-    <input type="hidden" @*value="@Model.Id" *@ name="StId" />
+    }
+</script>
+<form asp-action="AddPlanet" class="form-group" asp-fragment="" asp-controller="Editors" method="post" class="mystyle" enctype="multipart/form-data">
+
+    @*<input type="hidden" @*value="@Model.Id" * name="StId" />*@
     Фото
-    <input type="file" name="Photo" />
+    <input type="file" class="btn btn-default btn-block" style="background-color: black; color: whitesmoke;" name="Photo" />
     <hr />
     Имя: <input name="Name" type="text" value="@Model.Item1" id ="n" readonly="readonly" />
     <br />
@@ -58,7 +68,7 @@
     Имеет атмосферу: <input type="checkbox" name="atm" />
     <br />
     Имеет твёрдую поверхность: <input type="checkbox" name="type" />
-    <br />/>
+    <br />
     Спутники:
     <details>
         <ol id="d" class="list-group">
@@ -69,5 +79,5 @@
             </li>
         </ol>
     </details>
-    <input type="submit" />
+    <input type="submit"/>
 </form>

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using AstronomicDirectory;
+using System.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -40,8 +41,28 @@ namespace Web.Controllers
         public ActionResult GetImage(int id)
         {
             using (var db = new AstronomicDirectoryDbContext())
-            {
-                return base.File(db.Stars.Find(id).Photo ?? new byte[] { }, "image/jpeg");
+            {/*
+                byte[] contents;
+                var flag = HttpContext.Session.Get("imgflag");
+
+                if (flag != null && flag[0] == 1)
+                {
+                    var fileContents = HttpContext.Session.Get("img");
+                    contents = fileContents;
+                    HttpContext.Session.Set("imgflag", null);
+
+                }
+                else
+                {
+                    var dbStar = db.Stars.Find(id);
+
+                    contents = dbStar.Photo ?? new byte[0];
+                }*/
+
+                var dbStar = db.Stars.Find(id);
+
+                var contents = dbStar.Photo ?? new byte[0];
+                return base.File(contents, "image/jpeg");
             }
         }
 
@@ -49,9 +70,48 @@ namespace Web.Controllers
         {
             using (var db = new AstronomicDirectoryDbContext())
             {
-                return base.File(db.Planets.Find(id).Photo ?? new byte[] { }, "image/jpeg");
+                byte[] contents;
+                var flag = HttpContext.Session.Get("imgflag");
+
+                if (flag != null && flag[0] == 1)
+                {
+                    var fileContents = HttpContext.Session.Get("img");
+                    contents = fileContents;
+                    HttpContext.Session.Set("imgflag", new byte[1]{0});
+                }
+                else
+                {
+                    var planet = db.Planets.Find(id);
+                    contents = planet.Photo ?? new byte[0];
+                }
+                return base.File(contents, "image/jpeg");
             }
         }
+
+        public ActionResult GetMoonImage(int id)
+        {
+            using (var db = new AstronomicDirectoryDbContext())
+            {
+                byte[] contents;
+
+                var flag = HttpContext.Session.Get("imgflag");
+                if (flag!=null && flag[0] == 1)
+                {
+                    var fileContents = HttpContext.Session.Get("img");
+                    contents = fileContents;
+                    HttpContext.Session.Set("imgflag", new byte[1] { 0 });
+
+                }
+                else
+                {
+                    var moon = db.Moons.Find(id);
+                    contents = moon.Photo ?? new byte[0];
+                }
+
+                return base.File(contents, "image/jpeg");
+            }
+        }
+
 
         public IActionResult StarView(int id)
         {
@@ -70,22 +130,19 @@ namespace Web.Controllers
         {
             using (var db = new AstronomicDirectoryDbContext())
             {
+                
                 var star = db.Stars.Include(s1 => s1.Planets).First(s1 => s1.Id == id);
                 db.Moons.Load();
-                IWorkbook workbook =
-                    new XSSFWorkbook(System.IO.File.OpenRead("template.xlsx"));
-
+                
+                //var p = HttpContext.Current.Server.MapPath("template.xlsx");
+                
+                IWorkbook workbook = new XSSFWorkbook(System.IO.File.OpenRead("template.xlsx"));
                 var sheet = workbook.GetSheetAt(0);
-
                 sheet.GetRow(1).Cells[1].SetCellValue(star.Name);
-
                 PrintStar(star, sheet);
-
                 var ms = new MemoryStream();
                 workbook.Write(ms);
-
                 ms.Position = 0;
-
                 return base.File(ms, "application/octet-stream", "star" + id + ".xlsx");
             }
         }
@@ -106,32 +163,20 @@ namespace Web.Controllers
                         if (cell.StringCellValue == "$PropRow")
                         {
                             PrintStarProp(star, sheet, ref i, row, j, cell);
-
                             break;
                         }
-
                         if (cell.StringCellValue == "$Planets")
                         {
                             foreach (var planet in star.Planets)
-                            //{
                                 PrintPlanets(star, sheet, i++, row, j, cell, planet);
-                            //    i++;
-                            //}
-
                             break;
                         }
-
                         if (cell.StringCellValue == "$Moons")
                         {
                             foreach (var moon in star.Planets.SelectMany(p => p.Moons))
-                                //{
                                 PrintMoons(star, sheet, i++, row, j, cell, moon);
-                            //    i++;
-                            //}
-
                             break;
                         }
-
                     }
                 }
             }

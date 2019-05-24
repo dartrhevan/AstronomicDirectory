@@ -15,31 +15,33 @@
         font-style: initial;
     }
 </style>
+
+
 <div class="mystyle">
     <div class="container">
         <div class="row">
             <div class="col-md-11">
-                <img class="thumbnail" width="1000" height="600" src="GetImage?id=@Model.Id"/>
+                <img class="thumbnail" width="1000" height="600" src="~/Views/GetImage?id=@Model.Id" />@*~/Views/GetImage?id=@Model.Id*@
                 Фото
             </div>
             <div class="col-md-1">
-                <a class="btn mystyle btn-default" href="DownloadStar?id=@Model.Id">Скачать</a>
-                <a class="btn mystyle btn-default" href="Print?id=@Model.Id">Скачать Excell</a>
+                <a class="btn mystyle btn-default" href="~/Views/DownloadStar?id=@Model.Id">Скачать</a>
+                <a class="btn mystyle btn-default" href="~/Views/Print?id=@Model.Id">Скачать Excell</a>
             </div>
         </div>
     </div>
-    <hr/>
-    <br/>
+    <hr />
+    <br />
     Галактика: @Model.Galaxy
-    <br/>
+    <br />
     Радиус: @Model.Radius
-    <br/>
+    <br />
     Температура: @Model.Temperature
-    <br/>
+    <br />
     Дата открытия: @Model.InventingDate
-    <br/>
+    <br />
     Среднее расстояние: @Model.MiddleDistanceValue @Model.MiddleDistanceUnit
-    <br/>
+    <br />
     Планеты:
     <ol>
         @foreach (var planet in Model.Planets)

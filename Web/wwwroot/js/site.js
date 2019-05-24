@@ -24,7 +24,7 @@ function onpladd(viewName = "PlanetEditor") {
         err.innerText = "";
         var d = document.getElementById('d');
         //d.innerHTML = d.innerHTML.concat('<br />' + inp.value);
-        d.innerHTML = "<li class = \"list-group-item list-group-item-info\">" + inp.value + '</li>' + d.innerHTML;/*
+        d.innerHTML = "<li class = \"list-group-item list-group-item-text\" style=\"color: black;\">" + inp.value + '</li>' + d.innerHTML;/*
         a.href = "PlanetEditor?N=" + inp.value;
         a.target = "_blank";
         a.method = "GET";*/

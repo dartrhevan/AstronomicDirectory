@@ -9,7 +9,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="template.xlsx" />
+    <Content Include="template.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -43,6 +46,9 @@
     </Content>
     <Content Update="Views\Views\StarView.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="wwwroot\template.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 

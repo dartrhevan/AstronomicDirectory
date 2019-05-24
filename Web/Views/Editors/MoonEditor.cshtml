@@ -31,11 +31,11 @@
 <script src="js/site.js">
 </script>
 
-<form asp-action="AddMoon" asp-fragment="" asp-controller="Editors" method="post" class="mystyle" enctype="multipart/form-data">
+<form asp-action="AddMoon" class="form-group" asp-fragment="" asp-controller="Editors" method="post" enctype="multipart/form-data">
 
-    <input type="hidden" @*value="@Model.Id" *@ name="StId" />
+    <input  type="hidden" @*value="@Model.Id" *@ name="StId" />
     Фото
-    <input type="file" name="Photo" />
+    <input type="file" class="btn btn-default btn-block" style="background-color: black; color: whitesmoke;" name="Photo" />
     <hr />
     Имя: <input name="Name" type="text" value="@Model.Item1" id="n" readonly="readonly" />
     <br />
@@ -56,5 +56,6 @@
     </select>
     <br />
     Имеет атмосферу: <input type="checkbox" name="atm" />
+    <br/>
     <input type="submit" />
 </form>

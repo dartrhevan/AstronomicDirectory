@@ -32,7 +32,6 @@ namespace Web.Controllers
         {
             var l = new List<DBMoon>();
             SaveToSession(l, null, "moons");
-
             return View("PlanetEditor", Tuple.Create(name, owner, gal));
         }
 
@@ -63,6 +62,8 @@ namespace Web.Controllers
                 db.Planets.AddRange(dbs.Planets);
                 db.Moons.AddRange(dbs.Planets.SelectMany(pl => pl.Moons));
                 db.SaveChanges();
+                HttpContext.Session.Set("img", ph);
+                //HttpContext.Session.Set("imgflag", new byte[1]{1});
             }
             return View("~/Views/Views/StarView.cshtml", dbs);
         }
@@ -85,7 +86,11 @@ namespace Web.Controllers
             {
                 var moon = new DBMoon(Date, ph, Name, new Distance(Dist, StringToUnit(Unit)), Radius, false, PlanetType.Gas, "", Galaxy, Temperature);
                 moons.Add(moon);
+                //moon.Id = -1;
                 SaveToSession(moons, xml, "moons");
+                HttpContext.Session.Set("img", ph);
+                HttpContext.Session.Set("imgflag", new byte[1] { 1 });
+
                 return View("~/Views/Views/MoonView.cshtml", moon);
             }
         }
@@ -108,14 +113,18 @@ namespace Web.Controllers
             using (var db = new AstronomicDirectoryDbContext())
             {
                 var planet = new DBPlanet(Date, ph, Name, new Distance(Dist, StringToUnit(Unit)), Radius, atm, type?PlanetType.Tought : PlanetType.Gas, "", Galaxy, Temperature);
-
                 var mx = new XmlSerializer(typeof(List<DBMoon>));
                 var st = new MemoryStream(HttpContext.Session.Get("moons"));
                 var moons = mx.Deserialize(st) as List<DBMoon>;
                 planet.Moons = new Collection<DBMoon>(moons);
-
                 planets.Add(planet);
                 SaveToSession(planets, xml);
+                HttpContext.Session.Set("img", ph);
+                HttpContext.Session.Set("imgflag", new byte[1] { 1 });
+
+                //HttpContext.Response.WriteAsync(@"onload = ""window.close();""");
+
+                //planet.Id = -1;
                 return View("~/Views/Views/PlanetView.cshtml", planet);
             }
         }
