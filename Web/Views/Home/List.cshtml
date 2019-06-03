@@ -30,7 +30,7 @@
     @foreach (var star in Model)
     {
         <li class="list-group-item list-group-item-text mystyle">
-            <a href="~/Views/StarView?id=@star.Id" style="color: black;">@star.Name</a>
+            <a href="~/Views/StarView?id=@star.Id" style="color: black;">@star.Name</a> <a href="Delete?id=@star.Id">Удалить</a>
         </li>
     }
 </ol>

@@ -7,12 +7,15 @@ using System.Xml.Serialization;
 using AstronomicDirectory;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Web.Models.DataAccessMySqlProvider;
 
 namespace Web.Controllers
 {
     public class EditorsController : Controller
     {
+        private readonly AstronomicDirectoryDbContext db = new AstronomicDirectoryDbContext();
+
         static UnitType StringToUnit(string s)
         {
             switch (s[0])
@@ -28,15 +31,37 @@ namespace Web.Controllers
             }
         }
 
+        public IActionResult EditStar(int id)
+        {
+            var star = db.Stars.Find(id);
+            db.Planets.Load();
+            return View("StarEditor", star);
+        }
+
+        public IActionResult EditPlanet(int id)
+        {
+            var planet = db.Planets.Find(id);
+            db.Moons.Load();
+            return View("PlanetEditor", planet);
+        }
+
+        public IActionResult StarEditor()
+        {
+            var l = new List<DBPlanet>();
+            SaveToSession(l);
+            var star = new DBStar();
+            return View(star);
+        }
+
         public IActionResult PlanetEditor(string name, string owner, string gal)
         {
             var l = new List<DBMoon>();
             SaveToSession(l, null, "moons");
-            return View("PlanetEditor", Tuple.Create(name, owner, gal));
+            return View("PlanetEditor", new DBPlanet(owner, gal){Name = name});
         }
 
         public IActionResult MoonEditor(string name, string owner, string gal) =>
-            View(Tuple.Create(name, owner, gal));
+            View(new DBMoon() { Name = name, PlanetOwner = owner, Galaxy = gal});
 
 
         [HttpPost]
@@ -56,15 +81,12 @@ namespace Web.Controllers
             var planets = xml.Deserialize(stream) as List<DBPlanet>;
             foreach (var planet in planets)
                 dbs.Planets.Add(planet);
-            using (var db = new AstronomicDirectoryDbContext())
-            {
-                db.Stars.Add(dbs);
-                db.Planets.AddRange(dbs.Planets);
-                db.Moons.AddRange(dbs.Planets.SelectMany(pl => pl.Moons));
-                db.SaveChanges();
-                HttpContext.Session.Set("img", ph);
+            db.Stars.Add(dbs);
+            db.Planets.AddRange(dbs.Planets);
+            db.Moons.AddRange(dbs.Planets.SelectMany(pl => pl.Moons));
+            db.SaveChanges();
+            HttpContext.Session.Set("img", ph);
                 //HttpContext.Session.Set("imgflag", new byte[1]{1});
-            }
             return View("~/Views/Views/StarView.cshtml", dbs);
         }
 
@@ -82,17 +104,14 @@ namespace Web.Controllers
             var xml = new XmlSerializer(typeof(List<DBMoon>));
             var stream = new MemoryStream(HttpContext.Session.Get("moons"));
             var moons = xml.Deserialize(stream) as List<DBMoon>;
-            using (var db = new AstronomicDirectoryDbContext())
-            {
-                var moon = new DBMoon(Date, ph, Name, new Distance(Dist, StringToUnit(Unit)), Radius, false, PlanetType.Gas, "", Galaxy, Temperature){PlanetOwner = Pl};
-                moons.Add(moon);
-                //moon.Id = -1;
-                SaveToSession(moons, xml, "moons");
-                HttpContext.Session.Set("img", ph);
-                HttpContext.Session.Set("imgflag", new byte[1] { 1 });
+            var moon = new DBMoon(Date, ph, Name, new Distance(Dist, StringToUnit(Unit)), Radius, false, PlanetType.Gas, "", Galaxy, Temperature){PlanetOwner = Pl};
+            moons.Add(moon);
+            //moon.Id = -1;
+            SaveToSession(moons, xml, "moons");
+            HttpContext.Session.Set("img", ph);
+            HttpContext.Session.Set("imgflag", new byte[1] { 1 });
 
-                return View("~/Views/Views/MoonView.cshtml", moon);
-            }
+            return View("~/Views/Views/MoonView.cshtml", moon);
         }
 
 
@@ -110,31 +129,20 @@ namespace Web.Controllers
             var xml = new XmlSerializer(typeof(List<DBPlanet>));
             var stream = new MemoryStream(HttpContext.Session.Get("planets"));
             var planets = xml.Deserialize(stream) as List<DBPlanet>;
-            using (var db = new AstronomicDirectoryDbContext())
-            {
-                var planet = new DBPlanet(Date, ph, Name, new Distance(Dist, StringToUnit(Unit)), Radius, atm, type?PlanetType.Tought : PlanetType.Gas, "", Galaxy, Temperature){Star = St};
-                var mx = new XmlSerializer(typeof(List<DBMoon>));
-                var st = new MemoryStream(HttpContext.Session.Get("moons"));
-                var moons = mx.Deserialize(st) as List<DBMoon>;
-                planet.Moons = new Collection<DBMoon>(moons);
-                planets.Add(planet);
-                SaveToSession(planets, xml);
-                HttpContext.Session.Set("img", ph);
-                HttpContext.Session.Set("imgflag", new byte[1] { 1 });
+            var planet = new DBPlanet(Date, ph, Name, new Distance(Dist, StringToUnit(Unit)), Radius, atm, type?PlanetType.Tought : PlanetType.Gas, "", Galaxy, Temperature){Star = St};
+            var mx = new XmlSerializer(typeof(List<DBMoon>));
+            var st = new MemoryStream(HttpContext.Session.Get("moons"));
+            var moons = mx.Deserialize(st) as List<DBMoon>;
+            planet.Moons = new Collection<DBMoon>(moons);
+            planets.Add(planet);
+            SaveToSession(planets, xml);
+            HttpContext.Session.Set("img", ph);
+            HttpContext.Session.Set("imgflag", new byte[1] { 1 });
 
                 //HttpContext.Response.WriteAsync(@"onload = ""window.close();""");
 
                 //planet.Id = -1;
-                return View("~/Views/Views/PlanetView.cshtml", planet);
-            }
-        }
-
-        public IActionResult StarEditor()
-        {
-            var l = new List<DBPlanet>();
-            SaveToSession(l);
-            var star = new DBStar();
-            return View(star);
+            return View("~/Views/Views/PlanetView.cshtml", planet);
         }
 
         private void SaveToSession(object l, XmlSerializer x = null, string key = "planets")
@@ -143,6 +151,12 @@ namespace Web.Controllers
             var str = new MemoryStream();
             xml.Serialize(str, l);
             HttpContext.Session.Set(key, str.ToArray());
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            db.Dispose();
         }
     }
 }

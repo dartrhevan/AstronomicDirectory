@@ -1,5 +1,5 @@
 ﻿@using Web.Models.DataAccessMySqlProvider
-@model Tuple<string, string, string>
+@model DBPlanet
 
 @{
     ViewBag.Title = "Добавление планеты";
@@ -47,19 +47,19 @@
     Фото
     <input type="file" class="btn btn-default btn-block" style="background-color: black; color: whitesmoke;" name="Photo" />
     <hr />
-    Имя: <input name="Name" type="text" value="@Model.Item1" id="n" readonly="readonly" />
+    Имя: <input name="Name" type="text" value="@Model.Name" id="n" readonly="readonly" />
     <br />
-    Галактика: <input name="Galaxy" type="text" value="@Model.Item3" id="g" readonly="readonly" />
+    Галактика: <input name="Galaxy" type="text" value="@Model.Galaxy" id="g" readonly="readonly" />
     <br />
-    Радиус: <input name="Radius" type="number" @*value="@Model.Radius" *@ />
+    Радиус: <input name="Radius" type="number" value="@Model.Radius" />
     <br />
-    Температура: <input name="Temperature" type="number" @*value="@Model.Temperature" *@ />
+    Температура: <input name="Temperature" type="number" value="@Model.Temperature" />
     <br />
-    Дата открытия: <input name="Date" type="date" @*value="@Model.InventingDate" *@ />
+    Дата открытия: <input name="Date" type="date" value="@Model.InventingDate"/>
     <br />
-    Звезда, вокрун которой вращается: <input name="St" type="text" value="@Model.Item2" readonly="readonly" />
+    Звезда, вокрун которой вращается: <input name="St" type="text" value="@Model.Star" readonly="readonly" />
     <br />
-    Среднее расстояние: <input name="Dist" type="number" @*value="@Model.MiddleDistanceValue" *@ /> <select name="Unit">
+    Среднее расстояние: <input name="Dist" type="number" value="@Model.MiddleDistanceValue"/> <select name="Unit">
         <option>Kilometers</option>
         <option>LightYears</option>
         <option>AstronomicUnits</option>
@@ -72,8 +72,14 @@
     Спутники:
     <details>
         <ol id="d" class="list-group">
+            @foreach (var pl in Model.Moons)
+            {
+                <li class="list-group-item list-group-item-info">
+                    @pl.Name
+                </li>
+            }
             <li class="list-group-item list-group-item-info">
-                <input id="newPlanetName" />
+                <input id="newPlanetName"/>
                 <label id="err"></label>
                 <a class="btn btn-primary" onclick="onpladd('MoonEditor')">Добавить</a>
             </li>

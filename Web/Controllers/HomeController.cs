@@ -25,6 +25,18 @@ namespace Web.Controllers
             return View();
         }
 
+        public ActionResult Delete(int id)
+        {
+            //Book b = new Book { Id = id };
+            using (var db = new AstronomicDirectoryDbContext())
+            {
+                db.Entry(db.Stars.Find(id)).State = EntityState.Deleted;
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
+
         //[HttpPost]
         //public IActionResult StarView(byte[] st)
         //{
@@ -48,10 +60,10 @@ namespace Web.Controllers
         //        db.Moons.AddRange(dbs.Planets.SelectMany(pl => pl.Moons));
         //        //foreach (var pl in dbs.Planets)
         //        //    if(pl.Moons != null)
-                
+
         //        db.SaveChanges();
         //        //}
-                
+
         //    }
         //    return View(dbs);
         //}

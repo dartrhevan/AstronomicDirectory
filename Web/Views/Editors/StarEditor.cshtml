@@ -1,71 +1,13 @@
-﻿@model Web.Models.DataAccessMySqlProvider.DBStar
+﻿
+@{
+    Layout = "~/Views/Editors/StarRedactor.cshtml";
+}
 
 @{
     ViewBag.Title = "Добавить звезду";
-    Layout = "_Layout";
 }
-
 <h2>Добавить звезду</h2>
-<style>
-    .mystyle {
-        font-size: 20px;
-        font-family: "Times new roman";
-        font-style: initial;
-    }
-
-    input {
-        font-size: 20px;
-        font-family: "Times new roman";
-        font-style: initial;
-        color: black;
-    }
-
-    select {
-        font-size: 20px;
-        font-family: "Times new roman";
-        font-style: initial;
-        color: black;
-    }
-
-    label {
-        font-size: 16px;
-        font-family: "Times new roman";
-        font-style: initial;
-        color: red;
-    }
-</style>
-
-<script src="@Url.Content("~/js/site.js")" type="text/javascript"></script>
-<script src="js/site.js"></script>
-<form asp-action="AddStar" method="post" class="form-group" asp-controller="Editors" method="post" class="mystyle" enctype="multipart/form-data">
-    Фото
-    <input type="file" class="btn btn-default btn-block" style="background-color: black; color: whitesmoke;" name="Photo" />
-    <hr />
-    Имя: <input name="Name" type="text" id="n" value="@Model.Name" />
-    <br />
-    Галактика: <input name="Galaxy" type="text" id="g" value="@Model.Galaxy" />
-    <br />
-    Радиус: <input name="Radius" type="number" value="@Model.Radius" />
-    <br />
-    Температура: <input name="Temperature" type="number" value="@Model.Temperature" />
-    <br />
-    Дата открытия: <input name="Date" type="date" value="@Model.InventingDate" />
-    <br />
-    Среднее расстояние: <input name="Dist" type="number" value="@Model.MiddleDistanceValue" /> <select name="Unit">
-        <option>Kilometers</option>
-        <option>LightYears</option>
-        <option>AstronomicUnits</option>
-    </select>
-    <br />
-    Планеты:
-    <details>
-        <ol id="d" class="list-group">
-            <li class="list-group-item list-group-item-info">
-                <input id="newPlanetName" />
-                <label id="err"></label>
-                <a class="btn btn-primary" onclick="onpladd();">Добавить</a>
-            </li>
-        </ol>
-    </details>
-    <input type="submit" />
-</form>
+@section Action
+{
+    AddStar
+}
