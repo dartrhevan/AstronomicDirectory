@@ -19,7 +19,9 @@ namespace Web.Controllers
 {
     public class HomeController : Controller
     {
-        
+
+        private readonly AstronomicDirectoryDbContext db = new AstronomicDirectoryDbContext();
+
         public IActionResult Index()
         {
             return View();
@@ -28,11 +30,8 @@ namespace Web.Controllers
         public ActionResult Delete(int id)
         {
             //Book b = new Book { Id = id };
-            using (var db = new AstronomicDirectoryDbContext())
-            {
-                db.Entry(db.Stars.Find(id)).State = EntityState.Deleted;
-                db.SaveChanges();
-            }
+            db.Entry(db.Stars.Find(id)).State = EntityState.Deleted;
+            db.SaveChanges();
 
             return RedirectToAction("Index");
         }
@@ -118,13 +117,17 @@ namespace Web.Controllers
         {
 
             List<DBStar> list;
-            using (var db = new AstronomicDirectoryDbContext())
-            {
-                list = db.Stars.ToList();
-            }
+            list = db.Stars.ToList();
 
             return View(list);
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            db.Dispose();
+        }
+
 
         //static UnitType StringToUnit(string s)
         //{

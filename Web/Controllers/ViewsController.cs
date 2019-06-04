@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 using AstronomicDirectory;
-using System.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,142 +13,119 @@ namespace Web.Controllers
 {
     public class ViewsController : Controller
     {
+        private readonly AstronomicDirectoryDbContext db = new AstronomicDirectoryDbContext();
+
         public IActionResult PlanetView(int starId, int planetId)
         {
-            using (var db = new AstronomicDirectoryDbContext())
-            {
-                var planet = db.Planets.First(p => p.Id == planetId && p.StarId == starId);
-                //foreach (var dbMoon in db.Moons/*.Where(pl => pl.PlanetId == planetId)*/)
-                //{ }
-                db.Moons.Load();
-
-                return View(planet);
-            }
+            var planet = db.Planets.First(p => p.Id == planetId && p.StarId == starId);
+            //foreach (var dbMoon in db.Moons/*.Where(pl => pl.PlanetId == planetId)*/)
+            //{ }
+            db.Moons.Load();
+            return View(planet);
         }
 
-        public IActionResult MoonView(int moonId)
-        {
-            using (var db = new AstronomicDirectoryDbContext())
-            {
-                return View(db.Moons.Find(moonId));
-            }
-        }
+        public IActionResult MoonView(int moonId) => View(db.Moons.Find(moonId));
 
         public ActionResult GetImage(int id)
         {
-            using (var db = new AstronomicDirectoryDbContext())
-            {/*
-                byte[] contents;
-                var flag = HttpContext.Session.Get("imgflag");
+            /*
+                            byte[] contents;
+                            var flag = HttpContext.Session.Get("imgflag");
+            
+                            if (flag != null && flag[0] == 1)
+                            {
+                                var fileContents = HttpContext.Session.Get("img");
+                                contents = fileContents;
+                                HttpContext.Session.Set("imgflag", null);
+            
+                            }
+                            else
+                            {
+                                var dbStar = db.Stars.Find(id);
+            
+                                contents = dbStar.Photo ?? new byte[0];
+                            }*/
 
-                if (flag != null && flag[0] == 1)
-                {
-                    var fileContents = HttpContext.Session.Get("img");
-                    contents = fileContents;
-                    HttpContext.Session.Set("imgflag", null);
+            var dbStar = db.Stars.Find(id);
 
-                }
-                else
-                {
-                    var dbStar = db.Stars.Find(id);
-
-                    contents = dbStar.Photo ?? new byte[0];
-                }*/
-
-                var dbStar = db.Stars.Find(id);
-
-                var contents = dbStar.Photo ?? new byte[0];
-                return base.File(contents, "image/jpeg");
-            }
+            var contents = dbStar.Photo ?? new byte[0];
+            return base.File(contents, "image/jpeg");
         }
 
         public ActionResult GetPlanetImage(int id)
         {
-            using (var db = new AstronomicDirectoryDbContext())
-            {
-                byte[] contents;
-                var flag = HttpContext.Session.Get("imgflag");
+            byte[] contents;
+            var flag = HttpContext.Session.Get("imgflag");
 
-                if (flag != null && flag[0] == 1)
-                {
-                    var fileContents = HttpContext.Session.Get("img");
-                    contents = fileContents;
-                    HttpContext.Session.Set("imgflag", new byte[1]{0});
-                }
-                else
-                {
-                    db.Planets.Load();
-                    var planet = db.Planets.Find(id);
-                    contents = planet.Photo ?? new byte[0];
-                }
-                return base.File(contents, "image/jpeg");
+            if (flag != null && flag[0] == 1)
+            {
+                var fileContents = HttpContext.Session.Get("img");
+                contents = fileContents;
+                HttpContext.Session.Set("imgflag", new byte[1] {0});
             }
+            else
+            {
+                db.Planets.Load();
+                var planet = db.Planets.Find(id);
+                contents = planet.Photo ?? new byte[0];
+            }
+
+            return base.File(contents, "image/jpeg");
         }
 
         public ActionResult GetMoonImage(int id)
         {
-            using (var db = new AstronomicDirectoryDbContext())
+            byte[] contents;
+
+            var flag = HttpContext.Session.Get("imgflag");
+            if (flag != null && flag[0] == 1)
             {
-                byte[] contents;
-
-                var flag = HttpContext.Session.Get("imgflag");
-                if (flag!=null && flag[0] == 1)
-                {
-                    var fileContents = HttpContext.Session.Get("img");
-                    contents = fileContents;
-                    HttpContext.Session.Set("imgflag", new byte[1] { 0 });
-
-                }
-                else
-                {
-                    var moon = db.Moons.Find(id);
-                    contents = moon.Photo ?? new byte[0];
-                }
-
-                return base.File(contents, "image/jpeg");
+                var fileContents = HttpContext.Session.Get("img");
+                contents = fileContents;
+                HttpContext.Session.Set("imgflag", new byte[1] {0});
             }
+            else
+            {
+                var moon = db.Moons.Find(id);
+                contents = moon.Photo ?? new byte[0];
+            }
+
+            return base.File(contents, "image/jpeg");
         }
 
 
         public IActionResult StarView(int id)
         {
-            using (var db = new AstronomicDirectoryDbContext())
-            {
-                var dbs = db.Stars.Find(id);
-                //dbs.Planets = new Collection<DBPlanet>(db.Planets.Where(pl => pl.StarId == dbs.Id).ToList());
-                db.Planets.Load();
-                //foreach (var planet in db.Planets/*.Where(pl => pl.StarId == dbs.Id)*/)
-                //{ }
-                return View(dbs);
-            }
+            var dbs = db.Stars.Find(id);
+            //dbs.Planets = new Collection<DBPlanet>(db.Planets.Where(pl => pl.StarId == dbs.Id).ToList());
+            db.Planets.Load();
+            //foreach (var planet in db.Planets/*.Where(pl => pl.StarId == dbs.Id)*/)
+            //{ }
+            return View(dbs);
         }
 
         public ActionResult Print(int id)
         {
-            using (var db = new AstronomicDirectoryDbContext())
-            {
-                
-                var star = db.Stars.Include(s1 => s1.Planets).First(s1 => s1.Id == id);
-                db.Moons.Load();
-                
-                //var p = HttpContext.Current.Server.MapPath("template.xlsx");
-                
-                IWorkbook workbook = new XSSFWorkbook(System.IO.File.OpenRead("template.xlsx"));
-                var sheet = workbook.GetSheetAt(0);
-                sheet.GetRow(1).Cells[1].SetCellValue(star.Name);
-                PrintStar(star, sheet);
-                var ms = new MemoryStream();
-                workbook.Write(ms);
-                ms.Position = 0;
-                return base.File(ms, "application/octet-stream", "star" + id + ".xlsx");
-            }
+            var star = db.Stars.Include(s1 => s1.Planets).First(s1 => s1.Id == id);
+            db.Moons.Load();
+
+            //var p = HttpContext.Current.Server.MapPath("template.xlsx");
+
+            IWorkbook workbook = new XSSFWorkbook(System.IO.File.OpenRead("template.xlsx"));
+            var sheet = workbook.GetSheetAt(0);
+            sheet.GetRow(1).Cells[1].SetCellValue(star.Name);
+            PrintStar(star, sheet);
+            var ms = new MemoryStream();
+            workbook.Write(ms);
+            ms.Position = 0;
+            return base.File(ms, "application/octet-stream", "star" + id + ".xlsx");
         }
 
         private static void PrintStar(DBStar star, ISheet sheet)
         {
-            for (int i = (sheet.FirstRowNum + 1); i <= sheet.LastRowNum; i++) //Read Excel File
+            for (var i = sheet.FirstRowNum + 1; i <= sheet.LastRowNum; i++) //Read Excel File
             {
-                IRow row = sheet.GetRow(i);
+                var row = sheet.GetRow(i);
                 if (row == null) continue;
                 if (row.Cells.All(d => d.CellType == CellType.Blank)) continue;
                 var lastCellNum = row.LastCellNum;
@@ -166,12 +139,14 @@ namespace Web.Controllers
                             PrintStarProp(star, sheet, ref i, row, j, cell);
                             break;
                         }
+
                         if (cell.StringCellValue == "$Planets")
                         {
                             foreach (var planet in star.Planets)
                                 PrintPlanets(star, sheet, i++, row, j, cell, planet);
                             break;
                         }
+
                         if (cell.StringCellValue == "$Moons")
                         {
                             foreach (var moon in star.Planets.SelectMany(p => p.Moons))
@@ -202,7 +177,7 @@ namespace Web.Controllers
             cell.CellStyle.DataFormat = 14;
 
             cell = row.GetCell(j + 6) ?? row.CreateCell(j + 6);
-            cell.SetCellValue(moon.HasAtmosphere);/*
+            cell.SetCellValue(moon.HasAtmosphere); /*
             if (planet != star.Planets.Last())
                 row = sheet.CopyRow(i, i + 1);*/
         }
@@ -265,16 +240,13 @@ namespace Web.Controllers
 
         public FileContentResult DownloadStar(int id)
         {
-            using (var db = new AstronomicDirectoryDbContext())
-            {
-                var dbs = db.Stars.Find(id);
-                db.Planets.Load();
-                db.Moons.Load();
-                var xml = new XmlSerializer(typeof(Star));
-                var str = new MemoryStream();
-                xml.Serialize(str, dbs.ToStar());
-                return File(str.ToArray(), "application/xml", dbs.Name + ".star");
-            }
+            var dbs = db.Stars.Find(id);
+            db.Planets.Load();
+            db.Moons.Load();
+            var xml = new XmlSerializer(typeof(Star));
+            var str = new MemoryStream();
+            xml.Serialize(str, dbs.ToStar());
+            return File(str.ToArray(), "application/xml", dbs.Name + ".star");
         }
 
         [HttpPost]
@@ -282,24 +254,27 @@ namespace Web.Controllers
         {
             var xml = new XmlSerializer(typeof(Star));
             var fs = star.OpenReadStream();
-            var st = (Star)xml.Deserialize(fs);
+            var st = (Star) xml.Deserialize(fs);
             fs.Close();
             var dbs = new DBStar(st);
-            using (var db = new AstronomicDirectoryDbContext())
-            {
-                //if (db.Stars.FirstOrDefault(s => s.Name == st.Name) == null)
-                //{
-                db.Stars.Add(dbs);
-                db.Planets.AddRange(dbs.Planets);
-                db.Moons.AddRange(dbs.Planets.SelectMany(pl => pl.Moons));
-                //foreach (var pl in dbs.Planets)
-                //    if(pl.Moons != null)
+            //if (db.Stars.FirstOrDefault(s => s.Name == st.Name) == null)
+            //{
+            db.Stars.Add(dbs);
+            db.Planets.AddRange(dbs.Planets);
+            db.Moons.AddRange(dbs.Planets.SelectMany(pl => pl.Moons));
+            //foreach (var pl in dbs.Planets)
+            //    if(pl.Moons != null)
 
-                db.SaveChanges();
-                //}
+            db.SaveChanges();
+            //}
 
-            }
             return View(dbs);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            db.Dispose();
         }
 
     }

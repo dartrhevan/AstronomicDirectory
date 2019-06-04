@@ -1,4 +1,8 @@
-﻿
+﻿<script>
+    function onsub() {
+        on_submit();
+    }
+</script>
 @{
     Layout = "~/Views/Editors/StarRedactor.cshtml";
 }
@@ -7,7 +11,5 @@
     ViewBag.Title = "Добавить звезду";
 }
 <h2>Добавить звезду</h2>
-@section Action
-{
-    AddStar
-}
+
+    

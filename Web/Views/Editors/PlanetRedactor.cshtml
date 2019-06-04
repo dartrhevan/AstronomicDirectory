@@ -1,5 +1,6 @@
-﻿
-@model Web.Models.DataAccessMySqlProvider.DBStar
+﻿@using Web.Models.DataAccessMySqlProvider
+@model DBPlanet
+
 <style>
     .mystyle {
         font-size: 20px;
@@ -20,28 +21,25 @@
         font-style: initial;
         color: black;
     }
-
-    label {
-        font-size: 16px;
-        font-family: "Times new roman";
-        font-style: initial;
-        color: red;
-    }
 </style>
 
 @{
     Layout = "_Layout";
 }
 
+
+
 @RenderBody()
 
-<form method="post" class="form-group" id="f" onsubmit="onsub()" method="post" class="mystyle" enctype="multipart/form-data">
+<form onsubmit="on_pl_sub()" method="post" class="mystyle" id = "f" enctype="multipart/form-data">
+
+    @*<input type="hidden" @*value="@Model.Id" * name="StId" />*@
     Фото
     <input type="file" class="btn btn-default btn-block" style="background-color: black; color: whitesmoke;" name="Photo" />
     <hr />
-    Имя: <input name="Name" type="text" id="n" value="@Model.Name" />
+    Имя: <input name="Name" type="text" value="@Model.Name" id="n" readonly="readonly" />
     <br />
-    Галактика: <input name="Galaxy" type="text" id="g" value="@Model.Galaxy" />
+    Галактика: <input name="Galaxy" type="text" value="@Model.Galaxy" id="g" readonly="readonly" />
     <br />
     Радиус: <input name="Radius" type="number" value="@Model.Radius" />
     <br />
@@ -49,25 +47,31 @@
     <br />
     Дата открытия: <input name="Date" type="date" value="@Model.InventingDate" />
     <br />
+    Звезда, вокрун которой вращается: <input name="St" type="text" value="@Model.Star" readonly="readonly" />
+    <br />
     Среднее расстояние: <input name="Dist" type="number" value="@Model.MiddleDistanceValue" /> <select name="Unit">
         <option>Kilometers</option>
         <option>LightYears</option>
         <option>AstronomicUnits</option>
     </select>
     <br />
-    Планеты:
+    Имеет атмосферу: @Html.CheckBox("atm", false)
+    <br />
+    Имеет твёрдую поверхность: @Html.CheckBox("type", false)
+    <br />
+    Спутники:
     <details>
         <ol id="d" class="list-group">
-            @foreach (var pl in Model.Planets)
+            @foreach (var pl in Model.Moons)
             {
                 <li class="list-group-item list-group-item-info">
-                    <a href="EditPlanet?id=@pl.Id">@pl.Name</a>@*EditPlanet*@
+                    @pl.Name
                 </li>
             }
             <li class="list-group-item list-group-item-info">
                 <input id="newPlanetName" />
                 <label id="err"></label>
-                <a class="btn btn-primary" onclick="onpladd();">Добавить</a>
+                <a class="btn btn-primary" onclick="onpladd('MoonEditor')">Добавить</a>
             </li>
         </ol>
     </details>

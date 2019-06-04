@@ -35,14 +35,16 @@ namespace Web.Controllers
         {
             var star = db.Stars.Find(id);
             db.Planets.Load();
-            return View("StarEditor", star);
+            var l = new List<DBPlanet>();
+            SaveToSession(l);
+            return View(star);
         }
 
         public IActionResult EditPlanet(int id)
         {
             var planet = db.Planets.Find(id);
             db.Moons.Load();
-            return View("PlanetEditor", planet);
+            return View(planet);
         }
 
         public IActionResult StarEditor()
@@ -158,5 +160,64 @@ namespace Web.Controllers
             base.Dispose(disposing);
             db.Dispose();
         }
+        
+        [HttpPost]
+        public IActionResult ChangeStar(IFormFile Photo, string Name, string Galaxy, uint Radius, uint Temperature, DateTime Date, uint Dist, string Unit, int Id)
+        {
+            byte[] ph = new byte[0];
+            if (Photo != null)
+            {
+                var str = Photo.OpenReadStream();
+                ph = new byte[str.Length];
+                str.Read(ph, 0, ph.Length);
+                str.Close();
+            }
+
+            var dbs = new DBStar(Date, ph, Name, new Distance(Dist, StringToUnit(Unit)), Radius, Temperature, Galaxy){Id = Id};
+
+            //##########################################################################################
+            var xml = new XmlSerializer(typeof(List<DBPlanet>));
+            var stream = new MemoryStream(HttpContext.Session.Get("planets") ?? new byte[0]);
+            var planets = xml.Deserialize(stream) as List<DBPlanet>;
+            foreach (var planet in planets)
+                dbs.Planets.Add(planet);
+            db.Stars.Add(dbs);
+            db.Planets.AddRange(dbs.Planets);
+            //db.Moons.AddRange(dbs.Planets.SelectMany(pl => pl.Moons));
+            HttpContext.Session.Set("img", ph);
+            //##########################################################################################
+
+            db.Entry(dbs).State = EntityState.Modified;
+            db.SaveChanges();
+            return View("~/Views/Views/StarView.cshtml", dbs);
+        }
+
+        [HttpPost]
+        public IActionResult ChangePlanet(IFormFile Photo, string Name, string Galaxy, uint Radius, uint Temperature, DateTime Date, string St, uint Dist, string Unit, bool atm, bool type, int id)
+        {
+            byte[] ph = new byte[0];
+            if (Photo != null)
+            {
+                var str = Photo.OpenReadStream();
+                ph = new byte[str.Length];
+                str.Read(ph, 0, ph.Length);
+                str.Close();
+            }
+            var planet = new DBPlanet(Date, ph, Name, new Distance(Dist, StringToUnit(Unit)), Radius, atm, type ? PlanetType.Tought : PlanetType.Gas, "", Galaxy, Temperature) { Star = St, Id = id};
+            var xml = new XmlSerializer(typeof(List<DBPlanet>));
+            var stream = new MemoryStream(HttpContext.Session.Get("planets"));
+            var planets = xml.Deserialize(stream) as List<DBPlanet>;
+            var mx = new XmlSerializer(typeof(List<DBMoon>));
+            var st = new MemoryStream(HttpContext.Session.Get("moons"));
+
+            planets.Add(planet);
+            SaveToSession(planets, xml);
+            HttpContext.Session.Set("img", ph);
+            HttpContext.Session.Set("imgflag", new byte[1] { 1 });
+
+            db.Entry(planet).State = EntityState.Modified;
+            return View("~/Views/Views/PlanetView.cshtml", planet);
+        }
+
     }
 }

@@ -1,89 +1,13 @@
-﻿@using Web.Models.DataAccessMySqlProvider
-@model DBPlanet
-
+﻿<script>
+    function on_pl_sub() {
+        on_submit("AddPlanet");
+    }
+</script>
 @{
+    Layout = "~/Views/Editors/PlanetRedactor.cshtml";
     ViewBag.Title = "Добавление планеты";
-    Layout = "_Layout";
 }
 
+<h2>Добавление планеты</h2>
 
-@*@System.Web.Optimization.Scripts.Render("~/scripts/validate.min.js")*@
 
-<h2>Add Planet</h2>
-
-<style>
-    .mystyle {
-        font-size: 20px;
-        font-family: "Times new roman";
-        font-style: initial;
-    }
-    input {
-        font-size: 20px;
-        font-family: "Times new roman";
-        font-style: initial;
-        color: black;
-    }
-    select {
-        font-size: 20px;
-        font-family: "Times new roman";
-        font-style: initial;
-        color: black;
-    }
-
-</style>
-
-<script src="js/site.js">
-</script>
-
-<script>
-    function f() {
-        var a = 3 + 3;
-
-    }
-</script>
-<form asp-action="AddPlanet" class="form-group" asp-fragment="" asp-controller="Editors" method="post" class="mystyle" enctype="multipart/form-data">
-
-    @*<input type="hidden" @*value="@Model.Id" * name="StId" />*@
-    Фото
-    <input type="file" class="btn btn-default btn-block" style="background-color: black; color: whitesmoke;" name="Photo" />
-    <hr />
-    Имя: <input name="Name" type="text" value="@Model.Name" id="n" readonly="readonly" />
-    <br />
-    Галактика: <input name="Galaxy" type="text" value="@Model.Galaxy" id="g" readonly="readonly" />
-    <br />
-    Радиус: <input name="Radius" type="number" value="@Model.Radius" />
-    <br />
-    Температура: <input name="Temperature" type="number" value="@Model.Temperature" />
-    <br />
-    Дата открытия: <input name="Date" type="date" value="@Model.InventingDate"/>
-    <br />
-    Звезда, вокрун которой вращается: <input name="St" type="text" value="@Model.Star" readonly="readonly" />
-    <br />
-    Среднее расстояние: <input name="Dist" type="number" value="@Model.MiddleDistanceValue"/> <select name="Unit">
-        <option>Kilometers</option>
-        <option>LightYears</option>
-        <option>AstronomicUnits</option>
-    </select>
-    <br />
-    Имеет атмосферу: @Html.CheckBox("atm", false)
-    <br />
-    Имеет твёрдую поверхность: @Html.CheckBox("type", false)
-    <br />
-    Спутники:
-    <details>
-        <ol id="d" class="list-group">
-            @foreach (var pl in Model.Moons)
-            {
-                <li class="list-group-item list-group-item-info">
-                    @pl.Name
-                </li>
-            }
-            <li class="list-group-item list-group-item-info">
-                <input id="newPlanetName"/>
-                <label id="err"></label>
-                <a class="btn btn-primary" onclick="onpladd('MoonEditor')">Добавить</a>
-            </li>
-        </ol>
-    </details>
-    <input type="submit" />
-</form>
