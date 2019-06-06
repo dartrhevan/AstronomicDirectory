@@ -44,6 +44,14 @@ namespace Web.Controllers
         {
             var planet = db.Planets.Find(id);
             db.Moons.Load();
+            var l = new List<DBMoon>();
+            SaveToSession(l, null, "moons");
+            return View(planet);
+        }
+
+        public IActionResult EditMoon(int id)
+        {
+            var planet = db.Moons.Find(id);
             return View(planet);
         }
 
@@ -182,8 +190,8 @@ namespace Web.Controllers
             foreach (var planet in planets)
                 dbs.Planets.Add(planet);
             db.Stars.Add(dbs);
-            db.Planets.AddRange(dbs.Planets);
-            //db.Moons.AddRange(dbs.Planets.SelectMany(pl => pl.Moons));
+            db.Planets.AddRange(planets);
+
             HttpContext.Session.Set("img", ph);
             //##########################################################################################
 
@@ -193,7 +201,7 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult ChangePlanet(IFormFile Photo, string Name, string Galaxy, uint Radius, uint Temperature, DateTime Date, string St, uint Dist, string Unit, bool atm, bool type, int id)
+        public IActionResult ChangePlanet(IFormFile Photo, string Name, string Galaxy, uint Radius, uint Temperature, DateTime Date, string St, uint Dist, string Unit, bool atm, bool type, int id, int StarId)
         {
             byte[] ph = new byte[0];
             if (Photo != null)
@@ -203,20 +211,46 @@ namespace Web.Controllers
                 str.Read(ph, 0, ph.Length);
                 str.Close();
             }
-            var planet = new DBPlanet(Date, ph, Name, new Distance(Dist, StringToUnit(Unit)), Radius, atm, type ? PlanetType.Tought : PlanetType.Gas, "", Galaxy, Temperature) { Star = St, Id = id};
-            var xml = new XmlSerializer(typeof(List<DBPlanet>));
-            var stream = new MemoryStream(HttpContext.Session.Get("planets"));
-            var planets = xml.Deserialize(stream) as List<DBPlanet>;
+            var planet = new DBPlanet(Date, ph, Name, new Distance(Dist, StringToUnit(Unit)), Radius, atm, type ? PlanetType.Tought : PlanetType.Gas, "", Galaxy, Temperature) { Star = St, Id = id, StarId = StarId};
+
+            //##########################################################################################
             var mx = new XmlSerializer(typeof(List<DBMoon>));
             var st = new MemoryStream(HttpContext.Session.Get("moons"));
-
-            planets.Add(planet);
-            SaveToSession(planets, xml);
+            var moons = mx.Deserialize(st) as List<DBMoon>;
+            db.Moons.AddRange(moons);
+            foreach (var moon in moons)
+                planet.Moons.Add(moon);// = new Collection<DBMoon>(moons);
+            //##########################################################################################
+            
             HttpContext.Session.Set("img", ph);
             HttpContext.Session.Set("imgflag", new byte[1] { 1 });
 
             db.Entry(planet).State = EntityState.Modified;
+
+            db.SaveChanges();
+
             return View("~/Views/Views/PlanetView.cshtml", planet);
+        }
+
+        [HttpPost]
+        public IActionResult ChangeMoon(IFormFile Photo, string Name, string Galaxy, uint Radius, uint Temperature, DateTime Date, string Pl, uint Dist, string Unit, int Id, int PlanetId)
+        {
+            byte[] ph = new byte[0];
+            if (Photo != null)
+            {
+                var str = Photo.OpenReadStream();
+                ph = new byte[str.Length];
+                str.Read(ph, 0, ph.Length);
+                str.Close();
+            }
+            var moon = new DBMoon(Date, ph, Name, new Distance(Dist, StringToUnit(Unit)), Radius, false, PlanetType.Gas, "", Galaxy, Temperature) { PlanetOwner = Pl, Id = Id, PlanetId = PlanetId};
+            HttpContext.Session.Set("img", ph);
+            HttpContext.Session.Set("imgflag", new byte[1] { 1 });
+            db.Entry(moon).State = EntityState.Modified;
+
+            db.SaveChanges();
+            
+            return View("~/Views/Views/MoonView.cshtml", moon);
         }
 
     }

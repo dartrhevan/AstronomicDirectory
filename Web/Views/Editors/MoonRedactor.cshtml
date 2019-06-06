@@ -1,6 +1,4 @@
-﻿@using Web.Models.DataAccessMySqlProvider
-@model DBPlanet
-
+﻿@model Web.Models.DataAccessMySqlProvider.DBMoon
 <style>
     .mystyle {
         font-size: 20px;
@@ -22,17 +20,15 @@
         color: black;
     }
 </style>
-
 @{
     Layout = "_Layout";
 }
 
-
-
 @RenderBody()
 
-<form onsubmit="onsub()" method="post" class="mystyle" id = "f" enctype="multipart/form-data">
+<form onsubmit="on_m_sub()" class="form-group" id="f" method="post" enctype="multipart/form-data">
 
+    <input type="hidden" @*value="@Model.Id" *@ name="StId" />
     Фото
     <input type="file" class="btn btn-default btn-block" style="background-color: black; color: whitesmoke;" name="Photo" />
     <hr />
@@ -46,7 +42,7 @@
     <br />
     Дата открытия: <input name="Date" type="date" value="@Model.InventingDate" />
     <br />
-    Звезда, вокрун которой вращается: <input name="St" type="text" value="@Model.Star" readonly="readonly" />
+    Планета, вокрун которой вращается: <input name="Pl" type="text" value="@Model.Star" readonly="readonly" />
     <br />
     Среднее расстояние: <input name="Dist" type="number" value="@Model.MiddleDistanceValue" /> <select name="Unit">
         <option>Kilometers</option>
@@ -54,27 +50,9 @@
         <option>AstronomicUnits</option>
     </select>
     <br />
-    Имеет атмосферу: @Html.CheckBox("atm", false)
+    Имеет атмосферу: @Html.CheckBox("atm", Model.HasAtmosphere)@*<input type="checkbox" name="atm" />*@
     <br />
-    Имеет твёрдую поверхность: @Html.CheckBox("type", false)
-    <br />
-    Спутники:
-    <details>
-        <ol id="d" class="list-group">
-            @foreach (var pl in Model.Moons)
-            {
-                <li class="list-group-item list-group-item-info">
-                    <a href="EditMoon?id=@pl.Id">@pl.Name</a>
-                </li>
-            }
-            <li class="list-group-item list-group-item-info">
-                <input id="newPlanetName" />
-                <label id="err"></label>
-                <a class="btn btn-primary" onclick="onpladd('MoonEditor')">Добавить</a>
-            </li>
-        </ol>
-    </details>
     @Html.HiddenFor(m => m.Id)
-    @Html.HiddenFor(m => m.StarId)
+    @Html.HiddenFor(m => m.PlanetId)
     <input type="submit" />
 </form>

@@ -41,6 +41,9 @@
     <Content Update="Views\Editors\EditPlanet.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Editors\EditMoon.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Editors\PlanetEditor.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

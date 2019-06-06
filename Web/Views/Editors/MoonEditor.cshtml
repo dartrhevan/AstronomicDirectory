@@ -1,61 +1,12 @@
-﻿@model Web.Models.DataAccessMySqlProvider.DBMoon
-
+﻿
 @{
     ViewBag.Title = "Добавление спутника";
-    Layout = "_Layout";
+    Layout = "~/Views/Editors/MoonRedactor.cshtml";
 }
-
+<script>
+    function on_m_sub(action = "AddMoon") {
+        on_submit(action);
+    }
+</script>
 <h2>Добавление спутника</h2>
 
-<style>
-    .mystyle {
-        font-size: 20px;
-        font-family: "Times new roman";
-        font-style: initial;
-    }
-
-    input {
-        font-size: 20px;
-        font-family: "Times new roman";
-        font-style: initial;
-        color: black;
-    }
-
-    select {
-        font-size: 20px;
-        font-family: "Times new roman";
-        font-style: initial;
-        color: black;
-    }
-</style>
-<script src="js/site.js">
-</script>
-
-<form asp-action="AddMoon" class="form-group" asp-fragment="" asp-controller="Editors" method="post" enctype="multipart/form-data">
-
-    <input type="hidden" @*value="@Model.Id" *@ name="StId" />
-    Фото
-    <input type="file" class="btn btn-default btn-block" style="background-color: black; color: whitesmoke;" name="Photo" />
-    <hr />
-    Имя: <input name="Name" type="text" value="@Model.Name" id="n" readonly="readonly" />
-    <br />
-    Галактика: <input name="Galaxy" type="text" value="@Model.Galaxy" id="g" readonly="readonly" />
-    <br />
-    Радиус: <input name="Radius" type="number" value="@Model.Radius"  />
-    <br />
-    Температура: <input name="Temperature" type="number" value="@Model.Temperature" />
-    <br />
-    Дата открытия: <input name="Date" type="date" value="@Model.InventingDate" />
-    <br />
-    Планета, вокрун которой вращается: <input name="Pl" type="text" value="@Model.Star" readonly="readonly" />
-    <br />
-    Среднее расстояние: <input name="Dist" type="number" value="@Model.MiddleDistanceValue" /> <select name="Unit">
-        <option>Kilometers</option>
-        <option>LightYears</option>
-        <option>AstronomicUnits</option>
-    </select>
-    <br />
-    Имеет атмосферу: @Html.CheckBox("atm", Model.HasAtmosphere)@*<input type="checkbox" name="atm" />*@
-    <br />
-    <input type="submit" />
-</form>
