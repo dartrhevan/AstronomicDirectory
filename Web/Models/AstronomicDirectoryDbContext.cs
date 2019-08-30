@@ -34,8 +34,8 @@ namespace Web.Models.DataAccessMySqlProvider
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(ConnectionString);
-            //optionsBuilder.UseNpgsql(ConnectionString);
+            //optionsBuilder.UseSqlServer(ConnectionString);
+            optionsBuilder.UseNpgsql(ConnectionString);
             //UseNpgsql
             base.OnConfiguring(optionsBuilder);
         }
