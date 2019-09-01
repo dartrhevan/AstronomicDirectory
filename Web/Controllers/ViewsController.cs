@@ -17,28 +17,28 @@ namespace Web.Controllers
 {
     public class ViewsController : Controller
     {
-        public IActionResult PlanetView(int starId, int planetId)
+        public async Task<IActionResult> PlanetView(int starId, int planetId)
         {
             using (var db = new AstronomicDirectoryDbContext())
             {
-                var planet = db.Planets.First(p => p.Id == planetId && p.StarId == starId);
+                var planet = await db.Planets.FirstAsync(p => p.Id == planetId && p.StarId == starId);
                 //foreach (var dbMoon in db.Moons/*.Where(pl => pl.PlanetId == planetId)*/)
                 //{ }
-                db.Moons.Load();
+                await db.Moons.LoadAsync();
 
                 return View(planet);
             }
         }
 
-        public IActionResult MoonView(int moonId)
+        public async Task<IActionResult> MoonView(int moonId)
         {
             using (var db = new AstronomicDirectoryDbContext())
             {
-                return View(db.Moons.Find(moonId));
+                return View(await db.Moons.FindAsync(moonId));
             }
         }
 
-        public ActionResult GetImage(int id)
+        public async Task<ActionResult> GetImage(int id)
         {
             using (var db = new AstronomicDirectoryDbContext())
             {/*
@@ -59,14 +59,14 @@ namespace Web.Controllers
                     contents = dbStar.Photo ?? new byte[0];
                 }*/
 
-                var dbStar = db.Stars.Find(id);
+                var dbStar = await db.Stars.FindAsync(id);
 
                 var contents = dbStar.Photo ?? new byte[0];
                 return base.File(contents, "image/jpeg");
             }
         }
 
-        public ActionResult GetPlanetImage(int id)
+        public async Task<ActionResult> GetPlanetImage(int id)
         {
             using (var db = new AstronomicDirectoryDbContext())
             {
@@ -81,15 +81,15 @@ namespace Web.Controllers
                 }
                 else
                 {
-                    db.Planets.Load();
-                    var planet = db.Planets.Find(id);
+                    await db.Planets.LoadAsync();
+                    var planet = await db.Planets.FindAsync(id);
                     contents = planet.Photo ?? new byte[0];
                 }
                 return base.File(contents, "image/jpeg");
             }
         }
 
-        public ActionResult GetMoonImage(int id)
+        public async Task<ActionResult> GetMoonImage(int id)
         {
             using (var db = new AstronomicDirectoryDbContext())
             {
@@ -105,7 +105,7 @@ namespace Web.Controllers
                 }
                 else
                 {
-                    var moon = db.Moons.Find(id);
+                    var moon = await db.Moons.FindAsync(id);
                     contents = moon.Photo ?? new byte[0];
                 }
 
@@ -114,26 +114,26 @@ namespace Web.Controllers
         }
 
 
-        public IActionResult StarView(int id)
+        public async Task<IActionResult> StarView(int id)
         {
             using (var db = new AstronomicDirectoryDbContext())
             {
-                var dbs = db.Stars.Find(id);
+                var dbs = await db.Stars.FindAsync(id);
                 //dbs.Planets = new Collection<DBPlanet>(db.Planets.Where(pl => pl.StarId == dbs.Id).ToList());
-                db.Planets.Load();
+                await db.Planets.LoadAsync();
                 //foreach (var planet in db.Planets/*.Where(pl => pl.StarId == dbs.Id)*/)
                 //{ }
                 return View(dbs);
             }
         }
 
-        public ActionResult Print(int id)
+        public async Task<ActionResult> Print(int id)
         {
             using (var db = new AstronomicDirectoryDbContext())
             {
                 
-                var star = db.Stars.Include(s1 => s1.Planets).First(s1 => s1.Id == id);
-                db.Moons.Load();
+                var star = await db.Stars.Include(s1 => s1.Planets).FirstAsync(s1 => s1.Id == id);
+                await db.Moons.LoadAsync();
                 
                 //var p = HttpContext.Current.Server.MapPath("template.xlsx");
                 
@@ -263,13 +263,13 @@ namespace Web.Controllers
                 row = sheet.CopyRow(i, i + 1);
         }
 
-        public FileContentResult DownloadStar(int id)
+        public async Task<FileContentResult> DownloadStar(int id)
         {
             using (var db = new AstronomicDirectoryDbContext())
             {
-                var dbs = db.Stars.Find(id);
-                db.Planets.Load();
-                db.Moons.Load();
+                var dbs = await db.Stars.FindAsync(id);
+                await db.Planets.LoadAsync();
+                await db.Moons.LoadAsync();
                 var xml = new XmlSerializer(typeof(Star));
                 var str = new MemoryStream();
                 xml.Serialize(str, dbs.ToStar());
@@ -278,7 +278,7 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult StarView(IFormFile star)
+        public async Task<IActionResult> StarView(IFormFile star)
         {
             var xml = new XmlSerializer(typeof(Star));
             var fs = star.OpenReadStream();
@@ -289,13 +289,13 @@ namespace Web.Controllers
             {
                 //if (db.Stars.FirstOrDefault(s => s.Name == st.Name) == null)
                 //{
-                db.Stars.Add(dbs);
-                db.Planets.AddRange(dbs.Planets);
-                db.Moons.AddRange(dbs.Planets.SelectMany(pl => pl.Moons));
+                await db.Stars.AddAsync(dbs);
+                await db.Planets.AddRangeAsync(dbs.Planets);
+                await db.Moons.AddRangeAsync(dbs.Planets.SelectMany(pl => pl.Moons));
                 //foreach (var pl in dbs.Planets)
                 //    if(pl.Moons != null)
 
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 //}
 
             }

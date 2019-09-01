@@ -7,7 +7,7 @@
 
 <h2 align="center">Просмотр спутника</h2>
 <h2 align="center">@Model.Name</h2>
-<style>
+@*<style>
     .mystyle {
         font-size: 20px;
         font-family: "Times new roman";
@@ -15,14 +15,15 @@
         text-align: center;
         color: black;
     }
-</style>
-<ol class="list-group mystyle" align="center">
-    <img class="thumbnail" width="1000" height="600" src="~/Views/GetMoonImage?id=@Model.Id" />@**@
-    <br />
-    <b style="font-size: 20px;">Фото</b>
-    <br />
-    <br />
-
+</style>*@
+<img class="thumbnail" width="1000" height="600" src="~/Views/GetMoonImage?id=@Model.Id" />
+<br />
+<b style="font-size: 20px; position: relative; left: 45%">Фото</b>
+<br />
+<br />
+<ol class="list-group mystyle viewOl" align="center">
+    
+    
     @* <li class="list-group-item list-group-item-text mystyle">Galaxy: @Model.Galaxy</li>*@
     <li class="list-group-item list-group-item-text mystyle">Радиус: @Model.Radius</li>
     <li class="list-group-item list-group-item-text mystyle">

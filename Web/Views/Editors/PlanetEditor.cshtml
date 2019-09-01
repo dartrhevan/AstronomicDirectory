@@ -11,28 +11,29 @@
 
 <h2>Add Planet</h2>
 
-<style>
-    .mystyle {
-        font-size: 20px;
-        font-family: "Times new roman";
-        font-style: initial;
-    }
-    input {
-        font-size: 20px;
-        font-family: "Times new roman";
-        font-style: initial;
-        color: black;
-    }
-    select {
-        font-size: 20px;
-        font-family: "Times new roman";
-        font-style: initial;
-        color: black;
-    }
+@*<style>
+        .mystyle {
+            font-size: 20px;
+            font-family: "Times new roman";
+            font-style: initial;
+        }
+        input {
+            font-size: 20px;
+            font-family: "Times new roman";
+            font-style: initial;
+            color: black;
+        }
+        select {
+            font-size: 20px;
+            font-family: "Times new roman";
+            font-style: initial;
+            color: black;
+        }
 
-</style>
+    </style>*@
 
-<script src="js/site.js">
+<link href="~/css/site.css" />
+<script src="~/js/site.js">
 </script>
 
 <script>
@@ -41,7 +42,7 @@
 
     }
 </script>
-<form asp-action="AddPlanet" class="form-group" asp-fragment="" asp-controller="Editors" method="post" class="mystyle" enctype="multipart/form-data">
+<form asp-action="AddPlanet" class="form-group mystyle" asp-fragment="" asp-controller="Editors" method="post" enctype="multipart/form-data">
 
     @*<input type="hidden" @*value="@Model.Id" * name="StId" />*@
     Фото

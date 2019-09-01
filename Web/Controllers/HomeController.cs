@@ -103,13 +103,13 @@ namespace Web.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
         
-        public IActionResult List()
+        public async Task<IActionResult> List()
         {
 
             List<DBStar> list;
             using (var db = new AstronomicDirectoryDbContext())
             {
-                list = db.Stars.ToList();
+                list = await db.Stars.ToListAsync();
             }
 
             return View(list);

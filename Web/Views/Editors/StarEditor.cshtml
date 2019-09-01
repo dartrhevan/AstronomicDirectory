@@ -6,38 +6,11 @@
 }
 
 <h2>Добавить звезду</h2>
-<style>
-    .mystyle {
-        font-size: 20px;
-        font-family: "Times new roman";
-        font-style: initial;
-    }
 
-    input {
-        font-size: 20px;
-        font-family: "Times new roman";
-        font-style: initial;
-        color: black;
-    }
-
-    select {
-        font-size: 20px;
-        font-family: "Times new roman";
-        font-style: initial;
-        color: black;
-    }
-
-    label {
-        font-size: 16px;
-        font-family: "Times new roman";
-        font-style: initial;
-        color: red;
-    }
-</style>
-
+<link href="~/css/site.css" type="text/css" rel="stylesheet"/>
 <script src="@Url.Content("~/js/site.js")" type="text/javascript"></script>
-<script src="js/site.js"></script>
-<form asp-action="AddStar" method="post" class="form-group" asp-controller="Editors" method="post" class="mystyle" enctype="multipart/form-data">
+<script src="~/js/site.js"></script>
+<form asp-action="AddStar" method="post" class="form-group mystyle" asp-controller="Editors" enctype="multipart/form-data">
     Фото
     <input type="file" class="btn btn-default btn-block" style="background-color: black; color: whitesmoke;" name="Photo" />
     <hr />
