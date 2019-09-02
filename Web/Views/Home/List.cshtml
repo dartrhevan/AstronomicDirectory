@@ -6,31 +6,34 @@
 }
 
 <h2 align="center">Stars</h2>
-<style>
-    .mystyle {
-        font-size: 20px;
-        font-family: "Times new roman";
-        font-style: initial;
-    }
-</style>
-
-@*<table class="table table-bordered table-striped mystyle">
+<table class="table table-bordered table-striped mystyle" style="color: black; background: white;">
+    <thead>
+    <tr>
+        <td><strong>Фото</strong></td>
+        <td><strong>Название</strong></td>
+        <td><strong>Галлактика</strong></td>
+        <td><strong>Подробнее</strong></td>
+        <td></td>
+    </tr>
+    </thead>
     <tbody>
-        @foreach (var star in Model)
-        {
-            <tr>
-                <td>
-                    <a href="StarView?id=@star.Id">@star.Name</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>*@
-<ol class="list-group" align="center" style="background-color: black;">
     @foreach (var star in Model)
     {
-        <li class="list-group-item list-group-item-text mystyle">
-            <a href="~/Views/StarView?id=@star.Id" style="color: black;">@star.Name</a> <a href="Delete?id=@star.Id">Удалить</a>
-        </li>
+        <tr>
+            <td><img class="thumbnail" width="100" height="100" src="~/Views/GetImage?id=@star.Id" alt="Нет фото"/>
+            </td>
+            <td>
+                @star.Name
+            </td>
+            <td>
+                @star.Galaxy
+            </td>
+            <td>
+                <a href="~/Views/StarView?id=@star.Id">Открыть</a>
+            </td>
+            <td> <a href="Delete?id=@star.Id">Удалить</a>
+            </td>
+        </tr>
     }
-</ol>
+    </tbody>
+</table>

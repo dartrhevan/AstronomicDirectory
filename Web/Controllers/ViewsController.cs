@@ -5,6 +5,7 @@ using AstronomicDirectory;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using Web.Models.DataAccessMySqlProvider;
@@ -28,23 +29,6 @@ namespace Web.Controllers
 
         public ActionResult GetImage(int id)
         {
-            /*
-                            byte[] contents;
-                            var flag = HttpContext.Session.Get("imgflag");
-            
-                            if (flag != null && flag[0] == 1)
-                            {
-                                var fileContents = HttpContext.Session.Get("img");
-                                contents = fileContents;
-                                HttpContext.Session.Set("imgflag", null);
-            
-                            }
-                            else
-                            {
-                                var dbStar = db.Stars.Find(id);
-            
-                                contents = dbStar.Photo ?? new byte[0];
-                            }*/
 
             var dbStar = db.Stars.Find(id);
 

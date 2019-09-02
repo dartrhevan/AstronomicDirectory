@@ -1,9 +1,5 @@
 ﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
-function on_submit(action = 'AddStar') {
-    var form = document.getElementById('f');
-    form.action = action;
-}
 
 // Write your JavaScript code.
 function onpladd(viewName = "PlanetEditor") {
@@ -28,7 +24,7 @@ function onpladd(viewName = "PlanetEditor") {
         err.innerText = "";
         var d = document.getElementById('d');
         //d.innerHTML = d.innerHTML.concat('<br />' + inp.value);
-        d.innerHTML = "<li class = \"list-group-item list-group-item-text\" style=\"color: black;\">" + inp.value + '</li>' + d.innerHTML;/*
+        d.innerHTML = "<li class = \"list-group-item list-group-item-text planet\" >" + inp.value + '</li>' + d.innerHTML;/*
         a.href = "PlanetEditor?N=" + inp.value;
         a.target = "_blank";
         a.method = "GET";*/

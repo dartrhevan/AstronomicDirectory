@@ -42,17 +42,6 @@ namespace Web
 
             services.AddDbContext<AstronomicDirectoryDbContext>(options =>
                     options.UseSqlServer(sqlConnectionString)
-                /*
-                 *
-                 *
-                 *
-                    options.UseNpgsql(
-                    sqlConnectionString
-                )
-
-                *
-                *
-                */
             );
 
         }

@@ -1,0 +1,65 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    background-image: linear-gradient(black, black, black, #1b1b1b);
+    background-repeat: no-repeat;
+    background-color: #1b1b1b;
+    color: whitesmoke;
+}
+
+details {
+    background: #1b1b1b;
+    border-radius: 8px;
+    cursor: pointer;
+    /*color: black;
+    cursor: pointer*/
+}
+
+details ol {
+        cursor: default;
+        border-radius: 0px;
+}
+
+details ol  li{
+    cursor: default;
+    border-radius: 0px;
+}
+
+.planet {
+    background: #1b1b1b;
+    border-radius: 0px;
+    border-color: black;
+    /*
+    cursor: pointer*/
+}
+
+.mystyle {
+    font-size: 20px;
+    font-family: "Times new roman";
+    font-style: initial;
+}
+
+ol .mystyle {
+    font-size: 20px;
+    font-family: "Times new roman";
+    font-style: initial;
+    text-align: center;
+    color: black;
+}
+viewOl{
+    width: 1000px;
+}
+
+input {
+    font-size: 20px;
+    font-family: "Times new roman";
+    font-style: initial;
+    color: black;
+}
+
+select {
+    font-size: 20px;
+    font-family: "Times new roman";
+    font-style: initial;
+    color: black;
+}
