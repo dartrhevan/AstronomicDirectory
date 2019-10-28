@@ -56,6 +56,7 @@ namespace Form
             this.Planets = new System.Windows.Forms.ListBox();
             this.addPlanetButton = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.sendButton = new System.Windows.Forms.Button();
             this.starTableLayoutPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -388,11 +389,22 @@ namespace Form
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // sendButton
+            // 
+            this.sendButton.Location = new System.Drawing.Point(234, 570);
+            this.sendButton.Name = "sendButton";
+            this.sendButton.Size = new System.Drawing.Size(94, 23);
+            this.sendButton.TabIndex = 6;
+            this.sendButton.Text = "Отправить";
+            this.sendButton.UseVisualStyleBackColor = true;
+            this.sendButton.Click += new System.EventHandler(this.sendButton_Click);
+            // 
             // StarForm1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(505, 596);
+            this.Controls.Add(this.sendButton);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.mainTableLayoutPanel);
             this.Controls.Add(this.button1);
@@ -441,5 +453,6 @@ namespace Form
         private TextBox distanceTextBox;
         private Button button2;
         private Button button3;
+        private Button sendButton;
     }
 }

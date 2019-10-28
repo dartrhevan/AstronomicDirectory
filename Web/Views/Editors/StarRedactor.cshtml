@@ -35,25 +35,60 @@
 
 @RenderBody()
 
-<form method="post" class="form-group" id="f" onsubmit="onsub()" method="post" class="mystyle" enctype="multipart/form-data">
+<form method="post" class="form-group" id="f" onsubmit="onsub()" method="post" enctype="multipart/form-data">
     Фото
-    <input type="file" class="btn btn-default btn-block" style="background-color: black; color: whitesmoke;" name="Photo" />
+    <input type="file" class="btn btn-default btn-block fc" name="Photo" />
     <hr />
-    Имя: <input name="Name" type="text" id="n" value="@Model.Name" />
+    <div class="st-input">
+        <span class="input-lablel">
+            Имя:
+        </span>
+        <input name="Name" type="text" id="n" class="input-field" value="@Model.Name" />
+    </div>
     <br />
-    Галактика: <input name="Galaxy" type="text" id="g" value="@Model.Galaxy" />
+    <div class="st-input">
+        <span class="input-lablel">
+            Галактика:
+        </span>
+        <input name="Galaxy" type="text" class="input-field" id="g" value="@Model.Galaxy" />
+    </div>
     <br />
-    Радиус: <input name="Radius" type="number" value="@Model.Radius" />
+    <div class="st-input">
+        <span class="input-lablel">
+            Радиус:
+        </span>
+        <input name="Radius" type="number" class="input-field" value="@Model.Radius" />
+    </div>
     <br />
-    Температура: <input name="Temperature" type="number" value="@Model.Temperature" />
+    <div class="st-input">
+        <span class="input-lablel">
+            Температура:
+        </span>
+        <input name="Temperature" type="number" class="input-field" value="@Model.Temperature" />
+    </div>
     <br />
-    Дата открытия: <input name="Date" type="date" value="@Model.InventingDate" />
+    <div class="st-input">
+        <span class="input-lablel">
+            Дата открытия:
+        </span>
+        <br />
+        <input name="Date" type="date" class="input-field" alue="@Model.InventingDate" />
+        <br />
+    </div>
     <br />
-    Среднее расстояние: <input name="Dist" type="number" value="@Model.MiddleDistanceValue" /> <select name="Unit">
-        <option>Kilometers</option>
-        <option>LightYears</option>
-        <option>AstronomicUnits</option>
-    </select>
+    <div class="st-input">
+        <span class="input-lablel">
+            Среднее расстояние:
+        </span>
+        <div style="display: flex; flex-direction: row;">
+            <input name="Dist" type="number" class="input-field" value="@Model.MiddleDistanceValue"/>
+            <select name="Unit" class="input-field">
+                <option>Kilometers</option>
+                <option>LightYears</option>
+                <option>AstronomicUnits</option>
+            </select>
+        </div>
+    </div>
     <br />
     Планеты:
     <details>

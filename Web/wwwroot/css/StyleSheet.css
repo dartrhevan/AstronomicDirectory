@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-size: cover;
     background-image: linear-gradient(black, black, black, #1b1b1b);
     background-repeat: no-repeat;
     background-color: #1b1b1b;
@@ -11,6 +12,7 @@ details {
     background: #1b1b1b;
     border-radius: 8px;
     cursor: pointer;
+    width: 80vw;
     /*color: black;
     cursor: pointer*/
 }
@@ -33,10 +35,39 @@ details ol  li{
     cursor: pointer*/
 }
 
+.input-field {
+    width: 65vw;
+}
+
+.input-lablel {
+    display: inline-block;
+    width: 15vw;
+    margin: 0;
+}
+input[name="Dist"].input-field {
+    width: 55vw;
+    margin: 0;
+}
+
+select.input-field {
+     width: 10vw;
+ }
+
+.st-input {
+    display: flex;
+    width: 80vw;
+    flex-direction: row;
+}
+
 .mystyle {
     font-size: 20px;
     font-family: "Times new roman";
     font-style: initial;
+}
+
+.fc {
+    background-color: black;
+    color: white;
 }
 
 ol .mystyle {
@@ -46,8 +77,8 @@ ol .mystyle {
     text-align: center;
     color: black;
 }
-viewOl{
-    width: 1000px;
+viewOl {
+    /*width: 1000px;*/
 }
 
 input {
@@ -62,4 +93,9 @@ select {
     font-family: "Times new roman";
     font-style: initial;
     color: black;
+}
+
+.mystyle input[type="file"] {
+    background-color: black;
+    color: whitesmoke;
 }

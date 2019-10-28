@@ -61,7 +61,7 @@ namespace Form
             star.Galaxy = galacticTextBox.Text;
             star.InventingDate = dateTimePicker1.Value;
             star.Photo = ConvertImage(pictureBox1.Image);
-            uint temp;
+            uint temp = 0;
             if (uint.TryParse(radiusTextBox.Text, out temp))
                 star.Radius = temp;
             if (uint.TryParse(distanceTextBox.Text, out temp))
@@ -90,9 +90,8 @@ namespace Form
 
         public static byte[] ConvertImage(Image photo)
         {
-            if (photo == null) return null;
+            if (photo == null) return new byte[0];
             var stream = new MemoryStream();
-            
             photo.Save(stream, ImageFormat.Jpeg);
             return stream.ToArray();
         }
@@ -179,6 +178,30 @@ namespace Form
             LoadStarFromFile(opf.FileName);
             //InitializeStar();
             LoadStar();
+        }
+
+        private const string RequestUri = @"https://localhost:44334/Views/StarViews";
+
+        private void sendButton_Click(object sender, EventArgs e)
+        {
+            InitializeStar();
+            WebRequest request = WebRequest.Create(RequestUri);
+            request.Method = "POST"; // для отправки используется метод Post
+            // данные для отправки
+            var xml = new XmlSerializer(typeof(Star));
+            //star.InventingDate = new DateTime();
+            var str = new MemoryStream();
+            xml.Serialize(str, star);
+            var byteArray = str.ToArray();
+            // устанавливаем тип содержимого - параметр ContentType
+            request.ContentType = "text/xml-soap";
+            // Устанавливаем заголовок Content-Length запроса - свойство ContentLength
+            request.ContentLength = byteArray.Length;
+            //записываем данные в поток запроса
+            using (Stream dataStream = request.GetRequestStream())
+            {
+                dataStream.Write(byteArray, 0, byteArray.Length);
+            }
         }
     }
 }

@@ -31,50 +31,89 @@
 
 @RenderBody()
 
-<form onsubmit="onsub()" method="post" class="mystyle" id = "f" enctype="multipart/form-data">
+    <form onsubmit="onsub()" method="post" class="mystyle" id="f" enctype="multipart/form-data">
 
-    Фото
-    <input type="file" class="btn btn-default btn-block" style="background-color: black; color: whitesmoke;" name="Photo" />
-    <hr />
-    Имя: <input name="Name" type="text" value="@Model.Name" id="n" readonly="readonly" />
-    <br />
-    Галактика: <input name="Galaxy" type="text" value="@Model.Galaxy" id="g" readonly="readonly" />
-    <br />
-    Радиус: <input name="Radius" type="number" value="@Model.Radius" />
-    <br />
-    Температура: <input name="Temperature" type="number" value="@Model.Temperature" />
-    <br />
-    Дата открытия: <input name="Date" type="date" value="@Model.InventingDate" />
-    <br />
-    Звезда, вокрун которой вращается: <input name="St" type="text" value="@Model.Star" readonly="readonly" />
-    <br />
-    Среднее расстояние: <input name="Dist" type="number" value="@Model.MiddleDistanceValue" /> <select name="Unit">
-        <option>Kilometers</option>
-        <option>LightYears</option>
-        <option>AstronomicUnits</option>
-    </select>
-    <br />
-    Имеет атмосферу: @Html.CheckBox("atm", false)
-    <br />
-    Имеет твёрдую поверхность: @Html.CheckBox("type", false)
-    <br />
-    Спутники:
-    <details>
-        <ol id="d" class="list-group">
-            @foreach (var pl in Model.Moons)
-            {
-                <li class="list-group-item list-group-item-info">
-                    <a href="EditMoon?id=@pl.Id">@pl.Name</a>
-                </li>
-            }
-            <li class="list-group-item list-group-item-info">
-                <input id="newPlanetName" />
-                <label id="err"></label>
-                <a class="btn btn-primary" onclick="onpladd('MoonEditor')">Добавить</a>
-            </li>
-        </ol>
-    </details>
-    @Html.HiddenFor(m => m.Id)
-    @Html.HiddenFor(m => m.StarId)
-    <input type="submit" />
-</form>
+        Фото
+        <input type="file" class="btn btn-default btn-block" name="Photo" />
+        <hr />
+        <div class="st-input">
+            <span class="input-lablel">
+                Имя:
+            </span>
+            <input name="Name" type="text" class="input-field" value="@Model.Name" id="n" readonly="readonly" />
+        </div>
+        <br />
+        <div class="st-input">
+            <span class="input-lablel">
+                Галактика:
+            </span>
+            <input name="Galaxy" type="text" class="input-field" value="@Model.Galaxy" id="g" readonly="readonly" />
+        </div>
+        <br />
+        <div class="st-input">
+            <span class="input-lablel">
+                Радиус:
+            </span>
+            <input name="Radius" type="number" class="input-field" value="@Model.Radius" />
+        </div>
+        <br />
+        <div class="st-input">
+            <span class="input-lablel">
+                Температура:
+            </span>
+            <input name="Temperature" class="input-field" type="number" value="@Model.Temperature" />
+        </div>
+        <br />
+        <div class="st-input">
+            <span class="input-lablel">
+                Дата открытия:
+            </span>
+            <input name="Date" type="date" class="input-field" value="@Model.InventingDate" />
+        </div>
+        <br />
+
+        <div class="st-input">
+            <span class="input-lablel">
+                Звезда, вокрун которой вращается:
+            </span>
+        <input name="St" type="text" class="input-field" value="@Model.Star" readonly="readonly" />
+        </div>
+            <br />
+        <div class="st-input">
+            <span class="input-lablel">
+                Среднее расстояние:
+            </span>
+            <div style="display: flex; flex-direction: row;">
+                <input name="Dist" type="number" class="input-field" value="@Model.MiddleDistanceValue"/>
+                <select name="Unit" class="input-field">
+                    <option>Kilometers</option>
+                    <option>LightYears</option>
+                    <option>AstronomicUnits</option>
+                </select>
+            </div>
+        </div>
+            <br />
+            Имеет атмосферу: @Html.CheckBox("atm", false)
+            <br />
+            Имеет твёрдую поверхность: @Html.CheckBox("type", false)
+            <br />
+            Спутники:
+            <details>
+                <ol id="d" class="list-group">
+                    @foreach (var pl in Model.Moons)
+                    {
+                        <li class="list-group-item list-group-item-info">
+                            <a href="EditMoon?id=@pl.Id">@pl.Name</a>
+                        </li>
+                    }
+                    <li class="list-group-item list-group-item-info">
+                        <input id="newPlanetName" />
+                        <label id="err"></label>
+                        <a class="btn btn-primary" onclick="onpladd('MoonEditor')">Добавить</a>
+                    </li>
+                </ol>
+            </details>
+            @Html.HiddenFor(m => m.Id)
+            @Html.HiddenFor(m => m.StarId)
+            <input type="submit" />
+    </form>

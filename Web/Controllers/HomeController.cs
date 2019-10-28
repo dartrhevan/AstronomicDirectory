@@ -115,10 +115,7 @@ namespace Web.Controllers
         
         public IActionResult List()
         {
-
-            List<DBStar> list;
-            list = db.Stars.ToList();
-
+            List<DBStar> list = db.Stars.ToList();
             return View(list);
         }
 

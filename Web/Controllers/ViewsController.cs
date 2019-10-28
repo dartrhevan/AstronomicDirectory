@@ -1,13 +1,18 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Xml.Serialization;
 using AstronomicDirectory;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using Newtonsoft.Json;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
+using Web.Models;
 using Web.Models.DataAccessMySqlProvider;
 
 namespace Web.Controllers
@@ -261,5 +266,59 @@ namespace Web.Controllers
             db.Dispose();
         }
 
+        
+        public string StarListJson()
+        {
+            var list = db.Stars.Select(s => new StarLite(s.Id, s.Name, s.Galaxy)).ToList();
+            return JsonConvert.SerializeObject(list);
+        }
+
+        public string StarJson(int id)
+        {
+            var star = db.Stars.Find(id);
+            return JsonConvert.SerializeObject(star);
+        }
+        //public class StarList
+        //{
+        //    public List<StarLite> ArrayOfStarLite { get; set; }
+        //}
+
+        public string StarListXml()
+        {
+            var list = db.Stars.Select(s => new StarLite(s.Id, s.Name, s.Galaxy)).ToList();
+            var xml = new XmlSerializer(typeof(List<StarLite>));
+            var str = new StringWriter();
+            xml.Serialize(str, list);
+            return str.ToString();
+        }
+
+        public string StarXml(int id)
+        {
+            var star = db.Stars.Find(id); var xml = new XmlSerializer(typeof(Star));
+            var str = new StringWriter();
+            xml.Serialize(str, star);
+            return str.ToString();
+        }
+
+        [HttpPost]
+        public async Task StarViews(/*string s*/)
+        {
+            var xml = new XmlSerializer(typeof(Star));
+
+            var requestBody = HttpContext.Request.Body;
+            var st = (Star)xml.Deserialize(requestBody/*new StringReader(s)*/);
+            //var st = JsonConvert.DeserializeObject<Star>(s);
+            var dbs = new DBStar(st);
+            using (var db = new AstronomicDirectoryDbContext())
+            {
+                //if (db.Stars.FirstOrDefault(s => s.Name == st.Name) == null)
+                await db.Stars.AddAsync(dbs);
+                await db.Planets.AddRangeAsync(dbs.Planets);
+                await db.Moons.AddRangeAsync(dbs.Planets.SelectMany(pl => pl.Moons));
+                //foreach (var pl in dbs.Planets)
+                //    if(pl.Moons != null)
+                await db.SaveChangesAsync();
+            }
+        }
     }
 }
