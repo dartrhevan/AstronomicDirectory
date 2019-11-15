@@ -58,7 +58,7 @@ namespace Web.Controllers
                 var planet = db.Planets.Find(id);
                 contents = planet.Photo ?? new byte[0];
             }
-
+            
             return base.File(contents, "image/jpeg");
         }
 
@@ -294,9 +294,13 @@ namespace Web.Controllers
 
         public string StarXml(int id)
         {
-            var star = db.Stars.Find(id); var xml = new XmlSerializer(typeof(Star));
+            db.Planets.Load();
+            db.Moons.Load();
+            var star = db.Stars.Find(id); 
+            var xml = new XmlSerializer(typeof(Star));
             var str = new StringWriter();
-            xml.Serialize(str, star);
+            var st = star.ToStar();
+            xml.Serialize(str, st);
             return str.ToString();
         }
 
@@ -304,11 +308,10 @@ namespace Web.Controllers
         public async Task StarViews(/*string s*/)
         {
             var xml = new XmlSerializer(typeof(Star));
-
             var requestBody = HttpContext.Request.Body;
             var st = (Star)xml.Deserialize(requestBody/*new StringReader(s)*/);
             //var st = JsonConvert.DeserializeObject<Star>(s);
-            var dbs = new DBStar(st);
+            var dbs = new DBStar(st);            
             using (var db = new AstronomicDirectoryDbContext())
             {
                 //if (db.Stars.FirstOrDefault(s => s.Name == st.Name) == null)
@@ -318,6 +321,37 @@ namespace Web.Controllers
                 //foreach (var pl in dbs.Planets)
                 //    if(pl.Moons != null)
                 await db.SaveChangesAsync();
+            }
+        }
+
+        public class StarPair
+        {
+            public int Id { get; set; }
+            public Star Star { get; set; }
+        }
+
+        public string test()
+        {
+            var str = new StringWriter();
+            var tup = new StarPair() { Id = 2, Star = new Star() { Name = "st" } };
+            var xml = new XmlSerializer(typeof(StarPair));
+            xml.Serialize(str, tup);
+            return str.ToString();
+        }
+
+        [HttpPost]
+        public void EditStar()
+        {
+            var xml = new XmlSerializer(typeof(StarPair));
+            var requestBody = HttpContext.Request.Body;
+            var st = (StarPair)xml.Deserialize(requestBody/*new StringReader(s)*/);
+            //var st = JsonConvert.DeserializeObject<Star>(s);
+            var dbs = new DBStar(st.Star);
+            dbs.Id = st.Id;
+            using (var db = new AstronomicDirectoryDbContext())
+            {
+                db.Entry(dbs).State = EntityState.Modified;
+                db.SaveChanges();
             }
         }
     }

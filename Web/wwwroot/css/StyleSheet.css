@@ -15,6 +15,12 @@ details {
     width: 80vw;
     /*color: black;
     cursor: pointer*/
+
+}
+
+details:hover {
+    border: 3px solid black;
+
 }
 
 details ol {

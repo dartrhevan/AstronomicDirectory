@@ -58,7 +58,7 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="wwwroot\css\StyleSheet.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Update="wwwroot\template.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
