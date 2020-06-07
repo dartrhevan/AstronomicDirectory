@@ -1,5 +1,5 @@
-<<<<<<< HEAD
-﻿body {
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
     background-size: cover;
@@ -67,22 +67,16 @@ select.input-field {
 }
 
 .mystyle {
-=======
-﻿.mystyle {
->>>>>>> master
     font-size: 20px;
     font-family: "Times new roman";
     font-style: initial;
 }
 
-<<<<<<< HEAD
 .fc {
     background-color: black;
     color: white;
 }
 
-=======
->>>>>>> master
 ol .mystyle {
     font-size: 20px;
     font-family: "Times new roman";
@@ -90,14 +84,7 @@ ol .mystyle {
     text-align: center;
     color: black;
 }
-<<<<<<< HEAD
-viewOl {
-    /*width: 1000px;*/
-=======
-viewOl{
-    width: 1000px;
->>>>>>> master
-}
+
 
 input {
     font-size: 20px;
@@ -112,11 +99,8 @@ select {
     font-style: initial;
     color: black;
 }
-<<<<<<< HEAD
 
 .mystyle input[type="file"] {
     background-color: black;
     color: whitesmoke;
 }
-=======
->>>>>>> master

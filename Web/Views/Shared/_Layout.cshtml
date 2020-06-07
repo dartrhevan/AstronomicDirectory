@@ -9,7 +9,6 @@
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
-        <link href="@Url.Content("~/css/StyleSheet.css")" rel="stylesheet" type="text/css" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
@@ -17,6 +16,7 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
+    <link href="@Url.Content("~/css/StyleSheet.css")" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
